@@ -1,8 +1,9 @@
 # azdw
 
 Generic documentation, configuration examples, demo output, and integration
-samples for azdw, a .NET 10 library, CLI, MCP server, and REST API service for
-unified access to Azure DevOps and GitHub work items.
+samples for **azdw**, a CLI tool, MCP server, .NET library, and REST API service for
+unified access to Azure DevOps and GitHub work items. It can be directly used
+out-of-the-box with the provided tools, or integrated into custom tools.
 
 ## Cross-tenant work-item and portfolio intelligence for Azure DevOps and GitHub
 
