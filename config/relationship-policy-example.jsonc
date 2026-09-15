@@ -1,0 +1,246 @@
+{
+  "$schema": "./relationship-policy-schema.json",
+  "version": "2.0",
+  "policies": [
+    // Basic policy: Epic must have at least one Feature as child
+    {
+      "name": "Epic must have Features",
+      "description": "Every Epic work item must have at least one Feature as a child",
+      "workItemType": "Epic",
+      "requiredRelationships": [
+        {
+          "type": "Child",
+          "targetTypes": ["Feature"],
+          "minCount": 1
+        }
+      ]
+    },
+
+    // Scenario A: Date comparison between source and target
+    // Epic's target date must be after all child Features' target dates
+    {
+      "name": "Epic target date after child Features",
+      "description": "Epic's target date must be on or after all child Features' target dates",
+      "workItemType": "Epic",
+      "severity": "warning",
+      "requiredRelationships": [
+        {
+          "type": "Child",
+          "targetTypes": ["Feature"],
+          "allTargetsMustMatch": true,
+          "timingConstraints": {
+            "useFallbackDates": true,
+            "dateComparison": {
+              "sourceDate": "targetDate",
+              "targetDate": "targetDate",
+              "operator": "afterOrEqual",
+              "toleranceDays": 0
+            }
+          }
+        }
+      ]
+    },
+
+    // Scenario B: Target must be within source timeframe
+    // All child User Stories must have target dates within the parent Feature's timeframe
+    {
+      "name": "User Stories within Feature timeframe",
+      "description": "Child User Story target dates must fall within the parent Feature's Area Path timeframe",
+      "workItemType": "Feature",
+      "severity": "error",
+      "requiredRelationships": [
+        {
+          "type": "Child",
+          "targetTypes": ["User Story"],
+          "allTargetsMustMatch": true,
+          "timingConstraints": {
+            "useFallbackDates": true,
+            "targetWithinSourceTimeframe": true
+          }
+        }
+      ]
+    },
+
+    // Scenario C: Timeframe alignment validation
+    // Feature's explicit target date should align with its Area Path timeframe
+    {
+      "name": "Feature date aligns with Area Path",
+      "description": "Feature's target date should fall within its Area Path timeframe (QR pattern)",
+      "workItemType": "Feature",
+      "severity": "warning",
+      "timingConstraints": {
+        "validateTimeframeAlignment": {
+          "enabled": true,
+          "severity": "warning",
+          "allowOverlap": false
+        }
+      }
+    },
+
+    // Combined example: State + Date comparison + Timeframe check
+    {
+      "name": "Release Feature governance",
+      "description": "Features in 'In Progress' must have Epics with future target dates and proper alignment",
+      "workItemType": "Feature",
+      "severity": "error",
+      "stateConstraint": {
+        "include": ["In Progress", "Active"]
+      },
+      "requiredRelationships": [
+        {
+          "type": "Parent",
+          "targetTypes": ["Epic"],
+          "minCount": 1,
+          "maxCount": 1,
+          "targetStates": {
+            "exclude": ["Closed", "Removed"]
+          },
+          "targetFieldConstraints": [
+            {
+              "fieldName": "Microsoft.VSTS.Scheduling.TargetDate",
+              "operator": "isFuture"
+            }
+          ],
+          "timingConstraints": {
+            "useFallbackDates": true,
+            "dateComparison": {
+              "sourceDate": "targetDate",
+              "targetDate": "targetDate",
+              "operator": "beforeOrEqual"
+            }
+          }
+        }
+      ],
+      "timingConstraints": {
+        "useFallbackDates": true,
+        "requireDate": {
+          "mustExist": true,
+          "mustBeFuture": true
+        },
+        "validateTimeframeAlignment": {
+          "enabled": true,
+          "severity": "info",
+          "allowOverlap": true
+        }
+      }
+    },
+
+    // Dependency timing: Predecessor must complete before successor starts
+    {
+      "name": "Dependency timing validation",
+      "description": "Predecessor work items must have target dates before this item's start date",
+      "workItemType": "*",
+      "severity": "warning",
+      "requiredRelationships": [
+        {
+          "type": "Predecessor",
+          "targetTypes": ["*"],
+          "timingConstraints": {
+            "useFallbackDates": true,
+            "dateComparison": {
+              "sourceDate": "startDate",
+              "targetDate": "targetDate",
+              "operator": "after",
+              "toleranceDays": 1
+            }
+          }
+        }
+      ]
+    },
+
+    // Scenario E: Iteration/Sprint date validation
+    // User Story target date must fall within the assigned Sprint's configured dates
+    {
+      "name": "User Story date within Sprint dates",
+      "description": "User Story's target date must be within the assigned iteration/sprint's configured date range",
+      "workItemType": "User Story",
+      "severity": "warning",
+      "stateConstraint": {
+        "exclude": ["Closed", "Removed", "Done"]
+      },
+      "timingConstraints": {
+        "validateIterationDates": {
+          "enabled": true,
+          "severity": "warning",
+          "validateTargetDate": true,
+          "validateStartDate": false,
+          "allowMissingDates": true,
+          "allowMissingIterationDates": true
+        }
+      }
+    },
+
+    // More strict iteration validation: Error if dates don't align
+    {
+      "name": "Strict Sprint date alignment",
+      "description": "Task target and start dates must both be within the Sprint date range",
+      "workItemType": "Task",
+      "severity": "error",
+      "stateConstraint": {
+        "include": ["Active", "In Progress"]
+      },
+      "timingConstraints": {
+        "validateIterationDates": {
+          "enabled": true,
+          "severity": "error",
+          "validateTargetDate": true,
+          "validateStartDate": true,
+          "allowMissingDates": false,
+          "allowMissingIterationDates": false
+        }
+      }
+    },
+
+    // Virtual type relationship: Technical Requirements must link to Customer Requirements
+    {
+      "name": "TechReq must have CustomerReq relationship",
+      "description": "Technical Requirement (TechReq virtual type) must be related to at least one Customer Requirement (CustReq virtual type)",
+      "workItemType": "TechReq",
+      "severity": "error",
+      "stateConstraint": {
+        "exclude": ["Closed", "Removed", "Done"]
+      },
+      "requiredRelationships": [
+        {
+          "type": "Related",
+          "targetTypes": ["CustReq"],
+          "minCount": 1
+        }
+      ]
+    },
+
+    // Example using "Any" relationship type: Work item must have at least one connection
+    // This is useful for ensuring work items are not orphaned or isolated
+    {
+      "name": "Work item must be connected",
+      "description": "All User Stories must have at least one relationship of any type to an Epic, Feature, or another User Story",
+      "workItemType": "User Story",
+      "severity": "warning",
+      "stateConstraint": {
+        "exclude": ["Closed", "Removed", "Done"]
+      },
+      "requiredRelationships": [
+        {
+          "type": "Any",
+          "targetTypes": ["Epic", "Feature", "User Story"],
+          "minCount": 1
+        }
+      ]
+    },
+
+    // Another "Any" example: Limit total connections
+    {
+      "name": "Limit Feature connections",
+      "description": "Features should not have more than 20 connections of any type to prevent over-coupling",
+      "workItemType": "Feature",
+      "severity": "warning",
+      "requiredRelationships": [
+        {
+          "type": "Any",
+          "targetTypes": ["*"],
+          "maxCount": 20
+        }
+      ]
+    }
+  ]
+}

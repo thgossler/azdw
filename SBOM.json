@@ -1,0 +1,3092 @@
+{
+  "sbom": {
+    "spdxVersion": "SPDX-2.3",
+    "dataLicense": "CC0-1.0",
+    "SPDXID": "SPDXRef-DOCUMENT",
+    "name": "com.github.thgossler/...",
+    "documentNamespace": "https://spdx.org/spdxdocs/protobom/714d97b6-7f30-45f7-83fe-c561e0292da9",
+    "creationInfo": {
+      "creators": [
+        "Tool: protobom-v0.0.0-20260910141930-a9f14e42e71f\u002Bdirty",
+        "Tool: GitHub.com-Dependency-Graph"
+      ],
+      "created": "2026-09-14T21:36:02Z"
+    },
+    "packages": [
+      {
+        "name": "d3-array",
+        "SPDXID": "SPDXRef-npm-d3-array-3.2.4-550d4b",
+        "versionInfo": "3.2.4",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2010-2023 Mike Bostock, Copyright 2018 Vladimir Agafonkin",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-array@3.2.4"
+          }
+        ]
+      },
+      {
+        "name": "confbox",
+        "SPDXID": "SPDXRef-npm-confbox-0.1.8-c24c68",
+        "versionInfo": "0.1.8",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "BSD-3-Clause AND MIT",
+        "copyrightText": "Copyright (c) 2011-2015 by Vitaly Puzrin, Copyright (c) 2012-2018 Aseem Kishore, and others (https://github.com/json5/json5/graphs/contributors), Copyright (c) Microsoft, Copyright (c) Pooya Parsa \u003Cpooya@pi0.io\u003E, Copyright (c) Sindre Sorhus \u003Csindresorhus@gmail.com\u003E (https://sindresorhus.com), Copyright (c) Squirrel Chat et al, Copyright (c) Squirrel Chat et al., All rights reserved.",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/confbox@0.1.8"
+          }
+        ]
+      },
+      {
+        "name": "d3-dsv",
+        "SPDXID": "SPDXRef-npm-d3-dsv-3.0.1-c83739",
+        "versionInfo": "3.0.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2013-2021 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-dsv@3.0.1"
+          }
+        ]
+      },
+      {
+        "name": "d3-polygon",
+        "SPDXID": "SPDXRef-npm-d3-polygon-3.0.1-32245f",
+        "versionInfo": "3.0.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2010-2021 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-polygon@3.0.1"
+          }
+        ]
+      },
+      {
+        "name": "dagre-d3-es",
+        "SPDXID": "SPDXRef-npm-dagre-d3-es-7.0.14-9b87a2",
+        "versionInfo": "7.0.14",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2012-2014 Chris Pettitt, Copyright (c) 2013 Chris Pettitt, Copyright (c) 2022-2024 Thibaut Lassalle, David Newell, Alois Klink, Sidharth Vinod and dagre-es contributors",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/dagre-d3-es@7.0.14"
+          }
+        ]
+      },
+      {
+        "name": "delaunator",
+        "SPDXID": "SPDXRef-npm-delaunator-5.1.0-615049",
+        "versionInfo": "5.1.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright (c) 2026, Mapbox",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/delaunator@5.1.0"
+          }
+        ]
+      },
+      {
+        "name": "d3-shape",
+        "SPDXID": "SPDXRef-npm-d3-shape-1.3.7-007fdb",
+        "versionInfo": "1.3.7",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "BSD-3-Clause",
+        "copyrightText": "Copyright 2010-2015 Mike Bostock, Copyright 2019 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-shape@1.3.7"
+          }
+        ]
+      },
+      {
+        "name": "d3-path",
+        "SPDXID": "SPDXRef-npm-d3-path-3.1.0-12ba06",
+        "versionInfo": "3.1.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2015-2022 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-path@3.1.0"
+          }
+        ]
+      },
+      {
+        "name": "d3-drag",
+        "SPDXID": "SPDXRef-npm-d3-drag-3.0.0-1394c9",
+        "versionInfo": "3.0.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2010-2021 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-drag@3.0.0"
+          }
+        ]
+      },
+      {
+        "name": "cose-base",
+        "SPDXID": "SPDXRef-npm-cose-base-1.0.3-6aae16",
+        "versionInfo": "1.0.3",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2019, Copyright (c) 2019 - present, iVis@Bilkent",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/cose-base@1.0.3"
+          }
+        ]
+      },
+      {
+        "name": "vscode-languageserver-types",
+        "SPDXID": "SPDXRef-npm-vscode-languageserver-types-3.17.5-55e8ea",
+        "versionInfo": "3.17.5",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) Microsoft Corporation",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/vscode-languageserver-types@3.17.5"
+          }
+        ]
+      },
+      {
+        "name": "d3-geo",
+        "SPDXID": "SPDXRef-npm-d3-geo-3.1.1-43411a",
+        "versionInfo": "3.1.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC AND MIT",
+        "copyrightText": "Copyright 2008-2012 Charles Karney, Copyright 2010-2024 Mike Bostock, Copyright 2010-2024 Mike Bostock, 2008-2012 Charles Karney",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-geo@3.1.1"
+          }
+        ]
+      },
+      {
+        "name": "d3-ease",
+        "SPDXID": "SPDXRef-npm-d3-ease-3.0.1-4c4db2",
+        "versionInfo": "3.0.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "BSD-3-Clause",
+        "copyrightText": "Copyright 2001 Robert Penner, Copyright 2010-2021 Mike Bostock, Copyright 2010-2021 Mike Bostock, 2001 Robert Penner",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-ease@3.0.1"
+          }
+        ]
+      },
+      {
+        "name": "@chevrotain/utils",
+        "SPDXID": "SPDXRef-npm-chevrotain-utils-11.1.2-9c2254",
+        "versionInfo": "11.1.2",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "Apache-2.0",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/%40chevrotain/utils@11.1.2"
+          }
+        ]
+      },
+      {
+        "name": "dompurify",
+        "SPDXID": "SPDXRef-npm-dompurify-3.4.4-039f56",
+        "versionInfo": "3.4.4",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "Apache-2.0 AND MPL-2.0",
+        "copyrightText": "(c) Cure53 and other contributors, Copyright 2025-2026 Dr.-Ing. Mario Heiderich, Cure53",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/dompurify@3.4.4"
+          }
+        ]
+      },
+      {
+        "name": "@iconify/utils",
+        "SPDXID": "SPDXRef-npm-iconify-utils-3.1.0-5e4942",
+        "versionInfo": "3.1.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2021-PRESENT Vjacheslav Trushkin",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/%40iconify/utils@3.1.0"
+          }
+        ]
+      },
+      {
+        "name": "vscode-jsonrpc",
+        "SPDXID": "SPDXRef-npm-vscode-jsonrpc-8.2.0-2bf507",
+        "versionInfo": "8.2.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) Microsoft Corporation",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/vscode-jsonrpc@8.2.0"
+          }
+        ]
+      },
+      {
+        "name": "internmap",
+        "SPDXID": "SPDXRef-npm-internmap-1.0.1-1cc36a",
+        "versionInfo": "1.0.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2021 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/internmap@1.0.1"
+          }
+        ]
+      },
+      {
+        "name": "hachure-fill",
+        "SPDXID": "SPDXRef-npm-hachure-fill-0.5.2-6e5641",
+        "versionInfo": "0.5.2",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2023 Preet Shihn",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/hachure-fill@0.5.2"
+          }
+        ]
+      },
+      {
+        "name": "marked",
+        "SPDXID": "SPDXRef-npm-marked-16.4.2-f91799",
+        "versionInfo": "16.4.2",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "BSD-3-Clause AND MIT",
+        "copyrightText": "Copyright (c) 2004, John Gruber http://daringfireball.net, Copyright (c) 2011 -2018, Christopher Jeffrey, Copyright (c) 2011-2018, Christopher Jeffrey, Copyright (c) 2011-2018, Christopher Jeffrey (https://github.com/chjj/), Copyright (c) 2011-2018, Christopher Jeffrey. (MIT License) https://github.com/markedjs/marked, Copyright (c) 2018-2025, MarkedJS. (MIT License), Copyright (c) 2018\u002B, MarkedJS (https://github.com/markedjs/), Copyright (c) 2018\u002B, MarkedJS (MIT License) .br, Copyright (c) 2018\u002B, MarkedJS. (MIT License)",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/marked@16.4.2"
+          }
+        ]
+      },
+      {
+        "name": "d3-color",
+        "SPDXID": "SPDXRef-npm-d3-color-3.1.0-4302ad",
+        "versionInfo": "3.1.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2010-2022 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-color@3.1.0"
+          }
+        ]
+      },
+      {
+        "name": "vscode-languageserver-textdocument",
+        "SPDXID": "SPDXRef-npm-vscode-languageserver-textdocument-1.0.12-5cedd7",
+        "versionInfo": "1.0.12",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) Microsoft Corporation",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/vscode-languageserver-textdocument@1.0.12"
+          }
+        ]
+      },
+      {
+        "name": "d3-shape",
+        "SPDXID": "SPDXRef-npm-d3-shape-3.2.0-9172d9",
+        "versionInfo": "3.2.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2010-2022 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-shape@3.2.0"
+          }
+        ]
+      },
+      {
+        "name": "d3-hierarchy",
+        "SPDXID": "SPDXRef-npm-d3-hierarchy-3.1.2-88334b",
+        "versionInfo": "3.1.2",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2010-2021 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-hierarchy@3.1.2"
+          }
+        ]
+      },
+      {
+        "name": "roughjs",
+        "SPDXID": "SPDXRef-npm-roughjs-4.6.6-ce54fb",
+        "versionInfo": "4.6.6",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "(c) Preet Shihn (https://twitter.com/preetster), Copyright (c) 2019 Preet Shihn",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/roughjs@4.6.6"
+          }
+        ]
+      },
+      {
+        "name": "daisyui",
+        "SPDXID": "SPDXRef-npm-daisyui-5.5.19-a00b01",
+        "versionInfo": "5.5.19",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/daisyui@5.5.19"
+          }
+        ]
+      },
+      {
+        "name": "d3-force",
+        "SPDXID": "SPDXRef-npm-d3-force-3.0.0-307fb2",
+        "versionInfo": "3.0.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2010-2021 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-force@3.0.0"
+          }
+        ]
+      },
+      {
+        "name": "lodash-es",
+        "SPDXID": "SPDXRef-npm-lodash-es-4.17.23-3d0251",
+        "versionInfo": "4.17.23",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/lodash-es@4.17.23"
+          }
+        ]
+      },
+      {
+        "name": "robust-predicates",
+        "SPDXID": "SPDXRef-npm-robust-predicates-3.0.3-1c33a6",
+        "versionInfo": "3.0.3",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "LicenseRef-scancode-public-domain AND Unlicense",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/robust-predicates@3.0.3"
+          }
+        ]
+      },
+      {
+        "name": "d3-array",
+        "SPDXID": "SPDXRef-npm-d3-array-2.12.1-f73418",
+        "versionInfo": "2.12.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "BSD-3-Clause",
+        "copyrightText": "Copyright 2010-2020 Mike Bostock, Copyright 2018 Vladimir Agafonkin, Copyright 2018 Vladimir Agafonkin., Copyright 2021 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-array@2.12.1"
+          }
+        ]
+      },
+      {
+        "name": "marked",
+        "SPDXID": "SPDXRef-npm-marked-15.0.12-ff398f",
+        "versionInfo": "15.0.12",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "BSD-3-Clause AND MIT",
+        "copyrightText": "Copyright (c) 2004, John Gruber http://daringfireball.net, Copyright (c) 2011 -2014, Christopher Jeffrey, Copyright (c) 2011-2013, Christopher Jeffrey, Copyright (c) 2011-2014, Christopher Jeffrey, Copyright (c) 2011-2018, Christopher Jeffrey (https://github.com/chjj/), Copyright (c) 2011-2022, Christopher Jeffrey, Copyright (c) 2011-2025, Christopher Jeffrey. (MIT Licensed) https://github.com/markedjs/marked, Copyright (c) 2018\u002B, MarkedJS (https://github.com/markedjs/)",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/marked@15.0.12"
+          }
+        ]
+      },
+      {
+        "name": "d3-dispatch",
+        "SPDXID": "SPDXRef-npm-d3-dispatch-3.0.1-946216",
+        "versionInfo": "3.0.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2010-2021 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-dispatch@3.0.1"
+          }
+        ]
+      },
+      {
+        "name": "d3-scale-chromatic",
+        "SPDXID": "SPDXRef-npm-d3-scale-chromatic-3.1.0-353d9a",
+        "versionInfo": "3.1.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "Apache-2.0 AND ISC",
+        "copyrightText": "Copyright 2002 Cynthia Brewer, Mark Harrower, and The Pennsylvania State University, Copyright 2010-2024 Mike Bostock, Copyright 2010-2024 Mike Bostock 2002 Cynthia Brewer, Mark Harrower, and The Pennsylvania State University",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-scale-chromatic@3.1.0"
+          }
+        ]
+      },
+      {
+        "name": "d3-contour",
+        "SPDXID": "SPDXRef-npm-d3-contour-4.0.2-4f53e7",
+        "versionInfo": "4.0.2",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2012-2023 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-contour@4.0.2"
+          }
+        ]
+      },
+      {
+        "name": "d3-time-format",
+        "SPDXID": "SPDXRef-npm-d3-time-format-4.1.0-d6baef",
+        "versionInfo": "4.1.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2010-2021 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-time-format@4.1.0"
+          }
+        ]
+      },
+      {
+        "name": "cytoscape-cose-bilkent",
+        "SPDXID": "SPDXRef-npm-cytoscape-cose-bilkent-4.1.0-0053c9",
+        "versionInfo": "4.1.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2016-2018, The Cytoscape Consortium, Copyright (c) 2016-2018, The Cytoscape Consortium.",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/cytoscape-cose-bilkent@4.1.0"
+          }
+        ]
+      },
+      {
+        "name": "@chevrotain/types",
+        "SPDXID": "SPDXRef-npm-chevrotain-types-11.1.2-7857ef",
+        "versionInfo": "11.1.2",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "Apache-2.0",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/%40chevrotain/types@11.1.2"
+          }
+        ]
+      },
+      {
+        "name": "@chevrotain/regexp-to-ast",
+        "SPDXID": "SPDXRef-npm-chevrotain-regexp-to-ast-11.1.2-0aaa58",
+        "versionInfo": "11.1.2",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "Apache-2.0",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/%40chevrotain/regexp-to-ast@11.1.2"
+          }
+        ]
+      },
+      {
+        "name": "dayjs",
+        "SPDXID": "SPDXRef-npm-dayjs-1.11.20-4d5b99",
+        "versionInfo": "1.11.20",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2018-present, iamkun",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/dayjs@1.11.20"
+          }
+        ]
+      },
+      {
+        "name": "d3-quadtree",
+        "SPDXID": "SPDXRef-npm-d3-quadtree-3.0.1-361503",
+        "versionInfo": "3.0.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2010-2021 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-quadtree@3.0.1"
+          }
+        ]
+      },
+      {
+        "name": "d3-scale",
+        "SPDXID": "SPDXRef-npm-d3-scale-4.0.2-7aa436",
+        "versionInfo": "4.0.2",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2010-2021 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-scale@4.0.2"
+          }
+        ]
+      },
+      {
+        "name": "d3-random",
+        "SPDXID": "SPDXRef-npm-d3-random-3.0.1-08139c",
+        "versionInfo": "3.0.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2010-2021 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-random@3.0.1"
+          }
+        ]
+      },
+      {
+        "name": "vscode-uri",
+        "SPDXID": "SPDXRef-npm-vscode-uri-3.1.0-0eac1c",
+        "versionInfo": "3.1.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) Microsoft, Copyright (c) Microsoft Corporation, Copyright Joyent, Inc. and other Node contributors",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/vscode-uri@3.1.0"
+          }
+        ]
+      },
+      {
+        "name": "@antfu/install-pkg",
+        "SPDXID": "SPDXRef-npm-antfu-install-pkg-1.1.0-15a3b4",
+        "versionInfo": "1.1.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "(c) 2021 Anthony Fu (https://github.com/antfu), Copyright (c) 2021 Anthony Fu \u003Chttps://github.com/antfu\u003E",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/%40antfu/install-pkg@1.1.0"
+          }
+        ]
+      },
+      {
+        "name": "ts-dedent",
+        "SPDXID": "SPDXRef-npm-ts-dedent-2.2.0-b63b4c",
+        "versionInfo": "2.2.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2018 Tamino Martinius",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/ts-dedent@2.2.0"
+          }
+        ]
+      },
+      {
+        "name": "d3",
+        "SPDXID": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "versionInfo": "7.9.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2010-2023 Mike Bostock, Copyright 2018 Vladimir Agafonkin",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3@7.9.0"
+          }
+        ]
+      },
+      {
+        "name": "@chevrotain/gast",
+        "SPDXID": "SPDXRef-npm-chevrotain-gast-11.1.2-0f59e0",
+        "versionInfo": "11.1.2",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "Apache-2.0",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/%40chevrotain/gast@11.1.2"
+          }
+        ]
+      },
+      {
+        "name": "d3-axis",
+        "SPDXID": "SPDXRef-npm-d3-axis-3.0.0-3d7fdf",
+        "versionInfo": "3.0.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2010-2021 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-axis@3.0.0"
+          }
+        ]
+      },
+      {
+        "name": "vscode-languageserver-protocol",
+        "SPDXID": "SPDXRef-npm-vscode-languageserver-protocol-3.17.5-378ca4",
+        "versionInfo": "3.17.5",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) Microsoft Corporation, Copyright (c) TypeFox, Microsoft and others",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/vscode-languageserver-protocol@3.17.5"
+          }
+        ]
+      },
+      {
+        "name": "d3-format",
+        "SPDXID": "SPDXRef-npm-d3-format-3.1.2-a3b180",
+        "versionInfo": "3.1.2",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-format@3.1.2"
+          }
+        ]
+      },
+      {
+        "name": "@mermaid-js/parser",
+        "SPDXID": "SPDXRef-npm-mermaid-js-parser-1.0.1-16a0c5",
+        "versionInfo": "1.0.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2023 Yokozuna59, Copyright (c) Microsoft Corporation, Copyright (c) TypeFox, Microsoft and others, Copyright 2021 TypeFox GmbH, Copyright 2021-2022 TypeFox GmbH, Copyright 2022 TypeFox GmbH, Copyright 2023 TypeFox GmbH, Copyright 2024 TypeFox GmbH, Copyright 2025 Y. Daveluy, Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters \u0026 Editors, Copyright Joyent, Inc. and other Node contributors, Copyright OpenJS Foundation and other contributors https://openjsf.org",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/%40mermaid-js/parser@1.0.1"
+          }
+        ]
+      },
+      {
+        "name": "khroma",
+        "SPDXID": "SPDXRef-npm-khroma-2.1.0-390b7e",
+        "versionInfo": "2.1.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "(c) Fabio Spampinato, Andrew Maney, Copyright (c) 2019-present Fabio Spampinato, Andrew Maney",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/khroma@2.1.0"
+          }
+        ]
+      },
+      {
+        "name": "pathe",
+        "SPDXID": "SPDXRef-npm-pathe-2.0.3-1ccf0e",
+        "versionInfo": "2.0.3",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2023-present Fabio Spampinato, Copyright (c) Pooya Parsa \u003Cpooya@pi0.io\u003E, Copyright Joyent, Inc. and other Node contributors",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/pathe@2.0.3"
+          }
+        ]
+      },
+      {
+        "name": "@braintree/sanitize-url",
+        "SPDXID": "SPDXRef-npm-braintree-sanitize-url-7.1.2-8bf3fc",
+        "versionInfo": "7.1.2",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2017 Braintree",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/%40braintree/sanitize-url@7.1.2"
+          }
+        ]
+      },
+      {
+        "name": "layout-base",
+        "SPDXID": "SPDXRef-npm-layout-base-1.0.2-2e99d4",
+        "versionInfo": "1.0.2",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2019, Copyright (c) 2019 iVis@Bilkent, Copyright i-Vis Research Group, Bilkent University, 2007",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/layout-base@1.0.2"
+          }
+        ]
+      },
+      {
+        "name": "mermaid",
+        "SPDXID": "SPDXRef-npm-mermaid-11.13.0-14489b",
+        "versionInfo": "11.13.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "(c) Cure53 and other contributors, Copyright (c) 2009-2010, Design Science, Inc. \u003Cwww.mathjax.org\u003E, Copyright (c) 2013-2014 Ralf S. Engelschall (http://engelschall.com), Copyright (c) 2014 - 2022 Knut Sveidqvist, Copyright (c) 2014-2017 Khan Academy \u003Cwww.khanacademy.org\u003E, Copyright (c) 2016-2025, The Cytoscape Consortium, Copyright (c) Microsoft Corporation, Copyright (c) TypeFox, Microsoft and others, Copyright 2021 TypeFox GmbH, Copyright 2021-2022 TypeFox GmbH, Copyright 2022 TypeFox GmbH, Copyright 2023 TypeFox GmbH, Copyright 2024 TypeFox GmbH, Copyright 2025 Y. Daveluy, Copyright Gaetan Renaudeau, Copyright i-Vis Research Group, Bilkent University, 2007, Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters \u0026 Editors, Copyright Joyent, Inc. and other Node contributors, copyright Koen Bok, Copyright OpenJS Foundation and other contributors https://openjsf.org",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/mermaid@11.13.0"
+          }
+        ]
+      },
+      {
+        "name": "acorn",
+        "SPDXID": "SPDXRef-npm-acorn-8.16.0-24f678",
+        "versionInfo": "8.16.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2012-2022 by various contributors",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/acorn@8.16.0"
+          }
+        ]
+      },
+      {
+        "name": "d3-sankey",
+        "SPDXID": "SPDXRef-npm-d3-sankey-0.12.3-d627b3",
+        "versionInfo": "0.12.3",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "BSD-3-Clause",
+        "copyrightText": "Copyright 2015, Mike Bostock, Copyright 2019 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-sankey@0.12.3"
+          }
+        ]
+      },
+      {
+        "name": "uuid",
+        "SPDXID": "SPDXRef-npm-uuid-11.1.0-7e460d",
+        "versionInfo": "11.1.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2010-2020 Robert Kieffer and other contributors",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/uuid@11.1.0"
+          }
+        ]
+      },
+      {
+        "name": "mlly",
+        "SPDXID": "SPDXRef-npm-mlly-1.8.2-137862",
+        "versionInfo": "1.8.2",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) Pooya Parsa \u003Cpooya@pi0.io\u003E",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/mlly@1.8.2"
+          }
+        ]
+      },
+      {
+        "name": "ufo",
+        "SPDXID": "SPDXRef-npm-ufo-1.6.3-1d5e16",
+        "versionInfo": "1.6.3",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) Pooya Parsa \u003Cpooya@pi0.io\u003E",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/ufo@1.6.3"
+          }
+        ]
+      },
+      {
+        "name": "path-data-parser",
+        "SPDXID": "SPDXRef-npm-path-data-parser-0.1.0-63ce7e",
+        "versionInfo": "0.1.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2020 Preet Shihn",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/path-data-parser@0.1.0"
+          }
+        ]
+      },
+      {
+        "name": "layout-base",
+        "SPDXID": "SPDXRef-npm-layout-base-2.0.1-8953d0",
+        "versionInfo": "2.0.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2019, Copyright (c) 2019 iVis@Bilkent, Copyright i-Vis Research Group, Bilkent University, 2007",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/layout-base@2.0.1"
+          }
+        ]
+      },
+      {
+        "name": "langium",
+        "SPDXID": "SPDXRef-npm-langium-4.2.1-1ee5dd",
+        "versionInfo": "4.2.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) Microsoft Corporation, Copyright 2021 TypeFox GmbH, Copyright 2021-2022 TypeFox GmbH, Copyright 2022 TypeFox GmbH, Copyright 2023 TypeFox GmbH, Copyright 2024 TypeFox GmbH, Copyright 2025 TypeFox GmbH, Copyright 2025 Y. Daveluy",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/langium@4.2.1"
+          }
+        ]
+      },
+      {
+        "name": "pkg-types",
+        "SPDXID": "SPDXRef-npm-pkg-types-1.3.1-6a3388",
+        "versionInfo": "1.3.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) Pooya Parsa \u003Cpooya@pi0.io\u003E, Copyright Joyent, Inc. and other Node contributors",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/pkg-types@1.3.1"
+          }
+        ]
+      },
+      {
+        "name": "internmap",
+        "SPDXID": "SPDXRef-npm-internmap-2.0.3-936350",
+        "versionInfo": "2.0.3",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2021 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/internmap@2.0.3"
+          }
+        ]
+      },
+      {
+        "name": "chevrotain",
+        "SPDXID": "SPDXRef-npm-chevrotain-11.1.2-63016a",
+        "versionInfo": "11.1.2",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "Apache-2.0",
+        "copyrightText": "Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters \u0026 Editors, Copyright OpenJS Foundation and other contributors https://openjsf.org",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/chevrotain@11.1.2"
+          }
+        ]
+      },
+      {
+        "name": "d3-transition",
+        "SPDXID": "SPDXRef-npm-d3-transition-3.0.1-53404c",
+        "versionInfo": "3.0.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2010-2021 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-transition@3.0.1"
+          }
+        ]
+      },
+      {
+        "name": "@chevrotain/cst-dts-gen",
+        "SPDXID": "SPDXRef-npm-chevrotain-cst-dts-gen-11.1.2-dd075b",
+        "versionInfo": "11.1.2",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "Apache-2.0",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/%40chevrotain/cst-dts-gen@11.1.2"
+          }
+        ]
+      },
+      {
+        "name": "iconv-lite",
+        "SPDXID": "SPDXRef-npm-iconv-lite-0.6.3-42c6ce",
+        "versionInfo": "0.6.3",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2011 Alexander Shtuchkin, Copyright (c) Microsoft Corporation",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/iconv-lite@0.6.3"
+          }
+        ]
+      },
+      {
+        "name": "stylis",
+        "SPDXID": "SPDXRef-npm-stylis-4.3.6-1ad5df",
+        "versionInfo": "4.3.6",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2016-present Sultan Tarimo",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/stylis@4.3.6"
+          }
+        ]
+      },
+      {
+        "name": "package-manager-detector",
+        "SPDXID": "SPDXRef-npm-package-manager-detector-1.6.0-76dfe3",
+        "versionInfo": "1.6.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2020-PRESENT Anthony Fu https://github.com/antfu",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/package-manager-detector@1.6.0"
+          }
+        ]
+      },
+      {
+        "name": "points-on-curve",
+        "SPDXID": "SPDXRef-npm-points-on-curve-0.2.0-874a61",
+        "versionInfo": "0.2.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2020 Preet Shihn",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/points-on-curve@0.2.0"
+          }
+        ]
+      },
+      {
+        "name": "d3-path",
+        "SPDXID": "SPDXRef-npm-d3-path-1.0.9-279b17",
+        "versionInfo": "1.0.9",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "BSD-3-Clause",
+        "copyrightText": "Copyright 2015-2016 Mike Bostock, Copyright 2019 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-path@1.0.9"
+          }
+        ]
+      },
+      {
+        "name": "tinyexec",
+        "SPDXID": "SPDXRef-npm-tinyexec-1.0.4-d40581",
+        "versionInfo": "1.0.4",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2018 Made With MOXY Lda, Copyright (c) 2024 Tinylibs, Copyright (c) Isaac Z. Schlueter and Contributors, Copyright (c) Kevin Martensson \u003Ckevinmartensson@gmail.com\u003E, Copyright (c) Sindre Sorhus \u003Csindresorhus@gmail.com\u003E (sindresorhus.com)",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/tinyexec@1.0.4"
+          }
+        ]
+      },
+      {
+        "name": "d3-timer",
+        "SPDXID": "SPDXRef-npm-d3-timer-3.0.1-bfd7b1",
+        "versionInfo": "3.0.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2010-2021 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-timer@3.0.1"
+          }
+        ]
+      },
+      {
+        "name": "commander",
+        "SPDXID": "SPDXRef-npm-commander-8.3.0-7f31a1",
+        "versionInfo": "8.3.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2011 TJ Holowaychuk \u003Ctj@vision-media.ca\u003E",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/commander@8.3.0"
+          }
+        ]
+      },
+      {
+        "name": "highlight.js",
+        "SPDXID": "SPDXRef-npm-highlight.js-11.11.1-240181",
+        "versionInfo": "11.11.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "BSD-3-Clause",
+        "copyrightText": "(c) 2020-2021 Jim Mason \u003Cjmason@ibinx.com\u003E, (c) 2021 Felipe Contreras \u003Cfelipe.contreras@gmail.com\u003E Website https://github.com/felipec/vim-felipec, (c) Aahan Krish \u003Cgeekpanth3r@gmail.com\u003E, (c) Ahmad Awais \u003Chttps://twitter.com/mrahmadawais/\u003E, (c) Angel Garcia \u003Cangelgarcia.mail@gmail.com\u003E, (c) Barilko Vitaliy \u003Cbarilkovetal@gmail.com\u003E, (c) Carl Baxter \u003Ccarl@cbax.tech\u003E, (c) Dmitriy Tarasov \u003Cdimatar@gmail.com\u003E, (c) Gustavo Costa \u003Cgusbemacbe@gmail.com\u003E, (c) Henri Vandersleyen \u003Chvandersleyen@gmail.com\u003E, (c) Ivan Sagalaev \u003Cmaniac@softwaremaniacs.org\u003E, (c) Ivan Sagalaev \u003CManiac@SoftwareManiacs.Org\u003E, (c) Mike Bostock \u003Cmike@ocks.org\u003E, (c) Samia Ali \u003Csamiaab1990@gmail.com\u003E, (c) Taufik Nurrohman \u003Chi@taufik-nurrohman.com\u003E, (c) Tristian Kelly \u003Ctristian.kelly560@gmail.com\u003E, (c) Vasily Mikhailitchenko \u003Cvaskas@programica.ru\u003E, (c) Vasily Polovnyov \u003Cvast@whiteants.net\u003E, (c) Zaripov Yura \u003Cyur4ik7@ukr.net\u003E, Copyright (c) 2006, Ivan Sagalaev, Copyright (c) 2017-present Arctic Ice Studio \u003Cdevelopment@arcticicestudio.com\u003E, Copyright (c) 2017-present Sven Greb \u003Cdevelopment@svengreb.de\u003E, Copyright (c) 2018 Sarah Drasner, Intellij-light style (c) Pegasis \u003Cme@pegasis.site\u003E",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/highlight.js@11.11.1"
+          }
+        ]
+      },
+      {
+        "name": "d3-selection",
+        "SPDXID": "SPDXRef-npm-d3-selection-3.0.0-940b60",
+        "versionInfo": "3.0.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2010-2021 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-selection@3.0.0"
+          }
+        ]
+      },
+      {
+        "name": "safer-buffer",
+        "SPDXID": "SPDXRef-npm-safer-buffer-2.1.2-02379a",
+        "versionInfo": "2.1.2",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2018 Nikita Skovoroda \u003Cchalkerx@gmail.com\u003E",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/safer-buffer@2.1.2"
+          }
+        ]
+      },
+      {
+        "name": "rw",
+        "SPDXID": "SPDXRef-npm-rw-1.3.3-8d1fef",
+        "versionInfo": "1.3.3",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "BSD-3-Clause",
+        "copyrightText": "Copyright (c) 2014-2016, Michael Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/rw@1.3.3"
+          }
+        ]
+      },
+      {
+        "name": "@upsetjs/venn.js",
+        "SPDXID": "SPDXRef-npm-upsetjs-venn.js-2.0.0-5710f5",
+        "versionInfo": "2.0.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2013 Ben Frederickson, Copyright (c) 2021 Samuel Gratzl",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/%40upsetjs/venn.js@2.0.0"
+          }
+        ]
+      },
+      {
+        "name": "katex",
+        "SPDXID": "SPDXRef-npm-katex-0.16.44-e886e2",
+        "versionInfo": "0.16.44",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "(c) 2009-2010, Design Science, Inc. \u003Cwww.mathjax.org\u003E, Copyright (c) 2009-2010 Design Science, Inc., Copyright (c) 2009-2010, Design Science, Inc. \u003Cwww.mathjax.org\u003E, Copyright (c) 2009-2010, Design Science, Inc. www.mathjax.org, Copyright (c) 2011-2015 The MathJax Consortium, Copyright (c) 2013 MathJax Project, Copyright (c) 2013 The MathJax Consortium, Copyright (c) 2013-2020 Khan Academy and other contributors, Copyright (c) 2014-2017 Khan Academy \u003Cwww.khanacademy.org\u003E, Copyright (c) 2014-2018 Khan, Copyright (c) 2014-2018 Khan Academy, Copyright (c) 2014-2018 Khan Academy \u003Cwww.khanacademy.org\u003E, Copyright (c) 2014-2018 Khan Academy www.khanacademy.org, Copyright (c) 2015-2018 Martin Hensel, Copyright 1995, 2009 American Mathematical Society",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/katex@0.16.44"
+          }
+        ]
+      },
+      {
+        "name": "d3-interpolate",
+        "SPDXID": "SPDXRef-npm-d3-interpolate-3.0.1-ad74db",
+        "versionInfo": "3.0.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2010-2021 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-interpolate@3.0.1"
+          }
+        ]
+      },
+      {
+        "name": "commander",
+        "SPDXID": "SPDXRef-npm-commander-7.2.0-bc0631",
+        "versionInfo": "7.2.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2011 TJ Holowaychuk \u003Ctj@vision-media.ca\u003E",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/commander@7.2.0"
+          }
+        ]
+      },
+      {
+        "name": "d3-brush",
+        "SPDXID": "SPDXRef-npm-d3-brush-3.0.0-3071bc",
+        "versionInfo": "3.0.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2010-2021 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-brush@3.0.0"
+          }
+        ]
+      },
+      {
+        "name": "d3-time",
+        "SPDXID": "SPDXRef-npm-d3-time-3.1.0-7a69a2",
+        "versionInfo": "3.1.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2010-2022 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-time@3.1.0"
+          }
+        ]
+      },
+      {
+        "name": "cose-base",
+        "SPDXID": "SPDXRef-npm-cose-base-2.2.0-01725a",
+        "versionInfo": "2.2.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2019 - present, iVis@Bilkent",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/cose-base@2.2.0"
+          }
+        ]
+      },
+      {
+        "name": "@iconify/types",
+        "SPDXID": "SPDXRef-npm-iconify-types-2.0.0-120d59",
+        "versionInfo": "2.0.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "(c) 2021 - 2022 Vjacheslav Trushkin, Copyright (c) 2021 - 2022 Vjacheslav Trushkin",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/%40iconify/types@2.0.0"
+          }
+        ]
+      },
+      {
+        "name": "cytoscape-fcose",
+        "SPDXID": "SPDXRef-npm-cytoscape-fcose-2.2.0-81f6d6",
+        "versionInfo": "2.2.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2018 - present, iVis-at-Bilkent",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/cytoscape-fcose@2.2.0"
+          }
+        ]
+      },
+      {
+        "name": "vscode-languageserver",
+        "SPDXID": "SPDXRef-npm-vscode-languageserver-9.0.1-fbba25",
+        "versionInfo": "9.0.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) Microsoft Corporation, Copyright (c) TypeFox and others",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/vscode-languageserver@9.0.1"
+          }
+        ]
+      },
+      {
+        "name": "d3-zoom",
+        "SPDXID": "SPDXRef-npm-d3-zoom-3.0.0-b27df3",
+        "versionInfo": "3.0.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2010-2021 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-zoom@3.0.0"
+          }
+        ]
+      },
+      {
+        "name": "points-on-path",
+        "SPDXID": "SPDXRef-npm-points-on-path-0.2.1-fa1d48",
+        "versionInfo": "0.2.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2020 Preet",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/points-on-path@0.2.1"
+          }
+        ]
+      },
+      {
+        "name": "d3-chord",
+        "SPDXID": "SPDXRef-npm-d3-chord-3.0.1-4493cb",
+        "versionInfo": "3.0.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2010-2021 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-chord@3.0.1"
+          }
+        ]
+      },
+      {
+        "name": "cytoscape",
+        "SPDXID": "SPDXRef-npm-cytoscape-3.33.1-0f6373",
+        "versionInfo": "3.33.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2013-2014 Ralf S. Engelschall (http://engelschall.com), Copyright (c) 2016-$ year, The Cytoscape Consortium, Copyright (c) 2016-2025, The Cytoscape Consortium, Copyright Gaetan Renaudeau, copyright Koen Bok",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/cytoscape@3.33.1"
+          }
+        ]
+      },
+      {
+        "name": "d3-delaunay",
+        "SPDXID": "SPDXRef-npm-d3-delaunay-6.0.4-7655f7",
+        "versionInfo": "6.0.4",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2018-2021 Observable, Inc., Copyright 2018-2021 Observable, Inc., 2021 Mapbox, Copyright 2021 Mapbox",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-delaunay@6.0.4"
+          }
+        ]
+      },
+      {
+        "name": "d3-fetch",
+        "SPDXID": "SPDXRef-npm-d3-fetch-3.0.1-d364aa",
+        "versionInfo": "3.0.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "ISC",
+        "copyrightText": "Copyright 2016-2021 Mike Bostock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/d3-fetch@3.0.1"
+          }
+        ]
+      },
+      {
+        "name": "chevrotain-allstar",
+        "SPDXID": "SPDXRef-npm-chevrotain-allstar-0.3.1-19d244",
+        "versionInfo": "0.3.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright 2022 TypeFox GmbH",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:npm/chevrotain-allstar@0.3.1"
+          }
+        ]
+      },
+      {
+        "name": "ReadLine",
+        "SPDXID": "SPDXRef-nuget-ReadLine-2.0.1-e475a2",
+        "versionInfo": "2.0.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "LicenseRef-scancode-unknown",
+        "copyrightText": "(c) 2008 VeriSign, Inc., (c) 2024 GitHub,\u00A0 Inc., Copyright (c) 2017 Toni, Copyright (c) 2017 Toni Solarin-Sodara",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/ReadLine@2.0.1"
+          }
+        ]
+      },
+      {
+        "name": "Spectre.Console",
+        "SPDXID": "SPDXRef-nuget-Spectre.Console-0.57.2-12976f",
+        "versionInfo": "0.57.2",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Spectre.Console@0.57.2"
+          }
+        ]
+      },
+      {
+        "name": "ModelContextProtocol",
+        "SPDXID": "SPDXRef-nuget-ModelContextProtocol-2.2.0-c3b3ca",
+        "versionInfo": "2.2.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/ModelContextProtocol@2.2.0"
+          }
+        ]
+      },
+      {
+        "name": "GitHub.Copilot.SDK",
+        "SPDXID": "SPDXRef-nuget-GitHub.Copilot.SDK-1.0.13-f55fe8",
+        "versionInfo": "1.0.13",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/GitHub.Copilot.SDK@1.0.13"
+          }
+        ]
+      },
+      {
+        "name": "System.CommandLine",
+        "SPDXID": "SPDXRef-nuget-System.CommandLine-2.0.12-74ac55",
+        "versionInfo": "2.0.12",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/System.CommandLine@2.0.12"
+          }
+        ]
+      },
+      {
+        "name": "Microsoft.Identity.Client",
+        "SPDXID": "SPDXRef-nuget-Microsoft.Identity.Client-4.89.0-d765bf",
+        "versionInfo": "4.89.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Microsoft.Identity.Client@4.89.0"
+          }
+        ]
+      },
+      {
+        "name": "Metalama.Framework",
+        "SPDXID": "SPDXRef-nuget-Metalama.Framework-2026.1.27-5d2c40",
+        "versionInfo": "2026.1.27",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Metalama.Framework@2026.1.27"
+          }
+        ]
+      },
+      {
+        "name": "TextCopy",
+        "SPDXID": "SPDXRef-nuget-TextCopy-6.2.1-383e3a",
+        "versionInfo": "6.2.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright 2022",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/TextCopy@6.2.1"
+          }
+        ]
+      },
+      {
+        "name": "Microsoft.IdentityModel.Abstractions",
+        "SPDXID": "SPDXRef-nuget-Microsoft.IdentityModel.Abstractions-8.22.0-f40944",
+        "versionInfo": "8.22.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "(c) Microsoft Corporation, Copyright (c) Microsoft Corporation",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Microsoft.IdentityModel.Abstractions@8.22.0"
+          }
+        ]
+      },
+      {
+        "name": "Azure.Core",
+        "SPDXID": "SPDXRef-nuget-Azure.Core-1.62.0-11abaf",
+        "versionInfo": "1.62.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Azure.Core@1.62.0"
+          }
+        ]
+      },
+      {
+        "name": "System.Diagnostics.EventLog",
+        "SPDXID": "SPDXRef-nuget-System.Diagnostics.EventLog-10.0.12-ca1e69",
+        "versionInfo": "10.0.12",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/System.Diagnostics.EventLog@10.0.12"
+          }
+        ]
+      },
+      {
+        "name": "Aspire.Azure.Security.KeyVault",
+        "SPDXID": "SPDXRef-nuget-Aspire.Azure.Security.KeyVault-13.5.3-4e05a1",
+        "versionInfo": "13.5.3",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Aspire.Azure.Security.KeyVault@13.5.3"
+          }
+        ]
+      },
+      {
+        "name": "Microsoft.AspNetCore.OpenApi",
+        "SPDXID": "SPDXRef-nuget-Microsoft.AspNetCore.OpenApi-10.0.12-c71b85",
+        "versionInfo": "10.0.12",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Microsoft.AspNetCore.OpenApi@10.0.12"
+          }
+        ]
+      },
+      {
+        "name": "Microsoft.IdentityModel.Tokens",
+        "SPDXID": "SPDXRef-nuget-Microsoft.IdentityModel.Tokens-8.22.0-33015c",
+        "versionInfo": "8.22.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "(c) Microsoft Corporation, Copyright (c) Microsoft Corporation",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Microsoft.IdentityModel.Tokens@8.22.0"
+          }
+        ]
+      },
+      {
+        "name": "Microsoft.OpenApi",
+        "SPDXID": "SPDXRef-nuget-Microsoft.OpenApi-2.12.0-0d4d96",
+        "versionInfo": "2.12.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Microsoft.OpenApi@2.12.0"
+          }
+        ]
+      },
+      {
+        "name": "ModelContextProtocol.AspNetCore",
+        "SPDXID": "SPDXRef-nuget-ModelContextProtocol.AspNetCore-2.2.0-5ed37f",
+        "versionInfo": "2.2.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/ModelContextProtocol.AspNetCore@2.2.0"
+          }
+        ]
+      },
+      {
+        "name": "Aspire.Azure.Data.Tables",
+        "SPDXID": "SPDXRef-nuget-Aspire.Azure.Data.Tables-13.5.3-1e9036",
+        "versionInfo": "13.5.3",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Aspire.Azure.Data.Tables@13.5.3"
+          }
+        ]
+      },
+      {
+        "name": "OpenTelemetry.Instrumentation.Http",
+        "SPDXID": "SPDXRef-nuget-OpenTelemetry.Instrumentation.Http-1.18.0-d20fa6",
+        "versionInfo": "1.18.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/OpenTelemetry.Instrumentation.Http@1.18.0"
+          }
+        ]
+      },
+      {
+        "name": "OpenTelemetry.Instrumentation.Runtime",
+        "SPDXID": "SPDXRef-nuget-OpenTelemetry.Instrumentation.Runtime-1.18.0-c8224d",
+        "versionInfo": "1.18.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/OpenTelemetry.Instrumentation.Runtime@1.18.0"
+          }
+        ]
+      },
+      {
+        "name": "Microsoft.Extensions.Http.Resilience",
+        "SPDXID": "SPDXRef-nuget-Microsoft.Extensions.Http.Resilience-10.10.0-85fd4b",
+        "versionInfo": "10.10.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Microsoft.Extensions.Http.Resilience@10.10.0"
+          }
+        ]
+      },
+      {
+        "name": "Microsoft.Extensions.ServiceDiscovery",
+        "SPDXID": "SPDXRef-nuget-Microsoft.Extensions.ServiceDiscovery-10.10.0-846944",
+        "versionInfo": "10.10.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Microsoft.Extensions.ServiceDiscovery@10.10.0"
+          }
+        ]
+      },
+      {
+        "name": "OpenTelemetry.Exporter.OpenTelemetryProtocol",
+        "SPDXID": "SPDXRef-nuget-OpenTelemetry.Exporter.OpenTelemetryProtocol-1.18.0-3eac4d",
+        "versionInfo": "1.18.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/OpenTelemetry.Exporter.OpenTelemetryProtocol@1.18.0"
+          }
+        ]
+      },
+      {
+        "name": "OpenTelemetry.Extensions.Hosting",
+        "SPDXID": "SPDXRef-nuget-OpenTelemetry.Extensions.Hosting-1.18.0-9d649b",
+        "versionInfo": "1.18.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/OpenTelemetry.Extensions.Hosting@1.18.0"
+          }
+        ]
+      },
+      {
+        "name": "OpenTelemetry.Instrumentation.AspNetCore",
+        "SPDXID": "SPDXRef-nuget-OpenTelemetry.Instrumentation.AspNetCore-1.18.0-8821ba",
+        "versionInfo": "1.18.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/OpenTelemetry.Instrumentation.AspNetCore@1.18.0"
+          }
+        ]
+      },
+      {
+        "name": "Azure.Identity",
+        "SPDXID": "SPDXRef-nuget-Azure.Identity-1.21.0-d25b75",
+        "versionInfo": "1.21.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "(c) Microsoft Corporation",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Azure.Identity@1.21.0"
+          }
+        ]
+      },
+      {
+        "name": "NJsonSchema",
+        "SPDXID": "SPDXRef-nuget-NJsonSchema-11.6.1-f78a4e",
+        "versionInfo": "11.6.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) Rico Suter, 2025, Copyright Rico Suter, 2025, Copyright Rico Suter, 2025 4JSON Schema",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/NJsonSchema@11.6.1"
+          }
+        ]
+      },
+      {
+        "name": "Microsoft.IdentityModel.Protocols.OpenIdConnect",
+        "SPDXID": "SPDXRef-nuget-Microsoft.IdentityModel.Protocols.OpenIdConnect-8.22.0-d6e6a2",
+        "versionInfo": "8.22.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "(c) Microsoft Corporation, Copyright (c) Microsoft Corporation",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Microsoft.IdentityModel.Protocols.OpenIdConnect@8.22.0"
+          }
+        ]
+      },
+      {
+        "name": "Anthropic.Bedrock",
+        "SPDXID": "SPDXRef-nuget-Anthropic.Bedrock-0.13.1-073462",
+        "versionInfo": "0.13.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Anthropic.Bedrock@0.13.1"
+          }
+        ]
+      },
+      {
+        "name": "OllamaSharp",
+        "SPDXID": "SPDXRef-nuget-OllamaSharp-5.4.30-7b990a",
+        "versionInfo": "5.4.30",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/OllamaSharp@5.4.30"
+          }
+        ]
+      },
+      {
+        "name": "Azure.Data.Tables",
+        "SPDXID": "SPDXRef-nuget-Azure.Data.Tables-12.12.0-d3be02",
+        "versionInfo": "12.12.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Azure.Data.Tables@12.12.0"
+          }
+        ]
+      },
+      {
+        "name": "System.ComponentModel.Composition",
+        "SPDXID": "SPDXRef-nuget-System.ComponentModel.Composition-10.0.12-e57eaf",
+        "versionInfo": "10.0.12",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/System.ComponentModel.Composition@10.0.12"
+          }
+        ]
+      },
+      {
+        "name": "Microsoft.TeamFoundationServer.Client",
+        "SPDXID": "SPDXRef-nuget-Microsoft.TeamFoundationServer.Client-20.256.2-0f0b48",
+        "versionInfo": "20.256.2",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "LicenseRef-scancode-ms-net-library-2018-11",
+        "copyrightText": "(c) Microsoft 2026, (c) Microsoft Corporation",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Microsoft.TeamFoundationServer.Client@20.256.2"
+          }
+        ]
+      },
+      {
+        "name": "SharpCompress",
+        "SPDXID": "SPDXRef-nuget-SharpCompress-0.50.4-8b1bc8",
+        "versionInfo": "0.50.4",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "(c) 2025 Adam Hathcock, Copyright (c) 2000 - 2011 The Legion Of The Bouncy Castle (http://www.bouncycastle.org), Copyright (c) 2025 Adam Hathcock",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/SharpCompress@0.50.4"
+          }
+        ]
+      },
+      {
+        "name": "Scriban",
+        "SPDXID": "SPDXRef-nuget-Scriban-7.4.0-2306c6",
+        "versionInfo": "7.4.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Scriban@7.4.0"
+          }
+        ]
+      },
+      {
+        "name": "Anthropic",
+        "SPDXID": "SPDXRef-nuget-Anthropic-12.47.0-478d6c",
+        "versionInfo": "12.47.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Anthropic@12.47.0"
+          }
+        ]
+      },
+      {
+        "name": "LiteDB",
+        "SPDXID": "SPDXRef-nuget-LiteDB-5.0.21-d7846e",
+        "versionInfo": "5.0.21",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "Copyright (c) 2014-2022 Mauricio David",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/LiteDB@5.0.21"
+          }
+        ]
+      },
+      {
+        "name": "System.Configuration.ConfigurationManager",
+        "SPDXID": "SPDXRef-nuget-System.Configuration.ConfigurationManager-10.0.12-48286d",
+        "versionInfo": "10.0.12",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/System.Configuration.ConfigurationManager@10.0.12"
+          }
+        ]
+      },
+      {
+        "name": "Anthropic.Foundry",
+        "SPDXID": "SPDXRef-nuget-Anthropic.Foundry-0.7.1-898fed",
+        "versionInfo": "0.7.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Anthropic.Foundry@0.7.1"
+          }
+        ]
+      },
+      {
+        "name": "Microsoft.IdentityModel.Protocols",
+        "SPDXID": "SPDXRef-nuget-Microsoft.IdentityModel.Protocols-8.22.0-818e72",
+        "versionInfo": "8.22.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "(c) Microsoft Corporation, Copyright (c) Microsoft Corporation",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Microsoft.IdentityModel.Protocols@8.22.0"
+          }
+        ]
+      },
+      {
+        "name": "Azure.Security.KeyVault.Secrets",
+        "SPDXID": "SPDXRef-nuget-Azure.Security.KeyVault.Secrets-4.11.1-c7e669",
+        "versionInfo": "4.11.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Azure.Security.KeyVault.Secrets@4.11.1"
+          }
+        ]
+      },
+      {
+        "name": "Azure.AI.OpenAI",
+        "SPDXID": "SPDXRef-nuget-Azure.AI.OpenAI-2.1.0-104568",
+        "versionInfo": "2.1.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "(c) Microsoft Corporation",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Azure.AI.OpenAI@2.1.0"
+          }
+        ]
+      },
+      {
+        "name": "Microsoft.VisualStudio.Services.Client",
+        "SPDXID": "SPDXRef-nuget-Microsoft.VisualStudio.Services.Client-20.256.2-89fb13",
+        "versionInfo": "20.256.2",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "LicenseRef-scancode-ms-net-library-2018-11",
+        "copyrightText": "(c) Microsoft 2026, (c) Microsoft Corporation",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Microsoft.VisualStudio.Services.Client@20.256.2"
+          }
+        ]
+      },
+      {
+        "name": "Markdig",
+        "SPDXID": "SPDXRef-nuget-Markdig-1.3.2-ca8f40",
+        "versionInfo": "1.3.2",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "BSD-2-Clause",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Markdig@1.3.2"
+          }
+        ]
+      },
+      {
+        "name": "System.IdentityModel.Tokens.Jwt",
+        "SPDXID": "SPDXRef-nuget-System.IdentityModel.Tokens.Jwt-8.22.0-38965c",
+        "versionInfo": "8.22.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "copyrightText": "(c) Microsoft Corporation, Copyright (c) Microsoft Corporation",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/System.IdentityModel.Tokens.Jwt@8.22.0"
+          }
+        ]
+      },
+      {
+        "name": "HtmlAgilityPack",
+        "SPDXID": "SPDXRef-nuget-HtmlAgilityPack-1.13.0-d5cb31",
+        "versionInfo": "1.13.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/HtmlAgilityPack@1.13.0"
+          }
+        ]
+      },
+      {
+        "name": "Nerdbank.MessagePack",
+        "SPDXID": "SPDXRef-nuget-Nerdbank.MessagePack-1.3.85-1166fb",
+        "versionInfo": "1.3.85",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Nerdbank.MessagePack@1.3.85"
+          }
+        ]
+      },
+      {
+        "name": "MongoDB.Driver",
+        "SPDXID": "SPDXRef-nuget-MongoDB.Driver-3.11.2-f43a16",
+        "versionInfo": "3.11.2",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/MongoDB.Driver@3.11.2"
+          }
+        ]
+      },
+      {
+        "name": "Microsoft.Extensions.AI",
+        "SPDXID": "SPDXRef-nuget-Microsoft.Extensions.AI-10.10.0-b77c8f",
+        "versionInfo": "10.10.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Microsoft.Extensions.AI@10.10.0"
+          }
+        ]
+      },
+      {
+        "name": "Microsoft.Extensions.AI.OpenAI",
+        "SPDXID": "SPDXRef-nuget-Microsoft.Extensions.AI.OpenAI-10.10.0-6e63af",
+        "versionInfo": "10.10.0",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Microsoft.Extensions.AI.OpenAI@10.10.0"
+          }
+        ]
+      },
+      {
+        "name": "Snappier",
+        "SPDXID": "SPDXRef-nuget-Snappier-1.3.1-30fe2d",
+        "versionInfo": "1.3.1",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "BSD-3-Clause",
+        "copyrightText": "Copyright 2011-2020, Google, Inc. and Snappier",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Snappier@1.3.1"
+          }
+        ]
+      },
+      {
+        "name": "Microsoft.Authentication.WebAssembly.Msal",
+        "SPDXID": "SPDXRef-nuget-Microsoft.Authentication.WebAssembly.Msal-10.0.12-6145ba",
+        "versionInfo": "10.0.12",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Microsoft.Authentication.WebAssembly.Msal@10.0.12"
+          }
+        ]
+      },
+      {
+        "name": "Swashbuckle.AspNetCore",
+        "SPDXID": "SPDXRef-nuget-Swashbuckle.AspNetCore-10.2.3-4ca052",
+        "versionInfo": "10.2.3",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "licenseConcluded": "MIT",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Swashbuckle.AspNetCore@10.2.3"
+          }
+        ]
+      },
+      {
+        "name": "Scalar.AspNetCore",
+        "SPDXID": "SPDXRef-nuget-Scalar.AspNetCore-2.17.3-4f1c48",
+        "versionInfo": "2.17.3",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/Scalar.AspNetCore@2.17.3"
+          }
+        ]
+      },
+      {
+        "name": "HotChocolate.AspNetCore",
+        "SPDXID": "SPDXRef-nuget-HotChocolate.AspNetCore-16.6.5-d105b1",
+        "versionInfo": "16.6.5",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/HotChocolate.AspNetCore@16.6.5"
+          }
+        ]
+      },
+      {
+        "name": "HotChocolate.Data",
+        "SPDXID": "SPDXRef-nuget-HotChocolate.Data-16.6.5-38b993",
+        "versionInfo": "16.6.5",
+        "downloadLocation": "NOASSERTION",
+        "filesAnalyzed": false,
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:nuget/HotChocolate.Data@16.6.5"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "spdxElementId": "SPDXRef-npm-d3-array-3.2.4-550d4b",
+        "relatedSpdxElement": "SPDXRef-npm-internmap-2.0.3-936350",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-dsv-3.0.1-c83739",
+        "relatedSpdxElement": "SPDXRef-npm-iconv-lite-0.6.3-42c6ce",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-dsv-3.0.1-c83739",
+        "relatedSpdxElement": "SPDXRef-npm-commander-7.2.0-bc0631",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-dsv-3.0.1-c83739",
+        "relatedSpdxElement": "SPDXRef-npm-rw-1.3.3-8d1fef",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-dagre-d3-es-7.0.14-9b87a2",
+        "relatedSpdxElement": "SPDXRef-npm-lodash-es-4.17.23-3d0251",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-dagre-d3-es-7.0.14-9b87a2",
+        "relatedSpdxElement": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-delaunator-5.1.0-615049",
+        "relatedSpdxElement": "SPDXRef-npm-robust-predicates-3.0.3-1c33a6",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-shape-1.3.7-007fdb",
+        "relatedSpdxElement": "SPDXRef-npm-d3-path-1.0.9-279b17",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-drag-3.0.0-1394c9",
+        "relatedSpdxElement": "SPDXRef-npm-d3-selection-3.0.0-940b60",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-drag-3.0.0-1394c9",
+        "relatedSpdxElement": "SPDXRef-npm-d3-dispatch-3.0.1-946216",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-cose-base-1.0.3-6aae16",
+        "relatedSpdxElement": "SPDXRef-npm-layout-base-1.0.2-2e99d4",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-geo-3.1.1-43411a",
+        "relatedSpdxElement": "SPDXRef-npm-d3-array-3.2.4-550d4b",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-iconify-utils-3.1.0-5e4942",
+        "relatedSpdxElement": "SPDXRef-npm-iconify-types-2.0.0-120d59",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-iconify-utils-3.1.0-5e4942",
+        "relatedSpdxElement": "SPDXRef-npm-antfu-install-pkg-1.1.0-15a3b4",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-iconify-utils-3.1.0-5e4942",
+        "relatedSpdxElement": "SPDXRef-npm-mlly-1.8.2-137862",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-shape-3.2.0-9172d9",
+        "relatedSpdxElement": "SPDXRef-npm-d3-path-3.1.0-12ba06",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-roughjs-4.6.6-ce54fb",
+        "relatedSpdxElement": "SPDXRef-npm-hachure-fill-0.5.2-6e5641",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-roughjs-4.6.6-ce54fb",
+        "relatedSpdxElement": "SPDXRef-npm-points-on-curve-0.2.0-874a61",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-roughjs-4.6.6-ce54fb",
+        "relatedSpdxElement": "SPDXRef-npm-path-data-parser-0.1.0-63ce7e",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-roughjs-4.6.6-ce54fb",
+        "relatedSpdxElement": "SPDXRef-npm-points-on-path-0.2.1-fa1d48",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-force-3.0.0-307fb2",
+        "relatedSpdxElement": "SPDXRef-npm-d3-timer-3.0.1-bfd7b1",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-force-3.0.0-307fb2",
+        "relatedSpdxElement": "SPDXRef-npm-d3-dispatch-3.0.1-946216",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-force-3.0.0-307fb2",
+        "relatedSpdxElement": "SPDXRef-npm-d3-quadtree-3.0.1-361503",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-array-2.12.1-f73418",
+        "relatedSpdxElement": "SPDXRef-npm-internmap-1.0.1-1cc36a",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-scale-chromatic-3.1.0-353d9a",
+        "relatedSpdxElement": "SPDXRef-npm-d3-interpolate-3.0.1-ad74db",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-scale-chromatic-3.1.0-353d9a",
+        "relatedSpdxElement": "SPDXRef-npm-d3-color-3.1.0-4302ad",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-contour-4.0.2-4f53e7",
+        "relatedSpdxElement": "SPDXRef-npm-d3-array-3.2.4-550d4b",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-time-format-4.1.0-d6baef",
+        "relatedSpdxElement": "SPDXRef-npm-d3-time-3.1.0-7a69a2",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-cytoscape-cose-bilkent-4.1.0-0053c9",
+        "relatedSpdxElement": "SPDXRef-npm-cose-base-1.0.3-6aae16",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-scale-4.0.2-7aa436",
+        "relatedSpdxElement": "SPDXRef-npm-d3-time-format-4.1.0-d6baef",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-scale-4.0.2-7aa436",
+        "relatedSpdxElement": "SPDXRef-npm-d3-interpolate-3.0.1-ad74db",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-scale-4.0.2-7aa436",
+        "relatedSpdxElement": "SPDXRef-npm-d3-format-3.1.2-a3b180",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-scale-4.0.2-7aa436",
+        "relatedSpdxElement": "SPDXRef-npm-d3-array-3.2.4-550d4b",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-scale-4.0.2-7aa436",
+        "relatedSpdxElement": "SPDXRef-npm-d3-time-3.1.0-7a69a2",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-antfu-install-pkg-1.1.0-15a3b4",
+        "relatedSpdxElement": "SPDXRef-npm-package-manager-detector-1.6.0-76dfe3",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-antfu-install-pkg-1.1.0-15a3b4",
+        "relatedSpdxElement": "SPDXRef-npm-tinyexec-1.0.4-d40581",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-chord-3.0.1-4493cb",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-force-3.0.0-307fb2",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-selection-3.0.0-940b60",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-shape-3.2.0-9172d9",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-time-format-4.1.0-d6baef",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-axis-3.0.0-3d7fdf",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-dsv-3.0.1-c83739",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-path-3.1.0-12ba06",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-interpolate-3.0.1-ad74db",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-format-3.1.2-a3b180",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-scale-4.0.2-7aa436",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-array-3.2.4-550d4b",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-timer-3.0.1-bfd7b1",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-drag-3.0.0-1394c9",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-polygon-3.0.1-32245f",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-brush-3.0.0-3071bc",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-delaunay-6.0.4-7655f7",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-zoom-3.0.0-b27df3",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-time-3.1.0-7a69a2",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-random-3.0.1-08139c",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-ease-3.0.1-4c4db2",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-geo-3.1.1-43411a",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-fetch-3.0.1-d364aa",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-dispatch-3.0.1-946216",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-hierarchy-3.1.2-88334b",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-scale-chromatic-3.1.0-353d9a",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-transition-3.0.1-53404c",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-color-3.1.0-4302ad",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-quadtree-3.0.1-361503",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relatedSpdxElement": "SPDXRef-npm-d3-contour-4.0.2-4f53e7",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-chevrotain-gast-11.1.2-0f59e0",
+        "relatedSpdxElement": "SPDXRef-npm-lodash-es-4.17.23-3d0251",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-chevrotain-gast-11.1.2-0f59e0",
+        "relatedSpdxElement": "SPDXRef-npm-chevrotain-types-11.1.2-7857ef",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-vscode-languageserver-protocol-3.17.5-378ca4",
+        "relatedSpdxElement": "SPDXRef-npm-vscode-languageserver-types-3.17.5-55e8ea",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-vscode-languageserver-protocol-3.17.5-378ca4",
+        "relatedSpdxElement": "SPDXRef-npm-vscode-jsonrpc-8.2.0-2bf507",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mermaid-js-parser-1.0.1-16a0c5",
+        "relatedSpdxElement": "SPDXRef-npm-langium-4.2.1-1ee5dd",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mermaid-11.13.0-14489b",
+        "relatedSpdxElement": "SPDXRef-npm-iconify-utils-3.1.0-5e4942",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mermaid-11.13.0-14489b",
+        "relatedSpdxElement": "SPDXRef-npm-lodash-es-4.17.23-3d0251",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mermaid-11.13.0-14489b",
+        "relatedSpdxElement": "SPDXRef-npm-katex-0.16.44-e886e2",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mermaid-11.13.0-14489b",
+        "relatedSpdxElement": "SPDXRef-npm-stylis-4.3.6-1ad5df",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mermaid-11.13.0-14489b",
+        "relatedSpdxElement": "SPDXRef-npm-cytoscape-cose-bilkent-4.1.0-0053c9",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mermaid-11.13.0-14489b",
+        "relatedSpdxElement": "SPDXRef-npm-ts-dedent-2.2.0-b63b4c",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mermaid-11.13.0-14489b",
+        "relatedSpdxElement": "SPDXRef-npm-mermaid-js-parser-1.0.1-16a0c5",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mermaid-11.13.0-14489b",
+        "relatedSpdxElement": "SPDXRef-npm-d3-sankey-0.12.3-d627b3",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mermaid-11.13.0-14489b",
+        "relatedSpdxElement": "SPDXRef-npm-khroma-2.1.0-390b7e",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mermaid-11.13.0-14489b",
+        "relatedSpdxElement": "SPDXRef-npm-dagre-d3-es-7.0.14-9b87a2",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mermaid-11.13.0-14489b",
+        "relatedSpdxElement": "SPDXRef-npm-roughjs-4.6.6-ce54fb",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mermaid-11.13.0-14489b",
+        "relatedSpdxElement": "SPDXRef-npm-uuid-11.1.0-7e460d",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mermaid-11.13.0-14489b",
+        "relatedSpdxElement": "SPDXRef-npm-dayjs-1.11.20-4d5b99",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mermaid-11.13.0-14489b",
+        "relatedSpdxElement": "SPDXRef-npm-cytoscape-fcose-2.2.0-81f6d6",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mermaid-11.13.0-14489b",
+        "relatedSpdxElement": "SPDXRef-npm-dompurify-3.4.4-039f56",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mermaid-11.13.0-14489b",
+        "relatedSpdxElement": "SPDXRef-npm-marked-16.4.2-f91799",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mermaid-11.13.0-14489b",
+        "relatedSpdxElement": "SPDXRef-npm-upsetjs-venn.js-2.0.0-5710f5",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mermaid-11.13.0-14489b",
+        "relatedSpdxElement": "SPDXRef-npm-braintree-sanitize-url-7.1.2-8bf3fc",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mermaid-11.13.0-14489b",
+        "relatedSpdxElement": "SPDXRef-npm-d3-7.9.0-6d9c9f",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mermaid-11.13.0-14489b",
+        "relatedSpdxElement": "SPDXRef-npm-cytoscape-3.33.1-0f6373",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-sankey-0.12.3-d627b3",
+        "relatedSpdxElement": "SPDXRef-npm-d3-shape-1.3.7-007fdb",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-sankey-0.12.3-d627b3",
+        "relatedSpdxElement": "SPDXRef-npm-d3-array-2.12.1-f73418",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mlly-1.8.2-137862",
+        "relatedSpdxElement": "SPDXRef-npm-pkg-types-1.3.1-6a3388",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mlly-1.8.2-137862",
+        "relatedSpdxElement": "SPDXRef-npm-acorn-8.16.0-24f678",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mlly-1.8.2-137862",
+        "relatedSpdxElement": "SPDXRef-npm-ufo-1.6.3-1d5e16",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-mlly-1.8.2-137862",
+        "relatedSpdxElement": "SPDXRef-npm-pathe-2.0.3-1ccf0e",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-langium-4.2.1-1ee5dd",
+        "relatedSpdxElement": "SPDXRef-npm-chevrotain-11.1.2-63016a",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-langium-4.2.1-1ee5dd",
+        "relatedSpdxElement": "SPDXRef-npm-vscode-languageserver-textdocument-1.0.12-5cedd7",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-langium-4.2.1-1ee5dd",
+        "relatedSpdxElement": "SPDXRef-npm-chevrotain-allstar-0.3.1-19d244",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-langium-4.2.1-1ee5dd",
+        "relatedSpdxElement": "SPDXRef-npm-vscode-languageserver-9.0.1-fbba25",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-langium-4.2.1-1ee5dd",
+        "relatedSpdxElement": "SPDXRef-npm-vscode-uri-3.1.0-0eac1c",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-pkg-types-1.3.1-6a3388",
+        "relatedSpdxElement": "SPDXRef-npm-confbox-0.1.8-c24c68",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-pkg-types-1.3.1-6a3388",
+        "relatedSpdxElement": "SPDXRef-npm-pathe-2.0.3-1ccf0e",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-pkg-types-1.3.1-6a3388",
+        "relatedSpdxElement": "SPDXRef-npm-mlly-1.8.2-137862",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-chevrotain-11.1.2-63016a",
+        "relatedSpdxElement": "SPDXRef-npm-lodash-es-4.17.23-3d0251",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-chevrotain-11.1.2-63016a",
+        "relatedSpdxElement": "SPDXRef-npm-chevrotain-cst-dts-gen-11.1.2-dd075b",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-chevrotain-11.1.2-63016a",
+        "relatedSpdxElement": "SPDXRef-npm-chevrotain-types-11.1.2-7857ef",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-chevrotain-11.1.2-63016a",
+        "relatedSpdxElement": "SPDXRef-npm-chevrotain-utils-11.1.2-9c2254",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-chevrotain-11.1.2-63016a",
+        "relatedSpdxElement": "SPDXRef-npm-chevrotain-regexp-to-ast-11.1.2-0aaa58",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-chevrotain-11.1.2-63016a",
+        "relatedSpdxElement": "SPDXRef-npm-chevrotain-gast-11.1.2-0f59e0",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-transition-3.0.1-53404c",
+        "relatedSpdxElement": "SPDXRef-npm-d3-interpolate-3.0.1-ad74db",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-transition-3.0.1-53404c",
+        "relatedSpdxElement": "SPDXRef-npm-d3-timer-3.0.1-bfd7b1",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-transition-3.0.1-53404c",
+        "relatedSpdxElement": "SPDXRef-npm-d3-ease-3.0.1-4c4db2",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-transition-3.0.1-53404c",
+        "relatedSpdxElement": "SPDXRef-npm-d3-dispatch-3.0.1-946216",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-transition-3.0.1-53404c",
+        "relatedSpdxElement": "SPDXRef-npm-d3-color-3.1.0-4302ad",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-chevrotain-cst-dts-gen-11.1.2-dd075b",
+        "relatedSpdxElement": "SPDXRef-npm-lodash-es-4.17.23-3d0251",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-chevrotain-cst-dts-gen-11.1.2-dd075b",
+        "relatedSpdxElement": "SPDXRef-npm-chevrotain-types-11.1.2-7857ef",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-chevrotain-cst-dts-gen-11.1.2-dd075b",
+        "relatedSpdxElement": "SPDXRef-npm-chevrotain-gast-11.1.2-0f59e0",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-iconv-lite-0.6.3-42c6ce",
+        "relatedSpdxElement": "SPDXRef-npm-safer-buffer-2.1.2-02379a",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-katex-0.16.44-e886e2",
+        "relatedSpdxElement": "SPDXRef-npm-commander-8.3.0-7f31a1",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-interpolate-3.0.1-ad74db",
+        "relatedSpdxElement": "SPDXRef-npm-d3-color-3.1.0-4302ad",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-brush-3.0.0-3071bc",
+        "relatedSpdxElement": "SPDXRef-npm-d3-selection-3.0.0-940b60",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-brush-3.0.0-3071bc",
+        "relatedSpdxElement": "SPDXRef-npm-d3-interpolate-3.0.1-ad74db",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-brush-3.0.0-3071bc",
+        "relatedSpdxElement": "SPDXRef-npm-d3-drag-3.0.0-1394c9",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-brush-3.0.0-3071bc",
+        "relatedSpdxElement": "SPDXRef-npm-d3-dispatch-3.0.1-946216",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-brush-3.0.0-3071bc",
+        "relatedSpdxElement": "SPDXRef-npm-d3-transition-3.0.1-53404c",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-time-3.1.0-7a69a2",
+        "relatedSpdxElement": "SPDXRef-npm-d3-array-3.2.4-550d4b",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-cose-base-2.2.0-01725a",
+        "relatedSpdxElement": "SPDXRef-npm-layout-base-2.0.1-8953d0",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-cytoscape-fcose-2.2.0-81f6d6",
+        "relatedSpdxElement": "SPDXRef-npm-cose-base-2.2.0-01725a",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-vscode-languageserver-9.0.1-fbba25",
+        "relatedSpdxElement": "SPDXRef-npm-vscode-languageserver-protocol-3.17.5-378ca4",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-zoom-3.0.0-b27df3",
+        "relatedSpdxElement": "SPDXRef-npm-d3-selection-3.0.0-940b60",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-zoom-3.0.0-b27df3",
+        "relatedSpdxElement": "SPDXRef-npm-d3-interpolate-3.0.1-ad74db",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-zoom-3.0.0-b27df3",
+        "relatedSpdxElement": "SPDXRef-npm-d3-drag-3.0.0-1394c9",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-zoom-3.0.0-b27df3",
+        "relatedSpdxElement": "SPDXRef-npm-d3-dispatch-3.0.1-946216",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-zoom-3.0.0-b27df3",
+        "relatedSpdxElement": "SPDXRef-npm-d3-transition-3.0.1-53404c",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-points-on-path-0.2.1-fa1d48",
+        "relatedSpdxElement": "SPDXRef-npm-points-on-curve-0.2.0-874a61",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-points-on-path-0.2.1-fa1d48",
+        "relatedSpdxElement": "SPDXRef-npm-path-data-parser-0.1.0-63ce7e",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-chord-3.0.1-4493cb",
+        "relatedSpdxElement": "SPDXRef-npm-d3-path-3.1.0-12ba06",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-delaunay-6.0.4-7655f7",
+        "relatedSpdxElement": "SPDXRef-npm-delaunator-5.1.0-615049",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-d3-fetch-3.0.1-d364aa",
+        "relatedSpdxElement": "SPDXRef-npm-d3-dsv-3.0.1-c83739",
+        "relationshipType": "DEPENDS_ON"
+      },
+      {
+        "spdxElementId": "SPDXRef-npm-chevrotain-allstar-0.3.1-19d244",
+        "relatedSpdxElement": "SPDXRef-npm-lodash-es-4.17.23-3d0251",
+        "relationshipType": "DEPENDS_ON"
+      }
+    ]
+  }
+}

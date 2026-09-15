@@ -1,0 +1,168 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Timeframe Mappings Configuration",
+  "description": "Configuration for parsing timeframe expressions (QR2604, FY26, H1/26) from Area Paths and mapping them to date ranges. Used for fallback dates and policy validation.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$",
+      "description": "Configuration schema version (e.g., '1.0'). Used for migration between schema versions.",
+      "default": "1.0"
+    },
+    "fiscalYear": {
+      "type": "object",
+      "description": "Fiscal year configuration for FY-prefixed timeframes",
+      "properties": {
+        "offsetMonths": {
+          "type": "integer",
+          "description": "Month offset from calendar year start. Use -3 for fiscal year starting in October (FY26 = Oct 2025 - Sep 2026)",
+          "default": 0,
+          "minimum": -11,
+          "maximum": 11
+        },
+        "pattern": {
+          "type": "string",
+          "description": "Regex pattern for fiscal year expressions. Must include named group 'year'. Optional group 'quarter' for FY quarters.",
+          "default": "FY(?<year>\\d{2})(-Q(?<quarter>[1-4]))?"
+        }
+      },
+      "additionalProperties": false
+    },
+    "patterns": {
+      "type": "array",
+      "description": "List of timeframe patterns to recognize",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Human-readable name for this pattern"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description with examples"
+          },
+          "regex": {
+            "type": "string",
+            "description": "Regex pattern with named groups. Common groups: year, quarter, half, month"
+          },
+          "yearPrefix": {
+            "type": "integer",
+            "description": "Century prefix for 2-digit years (e.g., 20 for 2000s)",
+            "default": 20
+          },
+          "quarterToMonths": {
+            "type": "object",
+            "description": "Mapping of quarter number to start/end months",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "startMonth": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 12
+                },
+                "endMonth": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 12
+                }
+              },
+              "required": ["startMonth", "endMonth"]
+            }
+          },
+          "halfToMonths": {
+            "type": "object",
+            "description": "Mapping of half-year number to start/end months",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "startMonth": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 12
+                },
+                "endMonth": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 12
+                }
+              },
+              "required": ["startMonth", "endMonth"]
+            }
+          }
+        },
+        "required": ["name", "regex"],
+        "additionalProperties": false
+      }
+    },
+    "pathExtraction": {
+      "type": "object",
+      "description": "Configuration for extracting timeframes from Area/Iteration paths",
+      "properties": {
+        "areaPathPatterns": {
+          "type": "array",
+          "description": "Regex patterns to extract timeframe from Area Path. Must include named group 'timeframe'.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "iterationPathPatterns": {
+          "type": "array",
+          "description": "Regex patterns to extract timeframe from Iteration Path. Must include named group 'timeframe'.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "dateFieldDiscovery": {
+      "type": "object",
+      "description": "Configuration for discovering date fields",
+      "properties": {
+        "useFieldMappings": {
+          "type": "boolean",
+          "description": "Whether to use existing field mapping configuration for date field discovery",
+          "default": true
+        },
+        "fallbackFields": {
+          "type": "object",
+          "description": "Fallback field names if not found in field mappings",
+          "properties": {
+            "targetDate": {
+              "type": "array",
+              "description": "Field names to check for target date (in priority order)",
+              "items": {
+                "type": "string"
+              }
+            },
+            "startDate": {
+              "type": "array",
+              "description": "Field names to check for start date (in priority order)",
+              "items": {
+                "type": "string"
+              }
+            },
+            "endDate": {
+              "type": "array",
+              "description": "Field names to check for end/finish date (in priority order)",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": ["patterns"],
+  "additionalProperties": false
+}

@@ -1,0 +1,89 @@
+{
+  "$schema": "./mcp-config-schema.json",
+  "version": "1.0",
+  "mcpServers": {
+    // === Stdio server (subprocess) ===
+    "tavily-remote": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp.tavily.com/mcp/?tavilyApiKey=${TAVILY_API_KEY}"],
+      "env": {
+        "TAVILY_API_KEY": "tvly-your-api-key-here"
+      },
+      "approve": ["search", "extract"]
+    },
+
+    // === Remote HTTPS server — MCP OAuth 2.1 auto-discovery (default, no pre-config needed) ===
+    // Just provide the URL. azdw (like VS Code Copilot Chat) will:
+    //   1. Detect the 401 from the server
+    //   2. Fetch /.well-known/oauth-protected-resource to locate the auth server
+    //   3. Register a dynamic client (RFC 7591) or use a pre-configured clientId
+    //   4. Open the system browser for Authorization Code + PKCE sign-in
+    // This is the recommended approach for any MCP-compliant server.
+    "my-mcp-auto-oauth": {
+      "url": "https://mcp.example.com/mcp",
+      "approve": ["query"]
+    },
+
+    // === Remote HTTPS server — explicit McpOAuth with pre-registered client ID ===
+    // If your auth server requires a registered client ID (skips dynamic registration),
+    // specify it here. 'tenantId' is NOT needed for McpOAuth.
+    "my-mcp-auto-oauth-pre-registered": {
+      "url": "https://mcp.example.com/mcp",
+      "auth": {
+        "authType": "McpOAuth",
+        "clientId": "<pre-registered-client-id>"
+      }
+    },
+
+    // === Remote HTTPS server — no authentication ===
+    "my-public-mcp": {
+      "url": "https://mcp.example.com/mcp",
+      "approve": ["query"],
+      "auth": { "authType": "None" }
+    },
+
+    // === Remote HTTPS server — Entra ID Device Code flow (recommended for CLI) ===
+    // The user is shown a URL + code and signs in on any device with a browser.
+    "my-secure-mcp-device-code": {
+      "url": "https://mcp.example.com/mcp",
+      "auth": {
+        "authType": "EntraIdDeviceCode",
+        "clientId": "<your-client-app-registration-id>",
+        "tenantId": "<your-tenant-id>",
+        "scopes": [
+          "api://<server-client-id>/MCP.Tools.Read",
+          "api://<server-client-id>/MCP.Tools.Execute"
+        ]
+      },
+      "approve": ["read_document"]
+    },
+
+    // === Remote HTTPS server — Entra ID Interactive (browser) flow ===
+    "my-secure-mcp-interactive": {
+      "url": "https://mcp.example.com/mcp",
+      "auth": {
+        "authType": "EntraIdInteractive",
+        "clientId": "<your-client-app-registration-id>",
+        "tenantId": "<your-tenant-id>",
+        "scopes": [
+          "api://<server-client-id>/MCP.Tools.Execute"
+        ]
+      }
+    },
+
+    // === Remote HTTPS server — Entra ID Client Credentials (service-to-service) ===
+    // clientSecret should be injected via an environment variable in production.
+    "my-secure-mcp-service": {
+      "url": "https://mcp.example.com/mcp",
+      "auth": {
+        "authType": "EntraIdClientCredentials",
+        "clientId": "<service-principal-client-id>",
+        "tenantId": "<your-tenant-id>",
+        "scopes": [
+          "api://<server-client-id>/MCP.Tools.Execute"
+        ],
+        "clientSecret": "${MCP_CLIENT_SECRET}"
+      }
+    }
+  }
+}

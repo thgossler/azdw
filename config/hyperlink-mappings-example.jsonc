@@ -1,0 +1,26 @@
+{
+  "$schema": "./hyperlink-mappings-schema.json",
+  "version": "1.0",
+  "description": "Hyperlink relationship mappings for work item type pairs",
+  "defaultBehavior": "Dependency",
+  "mappings": [
+    {
+      "sourceType": "ProductBacklogItem",
+      "targetType": "ProductBacklogItem",
+      "relationship": "Dependency",
+      "description": "PBI-to-PBI hyperlinks represent dependencies"
+    },
+    {
+      "sourceType": "*",
+      "targetType": "Epic",
+      "relationship": "Related",
+      "description": "Wildcard: Any work item type linking to an Epic is considered related"
+    },
+    {
+      "sourceType": "Task",
+      "targetType": "*",
+      "relationship": "Dependency",
+      "description": "Tasks linking to any work item type are dependencies"
+    }
+  ]
+}

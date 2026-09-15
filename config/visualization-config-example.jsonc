@@ -1,0 +1,43 @@
+{
+  "$schema": "./visualization-config-schema.json",
+  "version": "1.0",
+  // Example: Combined visualization with custom colors and node fields
+  //
+  // Usage:
+  //   azdw visualize graph --work-items 2161 --connection LPM \
+  //     --color-map config/visualization-config-example.json \
+  //     --node-fields System.State System.AssignedTo \
+  //     --layout tree --direction lr \
+  //     --group-by-org --show-legend \
+  //     --output visualizations/detailed-view.dot
+  //
+  // This example demonstrates:
+  // - Custom colors for organizations (light blue backgrounds)
+  // - Custom colors for work item types (matching team palette)
+  // - Custom colors for relationship types
+  // - Can be combined with --node-fields for additional context
+  
+  "organizations": {
+    "myOrg1": "#e3f2fd",                   // Light blue for main org
+    "contoso": "#f3e5f5"                   // Light purple for external org
+  },
+  
+  "workItemTypes": {
+    // Strategic items
+    "Epic": "#2196f3",                     // Blue
+    "Feature": "#64b5f6",                  // Lighter blue
+    
+    // Technical items
+    "User Story": "#4caf50",               // Green
+    "Task": "#81c784",                     // Light green
+    "Bug": "#f44336"                       // Red
+  },
+  
+  "relationshipTypes": {
+    "Parent": "#1565c0",                   // Dark blue
+    "Child": "#1565c0",                    // Dark blue
+    "Related": "#7b1fa2",                  // Dark purple
+    "Dependency": "#f57c00",               // Dark orange
+    "Link": "#c62828"                      // Dark red (cross-connection)
+  }
+}

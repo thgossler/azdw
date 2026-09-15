@@ -1,0 +1,70 @@
+# Command: azdw query --connections AcmeFlow-GH --ids 1 --format table --include-pii --force-unicode
+
+
+Query Results Summary:
+  Total Work Items: 18
+  Connections: 1/1 successful (100.0%)
+  Execution Time: 0.45 seconds
+  ✅ Complete Success
+
+Work Items (18 total)
+  18 work item(s) from Connection 'AcmeFlow-GH'
+
+  ╭────┬─────────┬────────┬────────────┬─────────────────────────────────────────╮
+  │ ID │ Type    │ State  │ Assigned   │ Title                                   │
+  ├────┼─────────┼────────┼────────────┼─────────────────────────────────────────┤
+  │ 18 │ Feature │ Active │ Unassigned │ Opt-in telemetry for the CLI            │
+  │ 17 │ Bug     │ Active │ Unassigned │ CLI crashes on Windows path separators  │
+  │ 16 │ Feature │ Active │ Unassigned │ Python: auto-pagination for list        │
+  │    │         │        │            │ endpoints                               │
+  │ 15 │ Task    │ Active │ Unassigned │ SDK quickstart docs                     │
+  │ 14 │ Task    │ Active │ Unassigned │ Add CI matrix for Node 18/20/22         │
+  │ 13 │ Bug     │ Active │ Unassigned │ Incorrect nullable types in generated   │
+  │    │         │        │            │ TS                                      │
+  │ 12 │ Feature │ Active │ Unassigned │ OpenAPI: generate TypeScript types from │
+  │    │         │        │            │ spec                                    │
+  │ 11 │ Feature │ Active │ Unassigned │ CLI: shell completion scripts           │
+  │ 10 │ Bug     │ Active │ Unassigned │ Python SDK retries non-idempotent       │
+  │    │         │        │            │ requests                                │
+  │ 9  │ Bug     │ Active │ Unassigned │ Webhook signature validation fails on   │
+  │    │         │        │            │ Node 20                                 │
+  │ 8  │ Feature │ Active │ Unassigned │ CLI: `acmeflow init` scaffolding        │
+  │ 7  │ Feature │ Active │ Unassigned │ Python: async client support            │
+  │ 6  │ Feature │ Active │ Unassigned │ TS: OAuth device-code auth helper       │
+  │ 5  │ Feature │ Active │ Unassigned │ OpenAPI spec & code generation          │
+  │ 4  │ Feature │ Active │ Unassigned │ AcmeFlow CLI                            │
+  │ 3  │ Feature │ Active │ Unassigned │ Python SDK                              │
+  │ 2  │ Feature │ Active │ Unassigned │ TypeScript SDK                          │
+  │ 1  │ Epic    │ Active │ Unassigned │ Official AcmeFlow SDKs & CLI            │
+  ╰────┴─────────┴────────┴────────────┴─────────────────────────────────────────╯
+
+
+
+---
+                _       
+               | |      
+ _____ _____ __| |_ _ _ 
+(____ (___  ) _  | | | |
+/ ___ |/ __( (_| | | | |
+\_____(_____)____|\___/ 
+
+(say: "A-Z-D-U" /eɪ ziː diː juː/)
+
+Azure DevOps Work Item Handler - A cross-platform tool for
+unified access to Azure DevOps and GitHub work items across
+multiple tenants, organizations and projects.
+
+Version: 0.17.5
+Build: 2026-09-14 22:17:26 UTC
+
+Copyright © Thomas Gossler, 2025-2026
+License: Commercial (use --license to view full license text)
+Demo license: sample
+Expiry: not applicable
+
+What's new: run azdw release-notes or use /release-notes in ai-chat.
+
+Location: azdw
+.NET Runtime: 10.0.12
+GitHub Copilot SDK: 1.0.13
+Node.js: v26.8.1

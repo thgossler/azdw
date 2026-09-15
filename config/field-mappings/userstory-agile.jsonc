@@ -1,0 +1,82 @@
+{
+  "$schema": "./field-mapping-schema.json",
+  
+  // Default field mappings for Agile process template
+  // Auto-generated on 2025-10-15
+  // 
+  // This file defines how logical work item types and fields are mapped to
+  // the physical Azure DevOps Agile process template fields.
+  // 
+  // You can customize these mappings by editing this file. The library will
+  // use these mappings to provide a consistent abstraction layer across
+  // different Azure DevOps organizations using the Agile process template.
+
+  "processTemplate": "Agile",
+  "logicalType": "UserStory", 
+  "physicalType": "User Story",
+  
+  // State mapping: maps physical states to logical states
+  // Logical states: New, Active, Resolved, Closed
+  "stateMapping": {
+    "New": "New",
+    "Active": "Active",
+    "Resolved": "Resolved", 
+    "Closed": "Closed",
+    "Removed": "Closed"  // Treat removed items as closed
+  },
+
+  // Priority mapping: maps physical priority values to logical priorities
+  // Logical priorities: Critical, High, Medium, Low
+  "priorityMapping": {
+    "1": "Critical",
+    "2": "High", 
+    "3": "Medium",
+    "4": "Low"
+  },
+
+  // Field mapping: maps logical field names to physical Azure DevOps field references
+  "logicalFields": {
+    "StoryPoints": "Microsoft.VSTS.Scheduling.StoryPoints",
+    "AcceptanceCriteria": "Microsoft.VSTS.Common.AcceptanceCriteria",
+    "BusinessValue": "Microsoft.VSTS.Common.BusinessValue",
+    "Risk": "Microsoft.VSTS.Common.Risk",
+    "TimeCriticality": "Microsoft.VSTS.Common.TimeCriticality",
+    "ValueArea": "Microsoft.VSTS.Common.ValueArea"
+  },
+
+  // Required fields that must be present in work items of this type
+  "requiredFields": [
+    "System.Title",
+    "System.State", 
+    "System.WorkItemType"
+  ],
+
+  // Optional fields that may be present but are not required
+  "optionalFields": [
+    "Microsoft.VSTS.Scheduling.StoryPoints",
+    "Microsoft.VSTS.Common.AcceptanceCriteria",
+    "Microsoft.VSTS.Common.BusinessValue",
+    "Microsoft.VSTS.Common.Risk",
+    "Microsoft.VSTS.Common.TimeCriticality",
+    "Microsoft.VSTS.Common.ValueArea"
+  ],
+
+  // Default values for fields when not present in the source work item
+  "defaultValues": {
+    "Priority": "Medium",
+    "Risk": "Low", 
+    "ValueArea": "Business"
+  },
+
+  // Human-readable comments explaining mapping decisions
+  "configurationComments": "Default Agile process template mapping for User Story work items. This mapping preserves the standard Agile template field structure while providing logical abstractions for cross-template compatibility.",
+
+  // Field validation rules (currently empty - can be extended)
+  "validationRules": [],
+
+  // Mark this as the default mapping for UserStory logical type
+  "isDefaultMapping": true,
+
+  // Timestamp of last update
+  "lastUpdated": "2025-10-15T00:00:00Z"
+}

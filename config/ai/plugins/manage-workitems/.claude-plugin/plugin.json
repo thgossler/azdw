@@ -1,0 +1,12 @@
+{
+  "name": "manage-workitems",
+  "version": "0.1.0",
+  "description": "Manages Azure DevOps work items across multiple organizations using the azdw tool. Supports querying, creating, updating, visualizing, and creating reports for work items via MCP server tools or CLI commands.",
+  "skills": "./skills/",
+  "mcpServers": {
+    "azdw": {
+      "command": "azdw",
+      "args": ["mcp", "--client-approvals"]
+    }
+  }
+}

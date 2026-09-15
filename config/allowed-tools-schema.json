@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://azdw.dev/schemas/allowed-tools-v1.json",
+  "title": "azdw Allowed Tools Configuration",
+  "description": "Defines which CLI tools the AI is permitted to execute during chat sessions.",
+  "type": "object",
+  "required": ["version", "tools"],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "1.0",
+      "description": "Schema version."
+    },
+    "tools": {
+      "type": "array",
+      "description": "List of permitted CLI tools.",
+      "items": {
+        "type": "object",
+        "required": ["name", "path"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]+$",
+            "description": "Unique alias for the tool (e.g., 'dot'). Alphanumeric, hyphens, underscores only."
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Absolute filesystem path to the tool executable (e.g., '/usr/local/bin/dot')."
+          },
+          "description": {
+            "type": "string",
+            "description": "Human-readable description of the tool's purpose."
+          },
+          "timeoutSeconds": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 300,
+            "default": 30,
+            "description": "Maximum execution time in seconds before the process is killed."
+          }
+        }
+      }
+    }
+  }
+}

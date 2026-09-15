@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "azdw": {
+      "command": "azdw",
+      "args": ["mcp", "--client-approvals"]
+    }
+  }
+}

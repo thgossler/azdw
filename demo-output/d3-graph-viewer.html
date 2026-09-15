@@ -1,0 +1,2152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>D3 Force Graph — Enhanced Viewer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        /* Theme variables */
+        :root {
+            --bg-color: #0b0f16;
+            --panel-bg: rgba(255, 255, 255, 0.92);
+            --panel-text: #111;
+            --panel-text-muted: #666;
+            --button-bg: #2563eb;
+            --button-bg-hover: #1d4ed8;
+            --button-text: #fff;
+            --border-color: #ddd;
+            --input-bg: #fff;
+            --minimap-bg: rgba(255, 255, 255, 0.9);
+            --node-text: #e6edf3;
+            --link-color: #7aa2ff;
+        }
+
+        body.light-theme {
+            --bg-color: #f5f5f5;
+            --panel-bg: rgba(255, 255, 255, 0.95);
+            --panel-text: #111;
+            --panel-text-muted: #666;
+            --button-bg: #2563eb;
+            --button-bg-hover: #1d4ed8;
+            --button-text: #fff;
+            --border-color: #ccc;
+            --input-bg: #fff;
+            --minimap-bg: rgba(255, 255, 255, 0.95);
+            --node-text: #111;
+            --link-color: #4a90e2;
+        }
+
+        svg {
+            width: 100vw;
+            height: 100vh;
+            background: var(--bg-color);
+            display: block;
+            transition: background 0.3s;
+        }
+
+        .hint {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 10;
+            background: var(--panel-bg);
+            color: var(--panel-text);
+            padding: 12px 14px;
+            border-radius: 8px;
+            font: 13px/1.4 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            max-height: 90vh;
+            overflow-y: auto;
+            transition: background 0.3s, color 0.3s, opacity 0.3s, transform 0.3s;
+        }
+
+        .hint.collapsed {
+            opacity: 0;
+            transform: translateX(-100%);
+            pointer-events: none;
+        }
+
+        .panel-toggle {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 11;
+            background: var(--panel-bg);
+            color: var(--panel-text);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: background 0.3s, color 0.3s, transform 0.2s;
+            padding: 0;
+            margin: 0;
+        }
+
+        .panel-toggle:hover {
+            background: var(--button-bg);
+            color: var(--button-text);
+            transform: scale(1.05);
+        }
+
+        .panel-toggle.visible {
+            display: flex;
+        }
+
+        .collapse-button {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: none;
+            border: none;
+            color: var(--panel-text-muted);
+            cursor: pointer;
+            font-size: 20px;
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, color 0.2s;
+            padding: 0;
+            margin: 0;
+        }
+
+        .collapse-button:hover {
+            background: rgba(0, 0, 0, 0.1);
+            color: var(--panel-text);
+        }
+
+        #file {
+            margin-top: 6px;
+            margin-bottom: 6px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        #tip {
+            font-size: 12px;
+            color: var(--panel-text-muted);
+            margin-bottom: 6px;
+        }
+
+        button {
+            margin: 4px 6px 4px 0;
+            border: none;
+            background: var(--button-bg);
+            color: var(--button-text);
+            font: 12px/1 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: var(--button-bg-hover);
+        }
+
+        .control-section {
+            margin: 0px 0;
+            padding: 8px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .control-section:first-child {
+            border-top: none;
+        }
+
+        .control-section h3 {
+            margin: 0 0 8px 0;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--panel-text);
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 6px 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font: 12px/1 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+            background: var(--input-bg);
+            color: var(--panel-text);
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
+            box-sizing: border-box;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--button-bg);
+        }
+
+        .search-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-clear {
+            position: absolute;
+            right: 8px;
+            background: none;
+            border: none;
+            color: var(--panel-text-muted);
+            cursor: pointer;
+            padding: 4px 6px;
+            margin: 0;
+            font-size: 16px;
+            line-height: 1;
+            border-radius: 3px;
+            transition: color 0.2s, background 0.2s;
+        }
+
+        .search-clear:hover {
+            color: var(--panel-text);
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .search-clear.hidden {
+            display: none;
+        }
+
+        .slider-container {
+            margin: 8px 0;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            margin-bottom: 4px;
+            color: var(--panel-text-muted);
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin: 0;
+        }
+
+        select {
+            width: 100%;
+            padding: 6px 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font: 12px/1 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+            background: var(--input-bg);
+            color: var(--panel-text);
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        .mini-map {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            width: 200px;
+            height: 150px;
+            background: var(--minimap-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .mini-map svg {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+        }
+
+        .viewport-rect {
+            fill: rgba(37, 99, 235, 0.2);
+            stroke: #2563eb;
+            stroke-width: 2;
+            cursor: move;
+        }
+
+        .node {
+            cursor: grab;
+            transition: opacity 0.2s;
+        }
+
+        .node.dragging {
+            cursor: grabbing;
+        }
+
+        .node circle {
+            stroke: #fff;
+            stroke-width: 1px;
+            transition: stroke 0.2s, stroke-width 0.2s, filter 0.2s;
+        }
+
+        .node text {
+            fill: var(--node-text);
+            font: 13px/1.2 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+            pointer-events: none;
+            transition: fill 0.3s;
+        }
+
+        .node.highlighted circle {
+            stroke: #ffd700;
+            stroke-width: 4px;
+            filter: drop-shadow(0 0 16px #ffd700) drop-shadow(0 0 8px #ffd700);
+        }
+
+        .node.dimmed {
+            opacity: 0.2 !important;
+        }
+
+        .link {
+            transition: opacity 0.2s;
+        }
+
+        .link.dimmed {
+            opacity: 0.1 !important;
+        }
+
+        #tooltip {
+            position: absolute;
+            display: none;
+            background: var(--panel-bg);
+            color: var(--panel-text);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 10px;
+            font: 12px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            pointer-events: none;
+            z-index: 10000;
+            max-width: 350px;
+            word-wrap: break-word;
+        }
+
+        #tooltip .tooltip-title {
+            font-weight: 600;
+            margin-bottom: 6px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 4px;
+        }
+
+        #tooltip .tooltip-field {
+            margin: 3px 0;
+        }
+
+        #tooltip .tooltip-key {
+            font-weight: 500;
+            color: var(--panel-text-muted);
+        }
+
+        .link-label {
+            transition: opacity 0.2s;
+        }
+
+        .link-label.dimmed {
+            opacity: 0.1;
+        }
+
+        .link-label text {
+            font: italic 11px/1.1 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+            pointer-events: none;
+            transition: fill 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="panelToggle" class="panel-toggle" title="Show control panel">☰</button>
+    <div class="hint" id="controlPanel">
+        <button class="collapse-button" id="collapseButton" title="Hide control panel">✕</button>
+        <div class="control-section">
+            <h3>Load Graph</h3>
+            <div id="fileHint" style="display: none; background: #fff3cd; border: 1px solid #ffc107; border-radius: 4px; padding: 8px; margin-bottom: 8px; color: #856404; font-size: 12px;">
+                📁 <strong>Please click "Choose File" below</strong> and select:<br />
+                <code id="suggestedFile" style="background: #fff; padding: 2px 4px; border-radius: 2px; font-size: 11px; word-break: break-all;"></code>
+            </div>
+            Load a graph JSON file (<code>{ nodes:[], links:[] }</code>):<br />
+            <input id="file" type="file" accept=".json,application/json" /><br />
+            <div id="tip">
+                Tips:<br />
+                Hover node to see tooltip<br />
+                Alt/Opt+hover node to highlight neighbors<br />
+                Click node to open URL in new tab<br />
+                Double-click node to lock/unlock<br />
+                Drag node to reposition
+            </div>
+        </div>
+
+        <div class="control-section">
+            <h3>View Controls</h3>
+            <button id="resetView">Fit to View</button>
+            <button id="themeToggle">Toggle Theme</button>
+        </div>
+
+        <div class="control-section">
+            <h3>Search Nodes</h3>
+            <div class="search-wrapper">
+                <input type="text" id="searchBox" class="search-box" placeholder="Search by label..." />
+                <button id="searchClear" class="search-clear hidden" title="Clear search">✕</button>
+            </div>
+        </div>
+
+        <div class="control-section">
+            <h3>Layout Mode</h3>
+            <select id="layoutMode">
+                <option value="force">Force-Directed</option>
+                <option value="hierarchical">Hierarchical</option>
+                <option value="circular">Circular</option>
+                <option value="grid">Grid</option>
+            </select>
+        </div>
+
+        <div class="control-section">
+            <h3>Force Settings</h3>
+            <div class="slider-container">
+                <div class="slider-label">
+                    <span>Charge:</span>
+                    <span id="chargeValue">-800</span>
+                </div>
+                <input type="range" id="chargeSlider" min="-3000" max="-50" value="-800" step="10" />
+            </div>
+            <div class="slider-container">
+                <div class="slider-label">
+                    <span>Link Distance:</span>
+                    <span id="distanceValue">180</span>
+                </div>
+                <input type="range" id="distanceSlider" min="20" max="600" value="180" step="10" />
+            </div>
+            <div class="slider-container">
+                <div class="slider-label">
+                    <span>Collision Radius:</span>
+                    <span id="collisionValue">1.0x</span>
+                </div>
+                <input type="range" id="collisionSlider" min="0.2" max="5" value="1" step="0.1" />
+            </div>
+        </div>
+
+        <div class="control-section">
+            <h3>Clustering</h3>
+            <button id="clusterByConnection">By Connection</button>
+            <button id="clusterByType">By Work Item Type</button>
+            <button id="disableClustering">Show All Nodes</button>
+        </div>
+
+        <div class="control-section">
+            <h3>Visual Clustering</h3>
+            <label style="display: block; margin: 4px 0; cursor: pointer;">
+                <input type="checkbox" id="softClusterCheckbox" style="margin-right: 6px; cursor: pointer;">
+                Enable soft clustering
+            </label>
+            <label style="display: block; margin: 4px 0; cursor: pointer;">
+                <input type="checkbox" id="hullClusterCheckbox" style="margin-right: 6px; cursor: pointer;">
+                Show cluster bubbles
+            </label>
+        </div>
+
+        <div class="control-section">
+            <h3>Locking</h3>
+            <button id="lockAll">Lock All</button>
+            <button id="releaseAll">Release All</button>
+        </div>
+    </div>
+    <svg id="svg"></svg>
+    <div class="mini-map">
+        <svg id="miniMapSvg"></svg>
+    </div>
+    <div id="tooltip"></div>
+
+    <script>
+        const svg = d3.select("#svg");
+        const miniMapSvg = d3.select("#miniMapSvg");
+        
+        // Define arrowhead markers (will be updated with link colors)
+        const defs = svg.append("defs");
+
+        const g = svg.append("g");
+        const miniMapG = miniMapSvg.append("g");
+
+        const zoom = d3.zoom()
+            .filter(event => !event.ctrlKey && event.type !== "dblclick")
+            .scaleExtent([0.2, 8])
+            .on("zoom", e => {
+                g.attr("transform", e.transform);
+                updateMiniMap();
+            });
+        svg.call(zoom);
+
+        const hullLayer = g.append("g").attr("class", "hull-layer");
+        const linkLayer = g.append("g").attr("stroke-linecap", "round");
+        const linkLabelLayer = g.append("g");
+        const nodeLayer = g.append("g");
+
+        let simulation, currentData, currentLayout = "force";
+        let chargeStrength = -800, linkDistance = 180, collisionMultiplier = 1;
+        let clustersEnabled = false, clusterData = null;
+        let searchTimeout = null;
+        let hoverTimeout = null;
+        let currentHoveredNode = null;
+        let isAltPressed = false;
+        let clickTimeout = null;
+        let softClusterEnabled = false, hullClusterEnabled = false;
+        let clusterCenters = new Map();
+
+        // Panel collapse/expand functionality
+        const controlPanel = document.getElementById("controlPanel");
+        const collapseButton = document.getElementById("collapseButton");
+        const panelToggle = document.getElementById("panelToggle");
+
+        collapseButton.addEventListener("click", () => {
+            controlPanel.classList.add("collapsed");
+            panelToggle.classList.add("visible");
+        });
+
+        panelToggle.addEventListener("click", () => {
+            controlPanel.classList.remove("collapsed");
+            panelToggle.classList.remove("visible");
+        });
+
+        // Global Alt/Opt key tracking for neighbor highlighting
+        document.addEventListener("keydown", (e) => {
+            // Alt key for highlighting neighbors
+            const isAltKey = e.key === "Alt" || e.altKey;
+            
+            if (isAltKey && !isAltPressed) {
+                isAltPressed = true;
+                // If hovering over a node, switch from tooltip to highlighting
+                if (currentHoveredNode) {
+                    d3.select("#tooltip").style("display", "none");
+                    clearTimeout(hoverTimeout);
+                    applyNeighborHighlighting(currentHoveredNode);
+                }
+            }
+        });
+        
+        document.addEventListener("keyup", (e) => {
+            const isAltKey = e.key === "Alt" || !e.altKey;
+            
+            if (isAltKey && isAltPressed) {
+                isAltPressed = false;
+                // If hovering over a node, switch from highlighting to tooltip
+                if (currentHoveredNode) {
+                    clearNeighborHighlighting();
+                    clearTimeout(hoverTimeout);
+                    hoverTimeout = setTimeout(() => {
+                        if (currentHoveredNode) {
+                            showTooltip(currentHoveredNode, window.event || e);
+                        }
+                    }, 300);
+                }
+            }
+        });
+
+        // Helper functions for neighbor highlighting
+        function applyNeighborHighlighting(d) {
+            if (!currentData) return;
+            
+            // Find directly connected nodes (neighbors + the hovered node itself)
+            const connectedNodes = new Set([d.id]);
+            currentData.links.forEach(link => {
+                const sourceId = typeof link.source === "object" ? link.source.id : link.source;
+                const targetId = typeof link.target === "object" ? link.target.id : link.target;
+                
+                if (sourceId === d.id) connectedNodes.add(targetId);
+                if (targetId === d.id) connectedNodes.add(sourceId);
+            });
+            
+            // Dim all nodes that are NOT connected
+            nodeLayer.selectAll(".node").each(function(n) {
+                const shouldDim = !connectedNodes.has(n.id);
+                d3.select(this).classed("dimmed", shouldDim);
+            });
+            
+            // Dim all links that are NOT connected to the hovered node
+            linkLayer.selectAll("line")
+                .classed("dimmed", l => {
+                    const sourceId = typeof l.source === "object" ? l.source.id : l.source;
+                    const targetId = typeof l.target === "object" ? l.target.id : l.target;
+                    return sourceId !== d.id && targetId !== d.id;
+                });
+            
+            linkLabelLayer.selectAll(".link-label")
+                .classed("dimmed", l => {
+                    const sourceId = typeof l.source === "object" ? l.source.id : l.source;
+                    const targetId = typeof l.target === "object" ? l.target.id : l.target;
+                    return sourceId !== d.id && targetId !== d.id;
+                });
+        }
+        
+        function clearNeighborHighlighting() {
+            nodeLayer.selectAll(".node").classed("dimmed", false);
+            linkLayer.selectAll("line").classed("dimmed", false);
+            linkLabelLayer.selectAll(".link-label").classed("dimmed", false);
+        }
+        
+        function showTooltip(d, event) {
+            if (d.metadata && Object.keys(d.metadata).length > 0) {
+                const tooltip = d3.select("#tooltip");
+                
+                // Use title from metadata as header, fallback to label or id
+                const title = d.metadata.title || d.label || d.id;
+                let html = `<div class="tooltip-title">${title}</div>`;
+                
+                // Add all metadata fields except title
+                for (const [key, value] of Object.entries(d.metadata)) {
+                    if (key !== 'title') {
+                        html += `<div class="tooltip-field"><span class="tooltip-key">${key}:</span> ${value}</div>`;
+                    }
+                }
+                
+                tooltip.html(html)
+                    .style("display", "block")
+                    .style("left", (event.pageX + 10) + "px")
+                    .style("top", (event.pageY + 10) + "px");
+            }
+        }
+
+        // Theme management
+        const savedTheme = localStorage.getItem("graphTheme") || "dark";
+        if (savedTheme === "light") {
+            document.body.classList.add("light-theme");
+        }
+
+        document.getElementById("themeToggle").addEventListener("click", () => {
+            document.body.classList.toggle("light-theme");
+            const isLight = document.body.classList.contains("light-theme");
+            localStorage.setItem("graphTheme", isLight ? "light" : "dark");
+            
+            // Update text colors
+            if (currentData) {
+                nodeLayer.selectAll(".node text")
+                    .transition()
+                    .duration(300)
+                    .attr("fill", getComputedStyle(document.documentElement).getPropertyValue('--node-text').trim());
+                
+                linkLabelLayer.selectAll(".link-label text")
+                    .transition()
+                    .duration(300)
+                    .attr("fill", d => {
+                        const linkColor = d.color ?? "#7aa2ff";
+                        return d3.color(linkColor).brighter(isLight ? 0 : 0.5).formatHex();
+                    });
+            }
+        });
+
+        // Load file from URL parameter if provided
+        const urlParams = new URLSearchParams(window.location.search);
+        const fileParam = urlParams.get('file');
+        if (fileParam) {
+            // Show hint instead of trying to load the file
+            const fileHint = document.getElementById("fileHint");
+            const suggestedFile = document.getElementById("suggestedFile");
+            if (fileHint && suggestedFile) {
+                suggestedFile.textContent = decodeURIComponent(fileParam);
+                fileHint.style.display = "block";
+            }
+        }
+
+        // File loading
+        const fileInput = document.getElementById("file");
+        fileInput.addEventListener("change", async (e) => {
+            const file = e.target.files?.[0];
+            if (!file) return;
+            
+            // Hide the hint when a file is chosen
+            const fileHint = document.getElementById("fileHint");
+            if (fileHint) {
+                fileHint.style.display = "none";
+            }
+            
+            try {
+                const data = JSON.parse(await file.text());
+                currentData = data;
+                renderGraph(data);
+            } catch (err) {
+                alert("Could not parse JSON: " + err.message);
+            }
+        });
+
+        // Reset view button
+        document.getElementById("resetView").addEventListener("click", () => {
+            if (!currentData) return;
+            
+            const nodes = currentData.nodes;
+            const padding = 50;
+            
+            let minX = Infinity, maxX = -Infinity;
+            let minY = Infinity, maxY = -Infinity;
+            
+            nodes.forEach(d => {
+                const r = (+d.size > 0 ? +d.size : 10) + 12;
+                minX = Math.min(minX, d.x - r);
+                maxX = Math.max(maxX, d.x + r);
+                minY = Math.min(minY, d.y - r);
+                maxY = Math.max(maxY, d.y + r);
+            });
+            
+            const width = maxX - minX + padding * 2;
+            const height = maxY - minY + padding * 2;
+            const centerX = (minX + maxX) / 2;
+            const centerY = (minY + maxY) / 2;
+            
+            const svgWidth = window.innerWidth;
+            const svgHeight = window.innerHeight;
+            
+            const scale = Math.min(svgWidth / width, svgHeight / height, 2);
+            const translate = [
+                svgWidth / 2 - scale * centerX,
+                svgHeight / 2 - scale * centerY
+            ];
+            
+            svg.transition()
+                .duration(750)
+                .call(zoom.transform, d3.zoomIdentity
+                    .translate(translate[0], translate[1])
+                    .scale(scale));
+        });
+
+        // Search with debouncing
+        const searchBox = document.getElementById("searchBox");
+        const searchClear = document.getElementById("searchClear");
+        
+        searchBox.addEventListener("input", (e) => {
+            clearTimeout(searchTimeout);
+            const query = e.target.value.trim().toLowerCase();
+            
+            // Show/hide clear button
+            searchClear.classList.toggle("hidden", query === "");
+            
+            searchTimeout = setTimeout(() => {
+                if (!currentData) return;
+                
+                if (query === "") {
+                    nodeLayer.selectAll(".node").classed("highlighted", false);
+                    return;
+                }
+                
+                const matches = currentData.nodes.filter(d => 
+                    String(d.label ?? d.id).toLowerCase().includes(query)
+                );
+                
+                nodeLayer.selectAll(".node")
+                    .classed("highlighted", d => matches.includes(d));
+                
+                // Zoom to fit all matches in viewport
+                if (matches.length > 0) {
+                    zoomToNodes(matches);
+                }
+            }, 350);
+        });
+
+        searchClear.addEventListener("click", () => {
+            searchBox.value = "";
+            searchClear.classList.add("hidden");
+            if (currentData) {
+                nodeLayer.selectAll(".node").classed("highlighted", false);
+            }
+        });
+
+        // Force settings sliders
+        document.getElementById("chargeSlider").addEventListener("input", (e) => {
+            chargeStrength = +e.target.value;
+            document.getElementById("chargeValue").textContent = chargeStrength;
+            if (simulation && currentLayout === "force") {
+                simulation.force("charge").strength(chargeStrength);
+                simulation.alpha(0.3).restart();
+            }
+        });
+
+        document.getElementById("distanceSlider").addEventListener("input", (e) => {
+            linkDistance = +e.target.value;
+            document.getElementById("distanceValue").textContent = linkDistance;
+            if (simulation && currentLayout === "force") {
+                simulation.force("link").distance(d => d.distance ?? linkDistance);
+                simulation.alpha(0.3).restart();
+            }
+        });
+
+        document.getElementById("collisionSlider").addEventListener("input", (e) => {
+            collisionMultiplier = +e.target.value;
+            document.getElementById("collisionValue").textContent = collisionMultiplier.toFixed(1) + "x";
+            if (simulation && currentLayout === "force") {
+                simulation.force("collide")
+                    .radius(d => ((+d.size > 0 ? +d.size : 10) + 12) * collisionMultiplier);
+                simulation.alpha(0.3).restart();
+            }
+        });
+
+        // Layout mode switcher
+        document.getElementById("layoutMode").addEventListener("change", (e) => {
+            if (!currentData) return;
+            currentLayout = e.target.value;
+            applyLayout(currentLayout);
+        });
+
+        // Clustering
+        document.getElementById("clusterByConnection").addEventListener("click", () => {
+            if (!currentData) return;
+            
+            // Temporarily disable visual clustering effects (but keep checkboxes checked)
+            if (softClusterEnabled) {
+                removeSoftClustering();
+            }
+            if (hullClusterEnabled) {
+                removeHullPaths();
+            }
+            
+            // If already clustered, restore original data first
+            if (clustersEnabled && clusterData) {
+                currentData.nodes = clusterData.originalNodes;
+                currentData.links = clusterData.originalLinks;
+                clusterData = null;
+            }
+            
+            clustersEnabled = true;
+            applyClusterLayout("group");
+        });
+
+        document.getElementById("clusterByType").addEventListener("click", () => {
+            if (!currentData) return;
+            
+            // Temporarily disable visual clustering effects (but keep checkboxes checked)
+            if (softClusterEnabled) {
+                removeSoftClustering();
+            }
+            if (hullClusterEnabled) {
+                removeHullPaths();
+            }
+            
+            // If already clustered, restore original data first
+            if (clustersEnabled && clusterData) {
+                currentData.nodes = clusterData.originalNodes;
+                currentData.links = clusterData.originalLinks;
+                clusterData = null;
+            }
+            
+            clustersEnabled = true;
+            applyClusterLayout("type");
+        });
+
+        document.getElementById("disableClustering").addEventListener("click", () => {
+            if (!currentData) return;
+            clustersEnabled = false;
+            restoreFromClusters();
+        });
+
+        document.getElementById("lockAll").addEventListener("click", () => {
+            if (!currentData) return;
+            currentData.nodes.forEach(d => { d.fx = d.x; d.fy = d.y; d.locked = true; });
+            if (simulation) simulation.alpha(0.2).restart();
+        });
+
+        document.getElementById("releaseAll").addEventListener("click", () => {
+            if (!currentData) return;
+            currentData.nodes.forEach(d => { d.fx = null; d.fy = null; d.locked = false; });
+            if (simulation) simulation.alpha(0.2).restart();
+        });
+
+        // Visual clustering checkboxes (can be used independently or together)
+        document.getElementById("softClusterCheckbox").addEventListener("change", (e) => {
+            if (e.target.checked) {
+                // Enable soft clustering
+                softClusterEnabled = true;
+                applySoftClustering();
+            } else {
+                // Disable soft clustering
+                softClusterEnabled = false;
+                removeSoftClustering();
+            }
+        });
+
+        document.getElementById("hullClusterCheckbox").addEventListener("change", (e) => {
+            if (e.target.checked) {
+                // Enable hull clustering
+                hullClusterEnabled = true;
+                // Hulls will be drawn on next tick
+                if (simulation) simulation.alpha(0.5).restart();
+            } else {
+                // Disable hull clustering
+                hullClusterEnabled = false;
+                removeHullPaths();
+            }
+        });
+
+        function applySoftClustering() {
+            if (!currentData || !simulation) return;
+            
+            // Create cluster centers based on unique groups
+            const groups = new Set(currentData.nodes.map(n => n.group ?? "default"));
+            const groupArray = Array.from(groups);
+            
+            clusterCenters.clear();
+            
+            // Distribute cluster centers in a circle
+            const centerRadius = Math.min(window.innerWidth, window.innerHeight) / 3;
+            const angleStep = (2 * Math.PI) / groupArray.length;
+            
+            groupArray.forEach((group, i) => {
+                clusterCenters.set(group, {
+                    x: window.innerWidth / 2 + centerRadius * Math.cos(i * angleStep),
+                    y: window.innerHeight / 2 + centerRadius * Math.sin(i * angleStep)
+                });
+            });
+            
+            // Add custom force for cluster grouping
+            simulation.force("cluster", forceCluster());
+            simulation.alpha(0.5).restart();
+        }
+
+        function removeSoftClustering() {
+            if (!simulation) return;
+            simulation.force("cluster", null);
+            simulation.alpha(0.5).restart();
+        }
+
+        function forceCluster() {
+            const strength = 0.15;
+            
+            return function(alpha) {
+                currentData.nodes.forEach(node => {
+                    const group = node.group ?? "default";
+                    const center = clusterCenters.get(group);
+                    
+                    if (center) {
+                        const dx = center.x - node.x;
+                        const dy = center.y - node.y;
+                        node.vx += dx * strength * alpha;
+                        node.vy += dy * strength * alpha;
+                    }
+                });
+            };
+        }
+
+        function removeHullPaths() {
+            hullLayer.selectAll("path").remove();
+            hullLayer.selectAll("text").remove();
+        }
+
+        // Split a soft-cluster label into multiple display lines:
+        // a line break is inserted after the first slash and before the opening parenthesis,
+        // e.g. "github.com/acme-flow/acmeflow-sdk (AcmeFlow-GH)" becomes
+        // ["github.com/", "acme-flow/acmeflow-sdk", "(AcmeFlow-GH)"].
+        function splitClusterLabel(label) {
+            if (!label) return [label ?? ""];
+            const lines = [];
+            let remainder = label;
+
+            // Break after the first slash.
+            const firstSlash = remainder.indexOf("/");
+            if (firstSlash !== -1) {
+                lines.push(remainder.slice(0, firstSlash + 1));
+                remainder = remainder.slice(firstSlash + 1);
+            }
+
+            // Break before the opening parenthesis (connection name).
+            const paren = remainder.indexOf("(");
+            if (paren !== -1) {
+                const before = remainder.slice(0, paren).trimEnd();
+                if (before) lines.push(before);
+                lines.push(remainder.slice(paren));
+            } else if (remainder) {
+                lines.push(remainder);
+            }
+
+            return lines.filter(l => l.length > 0);
+        }
+
+        // Render a (possibly multi-line) cluster label into a <text> element using <tspan>s.
+        // The block is vertically centered around the element's y so the existing
+        // dominant-baseline="middle" positioning keeps working for single- and multi-line labels.
+        function renderClusterLabelTspans(textSelection, lines) {
+            textSelection.text(null);
+            textSelection.selectAll("tspan").remove();
+            const lineHeight = 1.1; // em
+            const firstDy = -((lines.length - 1) * lineHeight) / 2;
+            lines.forEach((line, i) => {
+                textSelection.append("tspan")
+                    .attr("x", 0)
+                    .attr("dy", `${i === 0 ? firstDy : lineHeight}em`)
+                    .text(line);
+            });
+        }
+
+        // Align all <tspan> lines to the resolved x so multi-line labels stack vertically.
+        function alignClusterLabelTspans(textSelection, x) {
+            textSelection.selectAll("tspan").attr("x", x);
+        }
+
+        function updateHullPaths() {
+            if (!hullClusterEnabled || !currentData) {
+                removeHullPaths();
+                return;
+            }
+            
+            // Group nodes by cluster
+            const groupMap = new Map();
+            currentData.nodes.forEach(node => {
+                const group = node.group ?? "default";
+                if (!groupMap.has(group)) groupMap.set(group, []);
+                groupMap.get(group).push(node);
+            });
+            
+            const hullData = [];
+            groupMap.forEach((nodes, group) => {
+                const color = nodes[0].color ?? "#4cc9f0";
+                
+                // For clusters with 1-2 nodes, create a circular hull
+                if (nodes.length === 1) {
+                    const node = nodes[0];
+                    const radius = 50; // Radius for single-node cluster
+                    const circlePoints = [];
+                    for (let i = 0; i < 16; i++) {
+                        const angle = (i / 16) * 2 * Math.PI;
+                        circlePoints.push([
+                            node.x + radius * Math.cos(angle),
+                            node.y + radius * Math.sin(angle)
+                        ]);
+                    }
+                    hullData.push({
+                        group: group,
+                        hull: circlePoints,
+                        color: color,
+                        isSingleNode: true
+                    });
+                } else if (nodes.length === 2) {
+                    // Create an ellipse around two nodes
+                    const n1 = nodes[0], n2 = nodes[1];
+                    const centerX = (n1.x + n2.x) / 2;
+                    const centerY = (n1.y + n2.y) / 2;
+                    const dx = n2.x - n1.x;
+                    const dy = n2.y - n1.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const angle = Math.atan2(dy, dx);
+                    const radiusA = distance / 2 + 40; // Semi-major axis
+                    const radiusB = 40; // Semi-minor axis
+                    
+                    const ellipsePoints = [];
+                    for (let i = 0; i < 16; i++) {
+                        const t = (i / 16) * 2 * Math.PI;
+                        const x = radiusA * Math.cos(t);
+                        const y = radiusB * Math.sin(t);
+                        // Rotate and translate
+                        ellipsePoints.push([
+                            centerX + x * Math.cos(angle) - y * Math.sin(angle),
+                            centerY + x * Math.sin(angle) + y * Math.cos(angle)
+                        ]);
+                    }
+                    hullData.push({
+                        group: group,
+                        hull: ellipsePoints,
+                        color: color,
+                        isTwoNodes: true
+                    });
+                } else {
+                    // For 3+ nodes, use standard convex hull
+                    const points = nodes.map(d => [d.x, d.y]);
+                    const hull = d3.polygonHull(points);
+                    
+                    if (hull) {
+                        hullData.push({
+                            group: group,
+                            hull: hull,
+                            color: color
+                        });
+                    }
+                }
+            });
+            
+            // Update hull paths
+            hullLayer.selectAll("path")
+                .data(hullData, d => d.group)
+                .join(
+                    enter => enter.append("path")
+                        .attr("fill", d => d3.color(d.color).copy({ opacity: 0.2 }))
+                        .attr("stroke", d => d3.color(d.color).copy({ opacity: 0.5 }))
+                        .attr("stroke-width", 2)
+                        .attr("stroke-linejoin", "round")
+                        .attr("d", d => {
+                            // Add padding to hull
+                            const centroid = d3.polygonCentroid(d.hull);
+                            const paddedHull = d.hull.map(point => {
+                                const dx = point[0] - centroid[0];
+                                const dy = point[1] - centroid[1];
+                                const distance = Math.sqrt(dx * dx + dy * dy);
+                                const padding = 20;
+                                return [
+                                    point[0] + (dx / distance) * padding,
+                                    point[1] + (dy / distance) * padding
+                                ];
+                            });
+                            return "M" + paddedHull.join("L") + "Z";
+                        }),
+                    update => update
+                        .attr("d", d => {
+                            // Add padding to hull
+                            const centroid = d3.polygonCentroid(d.hull);
+                            const paddedHull = d.hull.map(point => {
+                                const dx = point[0] - centroid[0];
+                                const dy = point[1] - centroid[1];
+                                const distance = Math.sqrt(dx * dx + dy * dy);
+                                const padding = 20;
+                                return [
+                                    point[0] + (dx / distance) * padding,
+                                    point[1] + (dy / distance) * padding
+                                ];
+                            });
+                            return "M" + paddedHull.join("L") + "Z";
+                        })
+                );
+            
+            // Update hull labels
+            hullLayer.selectAll("text")
+                .data(hullData, d => d.group)
+                .join(
+                    enter => enter.append("text")
+                        .attr("font-family", "system-ui, -apple-system, sans-serif")
+                        .attr("font-size", "24px")
+                        .attr("font-weight", "700")
+                        .attr("fill", d => d3.color(d.color).copy({ opacity: 0.75 }))
+                        .attr("stroke", "var(--bg-color)")
+                        .attr("stroke-width", "4px")
+                        .attr("stroke-opacity", "0.6")
+                        .attr("paint-order", "stroke")
+                        .attr("pointer-events", "none")
+                        .each(function(d) {
+                            renderClusterLabelTspans(d3.select(this), splitClusterLabel(d.group));
+                        })
+                        .each(function(d) {
+                            const textElement = this;
+                            const bbox = textElement.getBBox();
+                            const textWidth = bbox.width;
+                            const textHeight = bbox.height;
+                            
+                            const centroid = d3.polygonCentroid(d.hull);
+                            const paddedHull = d.hull.map(point => {
+                                const dx = point[0] - centroid[0];
+                                const dy = point[1] - centroid[1];
+                                const distance = Math.sqrt(dx * dx + dy * dy);
+                                const padding = 20;
+                                return [
+                                    point[0] + (dx / distance) * padding,
+                                    point[1] + (dy / distance) * padding
+                                ];
+                            });
+                            
+                            // Calculate outward direction (away from other hulls)
+                            let awayVectorX = 0, awayVectorY = 0;
+                            for (const otherHullData of hullData) {
+                                if (otherHullData.group === d.group) continue;
+                                const otherCentroid = d3.polygonCentroid(otherHullData.hull);
+                                const dx = centroid[0] - otherCentroid[0];
+                                const dy = centroid[1] - otherCentroid[1];
+                                const dist = Math.sqrt(dx * dx + dy * dy);
+                                if (dist > 0) {
+                                    // Weight by inverse distance (closer hulls push more)
+                                    const weight = 1 / (dist * dist);
+                                    awayVectorX += (dx / dist) * weight;
+                                    awayVectorY += (dy / dist) * weight;
+                                }
+                            }
+                            
+                            // Normalize the away vector
+                            const awayMagnitude = Math.sqrt(awayVectorX * awayVectorX + awayVectorY * awayVectorY);
+                            if (awayMagnitude > 0) {
+                                awayVectorX /= awayMagnitude;
+                                awayVectorY /= awayMagnitude;
+                            }
+                            
+                            // Define candidate positions with scores based on outward direction
+                            const labelOffset = 40; // Increased distance from hull edge
+                            const positions = [
+                                // Right side
+                                { 
+                                    x: Math.max(...paddedHull.map(p => p[0])) + labelOffset,
+                                    y: centroid[1],
+                                    anchor: "start",
+                                    direction: [1, 0]
+                                },
+                                // Left side
+                                { 
+                                    x: Math.min(...paddedHull.map(p => p[0])) - labelOffset,
+                                    y: centroid[1],
+                                    anchor: "end",
+                                    direction: [-1, 0]
+                                },
+                                // Top
+                                { 
+                                    x: centroid[0],
+                                    y: Math.min(...paddedHull.map(p => p[1])) - labelOffset,
+                                    anchor: "middle",
+                                    direction: [0, -1]
+                                },
+                                // Bottom
+                                { 
+                                    x: centroid[0],
+                                    y: Math.max(...paddedHull.map(p => p[1])) + labelOffset + textHeight,
+                                    anchor: "middle",
+                                    direction: [0, 1]
+                                }
+                            ];
+                            
+                            // Score each position: prefer outward-facing + avoid overlaps
+                            let bestPosition = positions[0];
+                            let bestScore = -Infinity;
+                            
+                            for (const pos of positions) {
+                                // Calculate alignment with outward direction (dot product)
+                                let outwardScore = 0;
+                                if (awayMagnitude > 0) {
+                                    outwardScore = (pos.direction[0] * awayVectorX + pos.direction[1] * awayVectorY) * 1000;
+                                }
+                                
+                                // Calculate text bounding box for this position
+                                let textLeft, textRight;
+                                if (pos.anchor === "start") {
+                                    textLeft = pos.x;
+                                    textRight = pos.x + textWidth;
+                                } else if (pos.anchor === "end") {
+                                    textLeft = pos.x - textWidth;
+                                    textRight = pos.x;
+                                } else { // middle
+                                    textLeft = pos.x - textWidth / 2;
+                                    textRight = pos.x + textWidth / 2;
+                                }
+                                const textTop = pos.y - textHeight / 2;
+                                const textBottom = pos.y + textHeight / 2;
+                                
+                                // Calculate overlap penalty
+                                let overlapPenalty = 0;
+                                for (const otherHullData of hullData) {
+                                    const otherCentroid = d3.polygonCentroid(otherHullData.hull);
+                                    const otherPaddedHull = otherHullData.hull.map(point => {
+                                        const dx = point[0] - otherCentroid[0];
+                                        const dy = point[1] - otherCentroid[1];
+                                        const distance = Math.sqrt(dx * dx + dy * dy);
+                                        const padding = 20;
+                                        return [
+                                            point[0] + (dx / distance) * padding,
+                                            point[1] + (dy / distance) * padding
+                                        ];
+                                    });
+                                    
+                                    const hullLeft = Math.min(...otherPaddedHull.map(p => p[0]));
+                                    const hullRight = Math.max(...otherPaddedHull.map(p => p[0]));
+                                    const hullTop = Math.min(...otherPaddedHull.map(p => p[1]));
+                                    const hullBottom = Math.max(...otherPaddedHull.map(p => p[1]));
+                                    
+                                    // Check for bounding box overlap
+                                    if (textRight > hullLeft && textLeft < hullRight &&
+                                        textBottom > hullTop && textTop < hullBottom) {
+                                        const overlapWidth = Math.min(textRight, hullRight) - Math.max(textLeft, hullLeft);
+                                        const overlapHeight = Math.min(textBottom, hullBottom) - Math.max(textTop, hullTop);
+                                        overlapPenalty += overlapWidth * overlapHeight;
+                                    }
+                                }
+                                
+                                // Combined score: maximize outward alignment, minimize overlap
+                                const score = outwardScore - overlapPenalty;
+                                
+                                if (score > bestScore) {
+                                    bestScore = score;
+                                    bestPosition = pos;
+                                }
+                            }
+                            
+                            d3.select(textElement)
+                                .attr("x", bestPosition.x)
+                                .attr("y", bestPosition.y)
+                                .attr("text-anchor", bestPosition.anchor)
+                                .attr("dominant-baseline", "middle");
+                            alignClusterLabelTspans(d3.select(textElement), bestPosition.x);
+                        }),
+                    update => update
+                        .attr("fill", d => d3.color(d.color).copy({ opacity: 0.75 }))
+                        .each(function(d) {
+                            renderClusterLabelTspans(d3.select(this), splitClusterLabel(d.group));
+                        })
+                        .each(function(d) {
+                            const textElement = this;
+                            const bbox = textElement.getBBox();
+                            const textWidth = bbox.width;
+                            const textHeight = bbox.height;
+                            
+                            const centroid = d3.polygonCentroid(d.hull);
+                            const paddedHull = d.hull.map(point => {
+                                const dx = point[0] - centroid[0];
+                                const dy = point[1] - centroid[1];
+                                const distance = Math.sqrt(dx * dx + dy * dy);
+                                const padding = 20;
+                                return [
+                                    point[0] + (dx / distance) * padding,
+                                    point[1] + (dy / distance) * padding
+                                ];
+                            });
+                            
+                            // Calculate outward direction (away from other hulls)
+                            let awayVectorX = 0, awayVectorY = 0;
+                            for (const otherHullData of hullData) {
+                                if (otherHullData.group === d.group) continue;
+                                const otherCentroid = d3.polygonCentroid(otherHullData.hull);
+                                const dx = centroid[0] - otherCentroid[0];
+                                const dy = centroid[1] - otherCentroid[1];
+                                const dist = Math.sqrt(dx * dx + dy * dy);
+                                if (dist > 0) {
+                                    // Weight by inverse distance (closer hulls push more)
+                                    const weight = 1 / (dist * dist);
+                                    awayVectorX += (dx / dist) * weight;
+                                    awayVectorY += (dy / dist) * weight;
+                                }
+                            }
+                            
+                            // Normalize the away vector
+                            const awayMagnitude = Math.sqrt(awayVectorX * awayVectorX + awayVectorY * awayVectorY);
+                            if (awayMagnitude > 0) {
+                                awayVectorX /= awayMagnitude;
+                                awayVectorY /= awayMagnitude;
+                            }
+                            
+                            // Define candidate positions with scores based on outward direction
+                            const labelOffset = 40; // Increased distance from hull edge
+                            const positions = [
+                                // Right side
+                                { 
+                                    x: Math.max(...paddedHull.map(p => p[0])) + labelOffset,
+                                    y: centroid[1],
+                                    anchor: "start",
+                                    direction: [1, 0]
+                                },
+                                // Left side
+                                { 
+                                    x: Math.min(...paddedHull.map(p => p[0])) - labelOffset,
+                                    y: centroid[1],
+                                    anchor: "end",
+                                    direction: [-1, 0]
+                                },
+                                // Top
+                                { 
+                                    x: centroid[0],
+                                    y: Math.min(...paddedHull.map(p => p[1])) - labelOffset,
+                                    anchor: "middle",
+                                    direction: [0, -1]
+                                },
+                                // Bottom
+                                { 
+                                    x: centroid[0],
+                                    y: Math.max(...paddedHull.map(p => p[1])) + labelOffset + textHeight,
+                                    anchor: "middle",
+                                    direction: [0, 1]
+                                }
+                            ];
+                            
+                            // Score each position: prefer outward-facing + avoid overlaps
+                            let bestPosition = positions[0];
+                            let bestScore = -Infinity;
+                            
+                            for (const pos of positions) {
+                                // Calculate alignment with outward direction (dot product)
+                                let outwardScore = 0;
+                                if (awayMagnitude > 0) {
+                                    outwardScore = (pos.direction[0] * awayVectorX + pos.direction[1] * awayVectorY) * 1000;
+                                }
+                                
+                                // Calculate text bounding box for this position
+                                let textLeft, textRight;
+                                if (pos.anchor === "start") {
+                                    textLeft = pos.x;
+                                    textRight = pos.x + textWidth;
+                                } else if (pos.anchor === "end") {
+                                    textLeft = pos.x - textWidth;
+                                    textRight = pos.x;
+                                } else { // middle
+                                    textLeft = pos.x - textWidth / 2;
+                                    textRight = pos.x + textWidth / 2;
+                                }
+                                const textTop = pos.y - textHeight / 2;
+                                const textBottom = pos.y + textHeight / 2;
+                                
+                                // Calculate overlap penalty
+                                let overlapPenalty = 0;
+                                for (const otherHullData of hullData) {
+                                    const otherCentroid = d3.polygonCentroid(otherHullData.hull);
+                                    const otherPaddedHull = otherHullData.hull.map(point => {
+                                        const dx = point[0] - otherCentroid[0];
+                                        const dy = point[1] - otherCentroid[1];
+                                        const distance = Math.sqrt(dx * dx + dy * dy);
+                                        const padding = 20;
+                                        return [
+                                            point[0] + (dx / distance) * padding,
+                                            point[1] + (dy / distance) * padding
+                                        ];
+                                    });
+                                    
+                                    const hullLeft = Math.min(...otherPaddedHull.map(p => p[0]));
+                                    const hullRight = Math.max(...otherPaddedHull.map(p => p[0]));
+                                    const hullTop = Math.min(...otherPaddedHull.map(p => p[1]));
+                                    const hullBottom = Math.max(...otherPaddedHull.map(p => p[1]));
+                                    
+                                    // Check for bounding box overlap
+                                    if (textRight > hullLeft && textLeft < hullRight &&
+                                        textBottom > hullTop && textTop < hullBottom) {
+                                        const overlapWidth = Math.min(textRight, hullRight) - Math.max(textLeft, hullLeft);
+                                        const overlapHeight = Math.min(textBottom, hullBottom) - Math.max(textTop, hullTop);
+                                        overlapPenalty += overlapWidth * overlapHeight;
+                                    }
+                                }
+                                
+                                // Combined score: maximize outward alignment, minimize overlap
+                                const score = outwardScore - overlapPenalty;
+                                
+                                if (score > bestScore) {
+                                    bestScore = score;
+                                    bestPosition = pos;
+                                }
+                            }
+                            
+                            d3.select(textElement)
+                                .attr("x", bestPosition.x)
+                                .attr("y", bestPosition.y)
+                                .attr("text-anchor", bestPosition.anchor)
+                                .attr("dominant-baseline", "middle");
+                            alignClusterLabelTspans(d3.select(textElement), bestPosition.x);
+                        })
+                );
+        }
+
+        function zoomToNode(node) {
+            const scale = 1.5;
+            const translate = [
+                window.innerWidth / 2 - scale * node.x,
+                window.innerHeight / 2 - scale * node.y
+            ];
+            
+            svg.transition()
+                .duration(500)
+                .call(zoom.transform, d3.zoomIdentity
+                    .translate(translate[0], translate[1])
+                    .scale(scale));
+        }
+
+        function zoomToNodes(nodes) {
+            if (nodes.length === 0) return;
+            
+            if (nodes.length === 1) {
+                zoomToNode(nodes[0]);
+                return;
+            }
+            
+            // Calculate bounding box of all matching nodes
+            const padding = 80;
+            let minX = Infinity, maxX = -Infinity;
+            let minY = Infinity, maxY = -Infinity;
+            
+            nodes.forEach(d => {
+                const r = (+d.size > 0 ? +d.size : 10) + 12;
+                minX = Math.min(minX, d.x - r);
+                maxX = Math.max(maxX, d.x + r);
+                minY = Math.min(minY, d.y - r);
+                maxY = Math.max(maxY, d.y + r);
+            });
+            
+            const width = maxX - minX + padding * 2;
+            const height = maxY - minY + padding * 2;
+            const centerX = (minX + maxX) / 2;
+            const centerY = (minY + maxY) / 2;
+            
+            const svgWidth = window.innerWidth;
+            const svgHeight = window.innerHeight;
+            
+            const scale = Math.min(svgWidth / width, svgHeight / height, 3);
+            const translate = [
+                svgWidth / 2 - scale * centerX,
+                svgHeight / 2 - scale * centerY
+            ];
+            
+            svg.transition()
+                .duration(750)
+                .call(zoom.transform, d3.zoomIdentity
+                    .translate(translate[0], translate[1])
+                    .scale(scale));
+        }
+
+        function applyLayout(layoutType) {
+            if (!currentData) return;
+            
+            const nodes = currentData.nodes;
+            const svgWidth = window.innerWidth;
+            const svgHeight = window.innerHeight;
+            
+            let targetPositions = [];
+            
+            switch (layoutType) {
+                case "force":
+                    // Re-enable force simulation
+                    if (simulation) {
+                        simulation.force("link").strength(0.08);
+                        simulation.force("charge").strength(chargeStrength);
+                        nodes.forEach(d => { if (!d.locked) { d.fx = null; d.fy = null; } });
+                        simulation.alpha(1).restart();
+                    }
+                    return;
+                
+                case "circular":
+                    const circleAngleStep = (2 * Math.PI) / nodes.length;
+                    nodes.forEach((d, i) => {
+                        const radius = Math.min(svgWidth, svgHeight) / 2.5;
+                        targetPositions.push({
+                            node: d,
+                            x: svgWidth / 2 + radius * Math.cos(i * circleAngleStep),
+                            y: svgHeight / 2 + radius * Math.sin(i * circleAngleStep)
+                        });
+                    });
+                    break;
+                
+                case "hierarchical":
+                    // Simple hierarchical layout (levels based on link depth)
+                    const levels = new Map();
+                    const linkMap = new Map();
+                    
+                    currentData.links.forEach(link => {
+                        const sourceId = typeof link.source === "object" ? link.source.id : link.source;
+                        if (!linkMap.has(sourceId)) linkMap.set(sourceId, []);
+                        linkMap.get(sourceId).push(typeof link.target === "object" ? link.target.id : link.target);
+                    });
+                    
+                    // Find root nodes (no incoming edges)
+                    const roots = nodes.filter(n => 
+                        !currentData.links.some(l => 
+                            (typeof l.target === "object" ? l.target.id : l.target) === n.id
+                        )
+                    );
+                    
+                    if (roots.length === 0) roots.push(nodes[0]);
+                    
+                    const visited = new Set();
+                    const queue = roots.map(r => ({ node: r, level: 0 }));
+                    
+                    while (queue.length > 0) {
+                        const { node, level } = queue.shift();
+                        if (visited.has(node.id)) continue;
+                        visited.add(node.id);
+                        
+                        if (!levels.has(level)) levels.set(level, []);
+                        levels.get(level).push(node);
+                        
+                        const children = linkMap.get(node.id) || [];
+                        children.forEach(childId => {
+                            const childNode = nodes.find(n => n.id === childId);
+                            if (childNode && !visited.has(childId)) {
+                                queue.push({ node: childNode, level: level + 1 });
+                            }
+                        });
+                    }
+                    
+                    // Position unvisited nodes
+                    nodes.forEach(n => {
+                        if (!visited.has(n.id)) {
+                            const maxLevel = Math.max(...levels.keys());
+                            if (!levels.has(maxLevel + 1)) levels.set(maxLevel + 1, []);
+                            levels.get(maxLevel + 1).push(n);
+                        }
+                    });
+                    
+                    const levelHeight = svgHeight / (levels.size + 1);
+                    levels.forEach((levelNodes, level) => {
+                        const levelWidth = svgWidth / (levelNodes.length + 1);
+                        levelNodes.forEach((node, i) => {
+                            targetPositions.push({
+                                node: node,
+                                x: (i + 1) * levelWidth,
+                                y: (level + 1) * levelHeight
+                            });
+                        });
+                    });
+                    break;
+                
+                case "grid":
+                    const cols = Math.ceil(Math.sqrt(nodes.length));
+                    const rows = Math.ceil(nodes.length / cols);
+                    const cellWidth = svgWidth / (cols + 1);
+                    const cellHeight = svgHeight / (rows + 1);
+                    
+                    nodes.forEach((d, i) => {
+                        const col = i % cols;
+                        const row = Math.floor(i / cols);
+                        targetPositions.push({
+                            node: d,
+                            x: (col + 1) * cellWidth,
+                            y: (row + 1) * cellHeight
+                        });
+                    });
+                    break;
+            }
+            
+            // Animate to target positions
+            if (simulation) {
+                simulation.force("link").strength(0);
+                simulation.force("charge").strength(0);
+                simulation.alpha(0).stop();
+            }
+            
+            targetPositions.forEach(({ node, x, y }) => {
+                node.fx = x;
+                node.fy = y;
+            });
+            
+            nodeLayer.selectAll(".node")
+                .transition()
+                .duration(1000)
+                .attr("transform", d => `translate(${d.fx},${d.fy})`);
+            
+            linkLayer.selectAll("line")
+                .transition()
+                .duration(1000)
+                .attr("x1", d => d.source.fx)
+                .attr("y1", d => d.source.fy)
+                .attr("x2", d => d.target.fx)
+                .attr("y2", d => d.target.fy);
+            
+            linkLabelLayer.selectAll("g")
+                .transition()
+                .duration(1000)
+                .attr("transform", d => {
+                    const t = 0.7;
+                    const labelX = d.source.fx + (d.target.fx - d.source.fx) * t;
+                    const labelY = d.source.fy + (d.target.fy - d.source.fy) * t;
+                    return `translate(${labelX},${labelY})`;
+                });
+            
+            // Update positions for simulation
+            setTimeout(() => {
+                nodes.forEach(d => {
+                    d.x = d.fx;
+                    d.y = d.fy;
+                });
+            }, 1000);
+        }
+
+        function applyClusterLayout(clusterBy = "group") {
+            if (!currentData) return;
+            
+            // Group nodes by specified property ('group' for connection, 'type' for work item type)
+            const groups = new Map();
+            currentData.nodes.forEach(node => {
+                let groupKey;
+                if (clusterBy === "type") {
+                    // Extract type from metadata or parse from label
+                    groupKey = node.metadata?.type || node.type || "Unknown";
+                } else {
+                    // Default to 'group' property (connection)
+                    groupKey = node.group ?? "default";
+                }
+                
+                if (!groups.has(groupKey)) groups.set(groupKey, []);
+                groups.get(groupKey).push(node);
+            });
+            
+            if (groups.size <= 1) {
+                alert(`No ${clusterBy === "type" ? "work item types" : "groups"} found. Cannot cluster.`);
+                clustersEnabled = false;
+                return;
+            }
+            
+            // Create cluster nodes
+            const clusterNodes = [];
+            const clusterLinks = new Set();
+            
+            groups.forEach((nodes, groupName) => {
+                const centroidX = d3.mean(nodes, d => d.x);
+                const centroidY = d3.mean(nodes, d => d.y);
+                const totalSize = nodes.reduce((sum, n) => sum + (+n.size > 0 ? +n.size : 10), 0);
+                
+                clusterNodes.push({
+                    id: `cluster_${groupName}`,
+                    label: `${groupName}\n(${nodes.length})`,
+                    x: centroidX,
+                    y: centroidY,
+                    fx: centroidX,
+                    fy: centroidY,
+                    size: Math.sqrt(totalSize) * 2,
+                    color: nodes[0].color ?? "#4cc9f0",
+                    group: groupName,  // Add group property for hull bubble labels
+                    isCluster: true,
+                    members: nodes
+                });
+            });
+            
+            // Update links to point to clusters
+            currentData.links.forEach(link => {
+                const sourceNode = typeof link.source === "object" ? link.source : currentData.nodes.find(n => n.id === link.source);
+                const targetNode = typeof link.target === "object" ? link.target : currentData.nodes.find(n => n.id === link.target);
+                
+                let sourceGroup, targetGroup;
+                if (clusterBy === "type") {
+                    sourceGroup = sourceNode?.metadata?.type || sourceNode?.type || "Unknown";
+                    targetGroup = targetNode?.metadata?.type || targetNode?.type || "Unknown";
+                } else {
+                    sourceGroup = sourceNode?.group ?? "default";
+                    targetGroup = targetNode?.group ?? "default";
+                }
+                
+                if (sourceGroup !== targetGroup) {
+                    clusterLinks.add(`cluster_${sourceGroup}→cluster_${targetGroup}`);
+                }
+            });
+            
+            clusterData = {
+                originalNodes: [...currentData.nodes],
+                originalLinks: [...currentData.links],
+                clusterNodes: clusterNodes,
+                clusterLinks: Array.from(clusterLinks).map(key => {
+                    const [source, target] = key.split("→");
+                    return { source, target, color: "#888", width: 2 };
+                })
+            };
+            
+            // Hide original nodes
+            nodeLayer.selectAll(".node")
+                .transition()
+                .duration(500)
+                .style("opacity", 0);
+            
+            linkLayer.selectAll("line")
+                .transition()
+                .duration(500)
+                .style("opacity", 0);
+            
+            linkLabelLayer.selectAll("g")
+                .transition()
+                .duration(500)
+                .style("opacity", 0);
+            
+            // Render cluster nodes
+            setTimeout(() => {
+                currentData.nodes = clusterNodes;
+                currentData.links = clusterData.clusterLinks;
+                renderGraph(currentData, true);
+            }, 500);
+        }
+
+        function restoreFromClusters() {
+            if (!clusterData) return;
+            
+            nodeLayer.selectAll(".node")
+                .transition()
+                .duration(500)
+                .style("opacity", 0);
+            
+            linkLayer.selectAll("line")
+                .transition()
+                .duration(500)
+                .style("opacity", 0);
+            
+            linkLabelLayer.selectAll("g")
+                .transition()
+                .duration(500)
+                .style("opacity", 0);
+            
+            setTimeout(() => {
+                currentData.nodes = clusterData.originalNodes;
+                currentData.links = clusterData.originalLinks;
+                clusterData = null;
+                renderGraph(currentData, true);
+                
+                // Reapply visual clustering modes after restoring nodes
+                setTimeout(() => {
+                    if (softClusterEnabled) {
+                        applySoftClustering();
+                    }
+                    if (hullClusterEnabled && simulation) {
+                        simulation.alpha(0.5).restart();
+                    }
+                }, 100);
+            }, 500);
+        }
+
+        function renderGraph(data, skipTransition = false) {
+            linkLayer.selectAll("*").remove();
+            linkLabelLayer.selectAll("*").remove();
+            nodeLayer.selectAll("*").remove();
+            if (simulation) simulation.stop();
+
+            // Update marker colors for each unique link color
+            const uniqueColors = new Set(data.links.map(d => d.color ?? d.stroke ?? "#7aa2ff"));
+            defs.selectAll("marker")
+                .data(Array.from(uniqueColors))
+                .join("marker")
+                .attr("id", d => `arrow-${d.replace("#", "")}`)
+                .attr("viewBox", "0 -5 10 10")
+                .attr("refX", 10)
+                .attr("refY", 0)
+                .attr("markerWidth", 6)
+                .attr("markerHeight", 6)
+                .attr("orient", "auto")
+                .selectAll("path")
+                .data(d => [d])
+                .join("path")
+                .attr("fill", d => d)
+                .attr("d", "M0,-5L10,0L0,5");
+
+            // --- Links
+            const link = linkLayer.selectAll("line")
+                .data(data.links)
+                .join("line")
+                .attr("class", "link")
+                .attr("stroke", d => d.color ?? d.stroke ?? "#7aa2ff")
+                .attr("stroke-width", d => (d.width ?? d.value ?? 1) * 1.2)
+                .attr("marker-end", d => `url(#arrow-${(d.color ?? d.stroke ?? "#7aa2ff").replace("#", "")})`);
+
+            if (!skipTransition) {
+                link.style("opacity", 0).transition().duration(300).style("opacity", 1);
+            }
+
+            // --- Link labels
+            const isLight = document.body.classList.contains("light-theme");
+            const linkLabel = linkLabelLayer.selectAll("g")
+                .data(data.links)
+                .join("g")
+                .attr("class", "link-label");
+            
+            linkLabel.each(function (d) {
+                const g = d3.select(this);
+                const lines = String(d.label ?? "").split("\n");
+                const linkColor = d.color ?? "#7aa2ff";
+                const brighterColor = d3.color(linkColor).brighter(isLight ? 0 : 0.5).formatHex();
+                lines.forEach((line, i) => {
+                    g.append("text")
+                        .attr("text-anchor", "middle")
+                        .attr("dy", `${i * 1.1}em`)
+                        .attr("fill", brighterColor)
+                        .text(line);
+                });
+            });
+
+            if (!skipTransition) {
+                linkLabel.style("opacity", 0).transition().duration(300).style("opacity", 1);
+            }
+
+            // --- Nodes
+            const node = nodeLayer.selectAll("g.node")
+                .data(data.nodes)
+                .join("g")
+                .attr("class", "node");
+
+            node.append("circle")
+                .attr("r", d => +d.size > 0 ? +d.size : 10)
+                .attr("fill", d => d.color ?? "#4cc9f0")
+                .attr("stroke", d => d.stroke ?? "#fff")
+                .attr("stroke-width", d => d.strokeWidth ?? 1);
+
+            node.each(function (d) {
+                const lines = String(d.label ?? d.id).split("\n");
+                const text = d3.select(this).append("text")
+                    .attr("text-anchor", "middle")
+                    .attr("y", (+d.size > 0 ? +d.size : 10) + 12)
+                    .attr("fill", getComputedStyle(document.documentElement).getPropertyValue('--node-text').trim());
+                lines.forEach((line, i) => {
+                    text.append("tspan")
+                        .attr("x", 0)
+                        .attr("dy", i === 0 ? 0 : "1.1em")
+                        .text(line);
+                });
+            });
+
+            if (!skipTransition) {
+                node.style("opacity", 0).transition().duration(300).style("opacity", 1);
+            }
+
+            // Neighbor highlighting (Alt+hover) and tooltip (hover without Alt)
+            node.on("mouseenter", function(event, d) {
+                clearTimeout(hoverTimeout);
+                currentHoveredNode = d;
+                
+                // Check both global state and event modifiers (for reliability)
+                const altPressed = isAltPressed || event.altKey;
+                
+                if (altPressed) {
+                    // Alt/Opt is pressed: show neighbor highlighting after 100ms
+                    hoverTimeout = setTimeout(() => {
+                        if (currentHoveredNode === d) {
+                            applyNeighborHighlighting(d);
+                        }
+                    }, 100);
+                } else {
+                    // Alt/Opt not pressed: show tooltip after 300ms
+                    hoverTimeout = setTimeout(() => {
+                        if (currentHoveredNode === d) {
+                            showTooltip(d, event);
+                        }
+                    }, 300);
+                }
+            });
+            
+            node.on("mousemove", function(event, d) {
+                // Update tooltip position if it's visible
+                const tooltip = d3.select("#tooltip");
+                if (tooltip.style("display") === "block") {
+                    tooltip
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY + 10) + "px");
+                }
+            });
+
+            node.on("mouseleave", function() {
+                clearTimeout(hoverTimeout);
+                currentHoveredNode = null;
+                clearNeighborHighlighting();
+                
+                // Hide tooltip
+                d3.select("#tooltip").style("display", "none");
+            });
+
+            // Handle single-click to open URL (with delay to distinguish from double-click)
+            node.on("click", function(event, d) {
+                if (event.defaultPrevented) return;
+                
+                // Delay single-click action to distinguish from double-click
+                clearTimeout(clickTimeout);
+                clickTimeout = setTimeout(() => {
+                    // Open URL if available
+                    if (d.url) {
+                        window.open(d.url, '_blank');
+                    }
+                }, 250);
+            });
+
+            // Handle double-click to lock/unlock node
+            node.on("dblclick", (event, d) => {
+                event.preventDefault();
+                event.stopPropagation();
+                
+                // Cancel the pending single-click action
+                clearTimeout(clickTimeout);
+                
+                // Toggle lock state
+                d.locked = !d.locked;
+                if (d.locked) { d.fx = d.x; d.fy = d.y; }
+                else { d.fx = null; d.fy = null; }
+            });
+
+            // --- Simulation
+            simulation = d3.forceSimulation(data.nodes)
+                .force("link", d3.forceLink(data.links)
+                    .id(d => d.id)
+                    .distance(d => d.distance ?? linkDistance)
+                    .strength(d => d.strength ?? 0.08))
+                .force("charge", d3.forceManyBody().strength(d => d.charge ?? chargeStrength))
+                .force("collide", d3.forceCollide().radius(d => ((+d.size > 0 ? +d.size : 10) + 12) * collisionMultiplier))
+                .force("center", d3.forceCenter(window.innerWidth / 2, window.innerHeight / 2))
+                .on("tick", ticked);
+
+            const drag = d3.drag()
+                .on("start", (event, d) => {
+                    if (!event.active) simulation.alphaTarget(0.3).restart();
+                    d.fx = d.x; d.fy = d.y;
+                    d3.select(event.currentTarget).classed("dragging", true);
+                })
+                .on("drag", (event, d) => {
+                    d.fx = event.x; d.fy = event.y;
+                })
+                .on("end", (event, d) => {
+                    if (!event.active) simulation.alphaTarget(0);
+                    if (!d.locked) { d.fx = null; d.fy = null; }
+                    d3.select(event.currentTarget).classed("dragging", false);
+                });
+
+            node.call(drag);
+
+            function ticked() {
+                link.each(function(d) {
+                    const sourceRadius = (+d.source.size > 0 ? +d.source.size : 10);
+                    const targetRadius = (+d.target.size > 0 ? +d.target.size : 10);
+                    
+                    const dx = d.target.x - d.source.x;
+                    const dy = d.target.y - d.source.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance === 0) return;
+                    
+                    // Calculate points at the edge of circles
+                    const sourceX = d.source.x + (dx / distance) * sourceRadius;
+                    const sourceY = d.source.y + (dy / distance) * sourceRadius;
+                    const targetX = d.target.x - (dx / distance) * targetRadius;
+                    const targetY = d.target.y - (dy / distance) * targetRadius;
+                    
+                    d3.select(this)
+                        .attr("x1", sourceX)
+                        .attr("y1", sourceY)
+                        .attr("x2", targetX)
+                        .attr("y2", targetY);
+                });
+
+                node.attr("transform", d => `translate(${d.x},${d.y})`);
+
+                linkLabel.attr("transform", d => {
+                    const t = 0.7;
+                    const labelX = d.source.x + (d.target.x - d.source.x) * t;
+                    const labelY = d.source.y + (d.target.y - d.source.y) * t;
+                    return `translate(${labelX},${labelY})`;
+                });
+                
+                updateHullPaths();
+                updateMiniMap();
+            }
+            
+            renderMiniMap();
+        }
+
+        function renderMiniMap() {
+            if (!currentData) return;
+            
+            miniMapG.selectAll("*").remove();
+            
+            const nodes = currentData.nodes;
+            const links = currentData.links;
+            
+            // Calculate bounds
+            let minX = Infinity, maxX = -Infinity;
+            let minY = Infinity, maxY = -Infinity;
+            
+            nodes.forEach(d => {
+                minX = Math.min(minX, d.x || 0);
+                maxX = Math.max(maxX, d.x || 0);
+                minY = Math.min(minY, d.y || 0);
+                maxY = Math.max(maxY, d.y || 0);
+            });
+            
+            const graphWidth = maxX - minX || 1000;
+            const graphHeight = maxY - minY || 1000;
+            const scale = Math.min(200 / graphWidth, 150 / graphHeight) * 0.9;
+            
+            // Render links
+            miniMapG.selectAll("line")
+                .data(links)
+                .join("line")
+                .attr("x1", d => (d.source.x - minX) * scale)
+                .attr("y1", d => (d.source.y - minY) * scale)
+                .attr("x2", d => (d.target.x - minX) * scale)
+                .attr("y2", d => (d.target.y - minY) * scale)
+                .attr("stroke", "#999")
+                .attr("stroke-width", 0.5);
+            
+            // Render nodes
+            miniMapG.selectAll("circle")
+                .data(nodes)
+                .join("circle")
+                .attr("cx", d => (d.x - minX) * scale)
+                .attr("cy", d => (d.y - minY) * scale)
+                .attr("r", 2)
+                .attr("fill", d => d.color ?? "#4cc9f0");
+            
+            // Add viewport rectangle
+            const viewportRect = miniMapG.append("rect")
+                .attr("class", "viewport-rect");
+            
+            updateMiniMap();
+            
+            // Make viewport draggable
+            let dragStartOffset = { x: 0, y: 0 };
+            const miniMapDrag = d3.drag()
+                .on("start", function(event) {
+                    // Calculate offset from viewport rect's top-left corner to mouse position
+                    const rect = d3.select(this);
+                    const rectX = +rect.attr("x");
+                    const rectY = +rect.attr("y");
+                    dragStartOffset.x = event.x - rectX;
+                    dragStartOffset.y = event.y - rectY;
+                })
+                .on("drag", function(event) {
+                    // Recalculate bounds and scale for current data
+                    const nodes = currentData.nodes;
+                    let minX = Infinity, maxX = -Infinity;
+                    let minY = Infinity, maxY = -Infinity;
+                    
+                    nodes.forEach(d => {
+                        minX = Math.min(minX, d.x || 0);
+                        maxX = Math.max(maxX, d.x || 0);
+                        minY = Math.min(minY, d.y || 0);
+                        maxY = Math.max(maxY, d.y || 0);
+                    });
+                    
+                    const graphWidth = maxX - minX || 1000;
+                    const graphHeight = maxY - minY || 1000;
+                    const minimapScale = Math.min(200 / graphWidth, 150 / graphHeight) * 0.9;
+                    
+                    const transform = d3.zoomTransform(svg.node());
+                    const svgWidth = window.innerWidth;
+                    const svgHeight = window.innerHeight;
+                    
+                    const viewWidth = svgWidth / transform.k;
+                    const viewHeight = svgHeight / transform.k;
+                    
+                    // Calculate new viewport rect position in minimap coordinates
+                    const rectX = event.x - dragStartOffset.x;
+                    const rectY = event.y - dragStartOffset.y;
+                    
+                    // Convert minimap coordinates to graph coordinates (top-left of viewport)
+                    const viewTopLeftX = rectX / minimapScale + minX;
+                    const viewTopLeftY = rectY / minimapScale + minY;
+                    
+                    // Calculate center of viewport
+                    const viewCenterX = viewTopLeftX + viewWidth / 2;
+                    const viewCenterY = viewTopLeftY + viewHeight / 2;
+                    
+                    svg.call(zoom.transform, d3.zoomIdentity
+                        .translate(-viewCenterX * transform.k + svgWidth / 2, -viewCenterY * transform.k + svgHeight / 2)
+                        .scale(transform.k));
+                });
+            
+            viewportRect.call(miniMapDrag);
+        }
+
+        function updateMiniMap() {
+            if (!currentData) return;
+            
+            const nodes = currentData.nodes;
+            let minX = Infinity, maxX = -Infinity;
+            let minY = Infinity, maxY = -Infinity;
+            
+            nodes.forEach(d => {
+                minX = Math.min(minX, d.x || 0);
+                maxX = Math.max(maxX, d.x || 0);
+                minY = Math.min(minY, d.y || 0);
+                maxY = Math.max(maxY, d.y || 0);
+            });
+            
+            const graphWidth = maxX - minX || 1000;
+            const graphHeight = maxY - minY || 1000;
+            const scale = Math.min(200 / graphWidth, 150 / graphHeight) * 0.9;
+            
+            const transform = d3.zoomTransform(svg.node());
+            const svgWidth = window.innerWidth;
+            const svgHeight = window.innerHeight;
+            
+            const viewWidth = svgWidth / transform.k;
+            const viewHeight = svgHeight / transform.k;
+            const viewX = -transform.x / transform.k;
+            const viewY = -transform.y / transform.k;
+            
+            miniMapG.select(".viewport-rect")
+                .attr("x", (viewX - minX) * scale)
+                .attr("y", (viewY - minY) * scale)
+                .attr("width", viewWidth * scale)
+                .attr("height", viewHeight * scale);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,4 @@
+// Command: azdw wiql "SELECT [System.Id], [System.Title], [System.State], [System.WorkItemType] FROM WorkItems ORDER BY [System.Id]" --connections AcmeFlow-GH --format json --silent
+
+Error: WIQL is not supported by the selected connection(s). Use the 'query' 
+command for GitHub-compatible filtering.

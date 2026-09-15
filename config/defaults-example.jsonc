@@ -1,0 +1,73 @@
+{
+  "$schema": "./defaults-schema.json",
+  "version": "1.0",
+  // Example: Override default top-level work item type
+  //
+  // This configuration file allows overriding azdw default settings.
+  // Settings here apply across multiple commands (e.g., relationship find-closure).
+  //
+  // Configuration priority (highest to lowest):
+  // 1. Command-line options (e.g., --top-type)
+  // 2. User config: ~/.azdw/config/defaults.json
+  // 3. Factory config: <exe>/config/defaults.json
+  // 4. Built-in default: "Epic"
+  //
+  // Usage:
+  //   Copy this file to ~/.azdw/config/defaults.json (user override)
+  //   or to <exe>/config/defaults.json (factory default for distribution packages)
+  //
+  // For client-specific packaging, place defaults.json in:
+  //   clients/<client-name>/config/defaults.json
+  // It will be included in the distribution package automatically.
+  
+  // The default top-level work item type to use when not specified via command-line options
+  "topWorkItemType": "Epic",
+
+  // Lightness offset for deriving darker/lighter primary color variants from the loaded CSS theme.
+  // Smaller values produce more subtle variants; larger values increase contrast.
+  // Valid range: 0.01–0.30. Default: 0.10
+  "themeLightnessOffset": 0.10
+
+  // MCP OAuth client ID for the Authorization Code + PKCE flow (used by 'ai chat' with URL-only
+  // MCP server entries). Overrides the built-in azdw multi-tenant Entra ID app registration.
+  // Set this to a client-specific Entra ID app registration ID for all URL-only MCP servers
+  // without having to add an explicit 'auth' block to each server entry in mcp.jsonc.
+  //
+  // "mcpOAuthClientId": "<your-entra-app-client-id>"
+
+  // Follow-up suggestion mode for AI chat. Controls whether the LLM generates contextual
+  // follow-up suggestions after each response. Values:
+  //   "enabled"  (default) — 3–5 suggestions rendered as Q1–Q5 shortcodes in TUI / clickable
+  //                          buttons in Web UI.
+  //   "minimal"             — 1–2 suggestions (saves ~50 tokens in system prompt).
+  //   "disabled"            — No suggestions generated (saves ~150 tokens in system prompt).
+  //
+  // "followUpSuggestions": "enabled"
+
+  // Connection staleness threshold (minutes). When any AI-enabled command starts, connections
+  // whose last successful test is older than this threshold are automatically re-tested in the
+  // background before the first AI interaction. This prevents stale "Connected" status from
+  // causing tool-call failures mid-session (e.g. after a VPN reconnect or overnight break).
+  //
+  //   60   (default) — Re-test if the last successful test was more than 1 hour ago.
+  //    0             — Always re-test all connections on every AI-command startup.
+  //   -1             — Disable automatic staleness checks entirely.
+  //
+  // "connectionStalenessThresholdMinutes": 60
+
+  // Default work-item numeric field reference summed as demand by 'azdw capacity analyze'
+  // (e.g. effort or story points). When set, the --demand-field option becomes optional and
+  // falls back to this value; when not set, --demand-field remains mandatory. There is no
+  // built-in default because the demand field is org/process-specific.
+  //
+  // "capacityDemandField": "Microsoft.VSTS.Scheduling.Effort"
+
+  // PII inclusion approval validity (minutes). On externally reachable MCP hosts, a model must
+  // call the 'request_pii_inclusion' tool (triggering the host's approval UI) before any tool
+  // call with includePii=true. The granted approval stays valid for this many minutes; after it
+  // expires the model must request inclusion again. Non-positive values fall back to the default.
+  //
+  //   5   (default) — Approval is valid for 5 minutes.
+  //
+  // "piiApprovalValidityMinutes": 5
+}

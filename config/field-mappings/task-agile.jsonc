@@ -1,0 +1,61 @@
+{
+  "$schema": "./field-mapping-schema.json",
+  
+  // Default field mappings for Agile process template - Task
+  // Auto-generated field mapping
+  // 
+  // This file defines how logical work item types and fields are mapped to
+  // the physical Azure DevOps Agile process template fields.
+
+  "processTemplate": "Agile",
+  "logicalType": "Task", 
+  "physicalType": "Task",
+  
+  // State mapping: maps physical states to logical states
+  "stateMapping": {
+    "New": "New",
+    "Active": "Active",
+    "Resolved": "Resolved", 
+    "Closed": "Closed",
+    "Removed": "Closed"
+  },
+
+  // Priority mapping: maps physical priority values to logical priorities
+  "priorityMapping": {
+    "1": "Critical",
+    "2": "High", 
+    "3": "Medium",
+    "4": "Low"
+  },
+
+  // Field mapping: maps logical field names to physical Azure DevOps field references
+  "logicalFields": {
+    "RemainingWork": "Microsoft.VSTS.Scheduling.RemainingWork",
+    "CompletedWork": "Microsoft.VSTS.Scheduling.CompletedWork",
+    "OriginalEstimate": "Microsoft.VSTS.Scheduling.OriginalEstimate"
+  },
+
+  // Required fields
+  "requiredFields": [
+    "System.Title",
+    "System.State", 
+    "System.WorkItemType"
+  ],
+
+  // Optional fields
+  "optionalFields": [
+    "Microsoft.VSTS.Scheduling.RemainingWork",
+    "Microsoft.VSTS.Scheduling.CompletedWork",
+    "Microsoft.VSTS.Scheduling.OriginalEstimate"
+  ],
+
+  // Default values
+  "defaultValues": {
+    "Priority": "Medium"
+  },
+
+  "configurationComments": "Default Agile process template mapping for Task work items.",
+  "validationRules": [],
+  "isDefaultMapping": true,
+  "lastUpdated": "2025-10-28T00:00:00Z"
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "./remote-mcp-schema.json",
+  "RemoteMcp": {
+    // Public HTTPS identifier for this protected resource. Must exactly match token audience/resource validation.
+    "CanonicalResourceUri": "https://remote-mcp.example.com/mcp",
+    "McpPath": "/mcp",
+    "ResourceName": "azdw Remote MCP Server",
+    "TenantId": "00000000-0000-0000-0000-000000000001",
+    "ServerClientId": "<remote-mcp-server-app-id>",
+    "AllowMultiTenant": true,
+    "AllowedTenantIds": [
+      "00000000-0000-0000-0000-000000000002",
+      "00000000-0000-0000-0000-000000000003"
+    ],
+    "AuthorizationServers": [
+      "https://login.microsoftonline.com/common/v2.0"
+    ],
+    "RequiredScopes": [
+      "user_impersonation"
+    ],
+    "AuthorizationScopes": [
+      "api://<remote-mcp-server-app-id>/user_impersonation",
+      "offline_access"
+    ],
+    "ValidAudiences": [
+      "<remote-mcp-server-app-id>",
+      "api://<remote-mcp-server-app-id>"
+    ],
+    "AzureDevOpsScope": "499b84ac-1321-427f-aa17-267ca6975798/.default",
+    "EnableOnBehalfOf": true,
+    // Supply OnBehalfOfClientSecret only for local development. Production uses the Container App managed identity.
+    "OnBehalfOfClientSecret": "",
+    "ManagedIdentityClientId": "",
+    "AllowUnsignedDevelopmentTokens": false,
+    "KnownClientIds": [
+      "<vs-code-first-party-client-id>",
+      "<copilot-studio-client-app-id>"
+    ],
+    "AllowClientIdMetadataDocuments": false,
+    "AllowedClientMetadataHosts": [
+      "mcp-client.example.com"
+    ],
+    "AllowDynamicClientRegistration": false,
+    "AllowBearerFallback": true,
+    "RequireDpop": false,
+    "TrustedProxyNetworks": [
+      "10.0.0.0/8"
+    ],
+    "BlockedMetadataHosts": [
+      "localhost",
+      "127.0.0.1"
+    ]
+  }
+}

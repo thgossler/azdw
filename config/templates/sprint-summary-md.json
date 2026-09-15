@@ -1,0 +1,14 @@
+{
+  "id": "sprint-summary-md",
+  "name": "Sprint Summary",
+  "description": "A sprint summary report with header showing sprint name, generated date, and total items count each on separate lines, followed by a table of work items",
+  "engineType": "scriban",
+  "content": "# Sprint Summary\n\n**Sprint:** Current  \n**Generated:** {{ timestamp | format_date 'yyyy-MM-dd HH:mm:ss UTC' }}\n**Total:** {{ items | size }} items\n\n## Work Items\n\n| ID | Title | State |\n|----|-------|-------|\n{{~ for item in items ~}}\n| {{ item.id }} | {{ item.title }} | {{ item.state }} |\n{{~ end ~}}",
+  "outputFormat": "markdown",
+  "mimeType": "text/markdown",
+  "fileExtension": ".md",
+  "category": "AI Generated",
+  "tags": ["ai-generated"],
+  "isEnabled": true,
+  "version": "1.0.0"
+}

@@ -1,0 +1,102 @@
+{
+  "$schema": "./timeframe-mappings-schema.json",
+  "version": "1.0",
+
+  // Fiscal year configuration
+  // FY26 with offsetMonths=-3 means: Oct 1, 2025 - Sep 30, 2026
+  // FY26-Q1 with offsetMonths=-3 means: Oct 1, 2025 - Dec 31, 2025
+  "fiscalYear": {
+    "offsetMonths": -3,
+    "pattern": "FY(?<year>\\d{2})(-Q(?<quarter>[1-4]))?"
+  },
+
+  // Timeframe patterns to recognize
+  "patterns": [
+    {
+      "name": "Quarterly Release (QRyynn)",
+      "description": "QRyymm format where yy=year, n=quarter (e.g., QR2601 = Q1 2026, QR2604 = Q4 2026). Also supports 3-digit format QR261 = Q1 2026.",
+      "regex": "QR(?<year>\\d{2})0?(?<quarter>[1-4])",
+      "yearPrefix": 20,
+      "quarterToMonths": {
+        "1": { "startMonth": 1, "endMonth": 3 },
+        "2": { "startMonth": 4, "endMonth": 6 },
+        "3": { "startMonth": 7, "endMonth": 9 },
+        "4": { "startMonth": 10, "endMonth": 12 }
+      }
+    },
+    {
+      "name": "Half-Year",
+      "description": "Hn/yy or Hn-yy format (e.g., H1/26 = Jan-Jun 2026, H2-26 = Jul-Dec 2026)",
+      "regex": "H(?<half>[12])[/-](?<year>\\d{2})",
+      "yearPrefix": 20,
+      "halfToMonths": {
+        "1": { "startMonth": 1, "endMonth": 6 },
+        "2": { "startMonth": 7, "endMonth": 12 }
+      }
+    },
+    {
+      "name": "Calendar Year Quarter",
+      "description": "yyyy-Qn format (e.g., 2026-Q1 = Jan-Mar 2026)",
+      "regex": "(?<year>\\d{4})-Q(?<quarter>[1-4])",
+      "quarterToMonths": {
+        "1": { "startMonth": 1, "endMonth": 3 },
+        "2": { "startMonth": 4, "endMonth": 6 },
+        "3": { "startMonth": 7, "endMonth": 9 },
+        "4": { "startMonth": 10, "endMonth": 12 }
+      }
+    },
+    {
+      "name": "Calendar Year Quarter (Alternate)",
+      "description": "Qn/yyyy or Qn-yyyy format (e.g., Q1/2026 = Jan-Mar 2026)",
+      "regex": "Q(?<quarter>[1-4])[/-](?<year>\\d{4})",
+      "quarterToMonths": {
+        "1": { "startMonth": 1, "endMonth": 3 },
+        "2": { "startMonth": 4, "endMonth": 6 },
+        "3": { "startMonth": 7, "endMonth": 9 },
+        "4": { "startMonth": 10, "endMonth": 12 }
+      }
+    }
+  ],
+
+  // How to extract timeframes from Area/Iteration paths
+  "pathExtraction": {
+    "areaPathPatterns": [
+      // Match QR followed by 3 or 4 digits (e.g., \QR2604\ or \QR261\)
+      "\\\\(?<timeframe>QR\\d{3,4})(?:\\\\|$)",
+      // Match H1/26 or H2-26 style
+      "\\\\(?<timeframe>H[12][/-]\\d{2})(?:\\\\|$)",
+      // Match under Releases folder
+      "\\\\Releases\\\\(?<timeframe>[^\\\\]+)(?:\\\\|$)",
+      // Match FY26 or FY26-Q1 style
+      "\\\\(?<timeframe>FY\\d{2}(?:-Q[1-4])?)(?:\\\\|$)"
+    ],
+    "iterationPathPatterns": [
+      // Match Sprint N
+      "\\\\(?<timeframe>Sprint\\s*\\d+)(?:\\\\|$)",
+      // Match 2026-Q1 style
+      "\\\\(?<timeframe>\\d{4}-Q[1-4])(?:\\\\|$)"
+    ]
+  },
+
+  // Dynamic date field discovery
+  "dateFieldDiscovery": {
+    "useFieldMappings": true,
+    "fallbackFields": {
+      "targetDate": [
+        "Microsoft.VSTS.Scheduling.TargetDate",
+        "Custom.TargetDate",
+        "TargetDate"
+      ],
+      "startDate": [
+        "Microsoft.VSTS.Scheduling.StartDate",
+        "Custom.StartDate",
+        "StartDate"
+      ],
+      "endDate": [
+        "Microsoft.VSTS.Scheduling.FinishDate",
+        "Custom.EndDate",
+        "FinishDate"
+      ]
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "./report-template-schema.json",
+  "id": "team-dashboard-interactive-html",
+  "name": "Team Dashboard (Interactive HTML)",
+  "description": "Interactive HTML dashboard with automatic C# rendering (template content is ignored for interactive templates)",
+  "engineType": "scriban",
+  "content": "",
+  "outputFormat": "html",
+  "mimeType": "text/html",
+  "fileExtension": ".html",
+  "category": "Dashboards",
+  "tags": ["dashboard", "html", "interactive", "team", "charts"],
+  "parameters": {
+    "team_name": {
+      "name": "team_name",
+      "displayName": "Team Name",
+      "description": "Name of the team for the dashboard",
+      "dataType": "string",
+      "isRequired": true,
+      "placeholderText": "Development Team"
+    }
+  },
+  "defaultValues": {
+    "team_name": "Team"
+  },
+  "isEnabled": true,
+  "isBuiltIn": false,
+  "version": "1.0.0",
+  "author": "Azure DevOps Work Item Handler Library",
+  "supportedDataTypes": ["WorkItem[]"],
+  "dependencies": ["Chart.js"],
+  "sampleInput": "Array of work items with properties: id, title, state, work_item_type, assigned_to, changed_date, url"
+}

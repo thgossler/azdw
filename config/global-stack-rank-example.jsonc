@@ -1,0 +1,53 @@
+{
+  "$schema": "./global-stack-rank-schema.json",
+  "version": "1.0",
+  "profiles": [
+    // Example: a cross-org, cross-provider "virtual backlog" for a value stream working across
+    // two Azure DevOps projects (different orgs) and one GitHub repository.
+    {
+      "name": "PlatformValueStream",
+      "displayName": "Platform Value Stream",
+      "description": "Unified, normalized backlog across the Platform team's Azure DevOps projects and its open-source GitHub repository.",
+      "enabled": true,
+      "sources": [
+        {
+          "name": "core-services",
+          "provider": "AzureDevOps",
+          "organization": "acmeflow",
+          "project": "Core Services",
+          "rankField": "Microsoft.VSTS.Common.StackRank",
+          "sourceMin": 1,
+          "sourceMax": 500,
+          "direction": "LowerIsHigher",
+          "priority": 10
+        },
+        {
+          "name": "platform-portfolio",
+          "provider": "AzureDevOps",
+          "organization": "collaboration",
+          "project": "PortfolioMgmt",
+          "areaPath": {
+            "pattern": "**\\Platform\\**",
+            "patternType": "Glob"
+          },
+          "rankField": "Custom.GlobalStackRank",
+          "sourceMin": 1,
+          "sourceMax": 100,
+          "direction": "LowerIsHigher",
+          "priority": 5
+        },
+        {
+          "name": "platform-oss",
+          "provider": "GitHub",
+          "organization": "acme-platform",
+          "repository": "widgets",
+          "rankField": "Priority",
+          "sourceMin": 0,
+          "sourceMax": 5,
+          "direction": "HigherIsHigher",
+          "priority": 5
+        }
+      ]
+    }
+  ]
+}

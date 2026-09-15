@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Item Report</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;600;700&display=swap" rel="stylesheet">
+    
+<style>
+        :root {
+
+    /* ========================================================================
+     * FONT CONFIGURATION
+     * ========================================================================
+     * 
+     * --font-primary: Main text font (headings, body text)
+     * --font-secondary: Alternative font for specific elements
+     * --font-mono: Monospace font for code and technical content
+     * 
+     * Default uses Merriweather (Google Font) with Georgia/serif fallbacks.
+     * For a modern sans-serif look, try:
+     *   --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+     * ======================================================================== */
+    --font-primary: 'Merriweather', Georgia, 'Times New Roman', serif;
+    --font-secondary: 'Merriweather', Georgia, serif;
+    --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Consolas', monospace;
+    
+    /* ========================================================================
+     * FONT SIZES
+     * ========================================================================
+     * 
+     * Base sizes for typography. Adjust for your brand guidelines.
+     * Uses em/rem for scalability and accessibility.
+     * ======================================================================== */
+    --font-size-base: 16px;
+    --font-size-xs: 0.75em;      /* 12px at base */
+    --font-size-sm: 0.85em;      /* 13.6px at base */
+    --font-size-md: 0.9em;       /* 14.4px at base */
+    --font-size-lg: 1.1em;       /* 17.6px at base */
+    --font-size-xl: 1.4em;       /* 22.4px at base */
+    --font-size-2xl: 2em;        /* 32px at base */
+    --font-size-3xl: 2.2em;      /* 35.2px at base */
+    
+    /* ========================================================================
+     * LINE HEIGHT & SPACING
+     * ======================================================================== */
+    --line-height-base: 1.6;
+    --line-height-tight: 1.4;
+    --line-height-loose: 1.8;
+    
+    /* ========================================================================
+     * BACKGROUND COLORS
+     * ========================================================================
+     * 
+     * --bg-primary: Main page background (warm off-white by default)
+     * --bg-card: Card/panel backgrounds
+     * --bg-card-hover: Card hover state
+     * --bg-header: Header/toolbar backgrounds (uses accent color by default)
+     * ======================================================================== */
+    --bg-primary: #F5F5F0;
+    --bg-card: #FAFAF8;
+    --bg-card-hover: #FFFFFF;
+    --bg-header: var(--accent-primary);
+    
+    /* ========================================================================
+     * TEXT COLORS
+     * ========================================================================
+     * 
+     * --text-primary: Main text color (near black)
+     * --text-secondary: Secondary/supporting text
+     * --text-muted: Subtle text, labels, captions
+     * --text-inverse: Text on dark backgrounds (headers, buttons)
+     * ======================================================================== */
+    --text-primary: #1A1A1A;
+    --text-secondary: #5C5C5C;
+    --text-muted: #8C8C8C;
+    --text-inverse: #FFFFFF;
+    
+    /* ========================================================================
+     * ACCENT / BRAND COLORS
+     * ========================================================================
+     * 
+     * --accent-primary: Main brand/accent color (coral by default)
+     * --accent-primary-hover: Darker shade for hover states
+     * --accent-primary-light: Light tint for backgrounds, badges
+     * 
+     * These colors are used for:
+     * - Links, buttons, interactive elements
+     * - Headers, highlights, emphasis
+     * - Charts, statistics, badges
+     * 
+     * BRAND CUSTOMIZATION EXAMPLES:
+     * 
+     * Blue corporate theme:
+     *   --accent-primary: #0066CC;
+     *   --accent-primary-hover: #004C99;
+     *   --accent-primary-light: rgba(0, 102, 204, 0.1);
+     * 
+     * Green eco theme:
+     *   --accent-primary: #2E7D32;
+     *   --accent-primary-hover: #1B5E20;
+     *   --accent-primary-light: rgba(46, 125, 50, 0.1);
+     * 
+     * Purple modern theme:
+     *   --accent-primary: #7B1FA2;
+     *   --accent-primary-hover: #4A148C;
+     *   --accent-primary-light: rgba(123, 31, 162, 0.1);
+     * ======================================================================== */
+    --accent-primary: #D97757;
+    --accent-primary-hover: #C4613F;
+    --accent-primary-light: rgba(217, 119, 87, 0.1);
+    
+    /* Legacy variable names for backwards compatibility with existing templates */
+    --accent-coral: var(--accent-primary);
+    --accent-coral-hover: var(--accent-primary-hover);
+    --accent-coral-light: var(--accent-primary-light);
+    
+    /* ========================================================================
+     * BORDER COLORS
+     * ======================================================================== */
+    --border-light: #E5E5E0;
+    --border-medium: #D4D4CF;
+    --border-dark: #BFBFBA;
+    
+    /* ========================================================================
+     * SEMANTIC COLORS
+     * ========================================================================
+     * 
+     * Used for badges, status indicators, work item types, etc.
+     * ======================================================================== */
+    
+    /* Success / Completed states */
+    --color-success: #228B22;
+    --color-success-bg: rgba(34, 139, 34, 0.1);
+    --color-success-text: #228B22;
+    
+    /* Warning / In-Progress states */
+    --color-warning: #B8860B;
+    --color-warning-bg: rgba(184, 134, 11, 0.1);
+    --color-warning-text: #B8860B;
+    
+    /* Info / Active states */
+    --color-info: #4682B4;
+    --color-info-bg: rgba(70, 130, 180, 0.1);
+    --color-info-text: #4682B4;
+    
+    /* Error / Bug states */
+    --color-error: #cc293d;
+    --color-error-bg: rgba(204, 41, 61, 0.1);
+    --color-error-text: #cc293d;
+    
+    /* ========================================================================
+     * WORK ITEM TYPE COLORS
+     * ========================================================================
+     * 
+     * Colors for work item types in visualizations and dashboards.
+     * ======================================================================== */
+    --color-epic: #B8540F;
+    --color-feature: #D97757;
+    --color-story: #D9A057;
+    --color-bug: #cc293d;
+    --color-task: #8CAD57;
+    --color-task-done: #5C7A2E;
+    
+    /* ========================================================================
+     * BADGE COLORS
+     * ======================================================================== */
+    --badge-report-bg: var(--color-success-bg);
+    --badge-report-text: var(--color-success-text);
+    --badge-viz-bg: var(--color-info-bg);
+    --badge-viz-text: var(--color-info-text);
+    --badge-query-bg: var(--color-warning-bg);
+    --badge-query-text: var(--color-warning-text);
+    
+    /* ========================================================================
+     * LAYOUT & SIZING
+     * ======================================================================== */
+    --container-max-width: 900px;
+    --border-radius-sm: 6px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+    
+    /* Padding */
+    --padding-xs: 4px;
+    --padding-sm: 8px;
+    --padding-md: 12px;
+    --padding-lg: 16px;
+    --padding-xl: 20px;
+    --padding-2xl: 24px;
+    --padding-3xl: 32px;
+    --padding-4xl: 40px;
+    
+    /* Gaps/margins */
+    --gap-sm: 8px;
+    --gap-md: 12px;
+    --gap-lg: 16px;
+    --gap-xl: 24px;
+    
+    /* ========================================================================
+     * SHADOWS & EFFECTS
+     * ======================================================================== */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.04);
+    --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.15);
+    
+    /* ========================================================================
+     * TRANSITIONS
+     * ======================================================================== */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.2s ease;
+    --transition-slow: 0.3s ease;
+
+        }
+    * { box-sizing: border-box; }
+    body { font-family: var(--font-primary, 'Merriweather', Georgia, serif); margin: 0; padding: 40px 20px; background: var(--bg-primary); color: var(--text-primary); line-height: var(--line-height-base, 1.6); }
+    .container { max-width: 100%; width: 100%; margin: 0 auto; background: var(--bg-card); border-radius: var(--border-radius-lg, 12px); border: 1px solid var(--border-light); }
+    .report-header { padding: 40px 30px; text-align: center; border-bottom: 1px solid var(--border-light); }
+    .header-icon { font-size: 2.5em; margin-bottom: 16px; }
+    .report-header h1 { margin: 0 0 12px 0; font-size: var(--font-size-3xl, 2.2em); font-weight: 600; color: var(--text-primary); letter-spacing: -0.02em; }
+    .report-meta { margin: 0; color: var(--text-secondary); font-size: var(--font-size-lg, 1.1em); }
+    .report-content { padding: 30px; }
+    .report-footer { padding: 40px 20px; text-align: center; border-top: 1px solid var(--border-light); margin-top: 40px; }
+    .azdw-signature { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--border-radius-lg, 12px); padding: 24px 32px; font-family: var(--font-mono, 'SF Mono', Monaco, monospace); font-size: 0.85em; line-height: 1.5; color: var(--text-secondary); text-align: left; white-space: pre-wrap; display: inline-block; }
+    .azdw-signature a { color: var(--accent-coral, var(--accent-primary)); text-decoration: none; }
+    .azdw-signature a:hover { text-decoration: underline; }
+    .summary { margin-bottom: 30px; }
+    .data-table-container { margin: 20px 0; border-radius: var(--border-radius-md, 8px); border: 1px solid var(--border-light); overflow: auto; }
+    .table-controls { margin-bottom: 15px; }
+    .search-input { padding: 12px 16px; border: 1px solid var(--border-medium); border-radius: var(--border-radius-md, 8px); width: 100%; max-width: 400px; font-family: inherit; font-size: 0.95em; }
+    .search-input:focus { outline: none; border-color: var(--accent-coral, var(--accent-primary)); }
+    .data-table { width: 100%; border-collapse: collapse; margin: 0; table-layout: fixed; min-width: 1400px; }
+    .data-table th, .data-table td { padding: 12px 8px; text-align: left; border-bottom: 1px solid var(--border-light); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .data-table th { background: var(--bg-card); font-weight: 600; position: sticky; top: 0; z-index: 10; color: var(--text-secondary); font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.03em; }
+    .data-table td { background: var(--bg-card); cursor: help; }
+    .data-table tr:hover td { background: var(--bg-card-hover); }
+    .data-table th.sortable { cursor: pointer; user-select: none; }
+    .data-table th.sortable:hover { background: var(--border-light); }
+    .data-table a { color: var(--accent-coral, var(--accent-primary)); text-decoration: none; font-weight: 500; }
+    .data-table a:hover { text-decoration: underline; }
+    .data-table td[title] { position: relative; }
+    .data-table td[data-column='Id'] { width: 8%; }
+    .data-table td[data-column='LogicalType'], .data-table td[data-column='State'] { width: 10%; }
+    .data-table td[data-column='Title'], .data-table td[data-column='Description'] { width: 25%; }
+    .data-table td[data-column='AssignedTo'], .data-table td[data-column='CreatedBy'] { width: 12%; }
+    .data-table td[data-column='CreatedDate'], .data-table td[data-column='ChangedDate'], .data-table td[data-column='ModifiedDate'] { width: 10%; }
+    .data-table td[data-column='Connection'], .data-table td[data-column='Project'] { width: 12%; }
+    
+    /* Resizable table columns for WorkItem tables */
+    .resizable-table { table-layout: fixed; min-width: 1500px; }
+    .resizable-table th { position: relative; }
+    .resizable-table th[data-column='Id'] { min-width: 70px; width: 70px; }
+    .resizable-table th[data-column='Title'] { min-width: 180px; width: 200px; }
+    .resizable-table th[data-column='State'] { min-width: 80px; width: 90px; }
+    .resizable-table th[data-column='WorkItemType'] { min-width: 90px; width: 100px; }
+    .resizable-table th[data-column='AssignedTo'] { min-width: 120px; width: 130px; }
+    .resizable-table th[data-column='Priority'] { min-width: 70px; width: 75px; }
+    .resizable-table th[data-column='ChangedDate'] { min-width: 130px; width: 140px; }
+    .resizable-table th[data-column='AreaPath'] { min-width: 150px; width: 160px; }
+    .resizable-table th[data-column='Connection'] { min-width: 110px; width: 120px; }
+    .resizable-table th[data-column='Project'] { min-width: 180px; width: 250px; }
+    .resizable-table th[data-column='Tags'] { min-width: 100px; width: 120px; }
+    .resizable-table td { white-space: normal; word-wrap: break-word; padding: 8px 6px; }
+    .resizable-table td[data-column='Project'] { max-width: 250px; overflow-wrap: break-word; word-break: break-word; white-space: normal; }
+    .resizable-table td[data-column='Title'] { white-space: normal; }
+    .resizable-table td[data-column='AreaPath'] { white-space: normal; }
+    
+    .item { margin-bottom: 20px; padding: 24px; border: 1px solid var(--border-light); border-radius: var(--border-radius-lg, 12px); background: var(--bg-card); }
+    .object-details .property { margin-bottom: 8px; }
+    .property-name { font-weight: 600; color: var(--text-secondary); margin-right: 10px; }
+    .property-value { color: var(--text-primary); word-break: break-word; }
+    .chart-container { margin: 20px 0; }
+    @media (max-width: 768px) {
+        body { padding: 20px 16px; }
+        .report-header { padding: 30px 20px; }
+        .report-header h1 { font-size: 1.8em; }
+        .report-content { padding: 20px 15px; }
+        .data-table th, .data-table td { padding: 8px 6px; font-size: 0.9em; }
+    }
+    .theme-dark { background: #1a1a1a; color: #fff; }
+    .theme-dark .container { background: #2d2d2d; border-color: #444; }
+    .theme-dark .data-table th { background: #3a3a3a; color: #fff; }
+    .theme-dark .data-table td { background: #2d2d2d; color: #fff; }
+    .theme-dark .data-table tr:hover td { background: #3a3a3a; }
+</style>
+    
+</head>
+<body class="light">
+    <div class="container">
+        <header class="report-header">
+            <div class="header-icon">📊</div>
+            <h1>Work Item Report</h1>
+            <p class="report-meta">Generated: 2026-09-14 22:18:07 UTC</p>
+        </header>
+        <main class="report-content">
+            <section class="summary">
+<h2>Summary</h2>
+<p><strong>Total Items:</strong> 18</p>
+<h3>By Status</h3>
+<ul>
+<li><strong>Active:</strong> 18</li>
+</ul>
+</section>
+
+<div class="table-controls">
+<input type="text" id="table-search" placeholder="Search work items..." class="search-input">
+</div>
+<div class="data-table-container">
+<table class="data-table resizable-table" id="data-table">
+<thead>
+<tr>
+<th class="sortable" data-column="Id" title="Work Item ID">ID</th>
+<th class="sortable" data-column="Title" title="Work Item Title">Title</th>
+<th class="sortable" data-column="State" title="Current State">State</th>
+<th class="sortable" data-column="WorkItemType" title="Work Item Type">Type</th>
+<th class="sortable" data-column="AssignedTo" title="Assigned To">Assigned</th>
+<th class="sortable" data-column="Priority" title="Priority">Priority</th>
+<th class="sortable" data-column="ChangedDate" title="Last Modified Date">Modified</th>
+<th class="sortable" data-column="AreaPath" title="Area Path">Area</th>
+<th class="sortable" data-column="Connection" title="Azure DevOps Organization">Organization</th>
+<th class="sortable" data-column="Project" title="Azure DevOps Project">Project</th>
+<th data-column="Tags" title="Tags">Tags</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-column="Id"><a href="https://github.com/acme-flow/acmeflow-sdk/issues/18" target="_blank" title="18">18</a></td>
+<td data-column="Title" title="Opt-in telemetry for the CLI">Opt-in telemetry for the CLI</td>
+<td data-column="State" title="Active">Active</td>
+<td data-column="WorkItemType" title="Feature">Feature</td>
+<td data-column="AssignedTo" title=""></td>
+<td data-column="Priority" title="Medium">Medium</td>
+<td data-column="ChangedDate" title="2026-06-13 23:10:22">2026-06-13 23:10</td>
+<td data-column="AreaPath" title=""></td>
+<td data-column="Connection" title=""></td>
+<td data-column="Project" title="acme-flow/acmeflow-sdk">acme-flow/acmeflow-sdk</td>
+<td data-column="Tags" title="enhancement, task, telemetry, cli">enhancement, task, telemetry, cli</td>
+</tr>
+<tr>
+<td data-column="Id"><a href="https://github.com/acme-flow/acmeflow-sdk/issues/17" target="_blank" title="17">17</a></td>
+<td data-column="Title" title="CLI crashes on Windows path separators">CLI crashes on Windows path separators</td>
+<td data-column="State" title="Active">Active</td>
+<td data-column="WorkItemType" title="Bug">Bug</td>
+<td data-column="AssignedTo" title=""></td>
+<td data-column="Priority" title="Medium">Medium</td>
+<td data-column="ChangedDate" title="2026-06-13 23:10:22">2026-06-13 23:10</td>
+<td data-column="AreaPath" title=""></td>
+<td data-column="Connection" title=""></td>
+<td data-column="Project" title="acme-flow/acmeflow-sdk">acme-flow/acmeflow-sdk</td>
+<td data-column="Tags" title="bug, cli, in-progress, os:windows">bug, cli, in-progress, os:windows</td>
+</tr>
+<tr>
+<td data-column="Id"><a href="https://github.com/acme-flow/acmeflow-sdk/issues/16" target="_blank" title="16">16</a></td>
+<td data-column="Title" title="Python: auto-pagination for list endpoints">Python: auto-pagination for list endpoints</td>
+<td data-column="State" title="Active">Active</td>
+<td data-column="WorkItemType" title="Feature">Feature</td>
+<td data-column="AssignedTo" title=""></td>
+<td data-column="Priority" title="Medium">Medium</td>
+<td data-column="ChangedDate" title="2026-06-13 23:10:21">2026-06-13 23:10</td>
+<td data-column="AreaPath" title=""></td>
+<td data-column="Connection" title=""></td>
+<td data-column="Project" title="acme-flow/acmeflow-sdk">acme-flow/acmeflow-sdk</td>
+<td data-column="Tags" title="enhancement, task, sdk:python">enhancement, task, sdk:python</td>
+</tr>
+<tr>
+<td data-column="Id"><a href="https://github.com/acme-flow/acmeflow-sdk/issues/15" target="_blank" title="15">15</a></td>
+<td data-column="Title" title="SDK quickstart docs">SDK quickstart docs</td>
+<td data-column="State" title="Active">Active</td>
+<td data-column="WorkItemType" title="Task">Task</td>
+<td data-column="AssignedTo" title=""></td>
+<td data-column="Priority" title="Medium">Medium</td>
+<td data-column="ChangedDate" title="2026-06-13 23:10:21">2026-06-13 23:10</td>
+<td data-column="AreaPath" title=""></td>
+<td data-column="Connection" title=""></td>
+<td data-column="Project" title="acme-flow/acmeflow-sdk">acme-flow/acmeflow-sdk</td>
+<td data-column="Tags" title="documentation, task">documentation, task</td>
+</tr>
+<tr>
+<td data-column="Id"><a href="https://github.com/acme-flow/acmeflow-sdk/issues/14" target="_blank" title="14">14</a></td>
+<td data-column="Title" title="Add CI matrix for Node 18/20/22">Add CI matrix for Node 18/20/22</td>
+<td data-column="State" title="Active">Active</td>
+<td data-column="WorkItemType" title="Task">Task</td>
+<td data-column="AssignedTo" title=""></td>
+<td data-column="Priority" title="Medium">Medium</td>
+<td data-column="ChangedDate" title="2026-06-13 23:10:20">2026-06-13 23:10</td>
+<td data-column="AreaPath" title=""></td>
+<td data-column="Connection" title=""></td>
+<td data-column="Project" title="acme-flow/acmeflow-sdk">acme-flow/acmeflow-sdk</td>
+<td data-column="Tags" title="task, ci, in-progress">task, ci, in-progress</td>
+</tr>
+<tr>
+<td data-column="Id"><a href="https://github.com/acme-flow/acmeflow-sdk/issues/13" target="_blank" title="13">13</a></td>
+<td data-column="Title" title="Incorrect nullable types in generated TS">Incorrect nullable types in generated TS</td>
+<td data-column="State" title="Active">Active</td>
+<td data-column="WorkItemType" title="Bug">Bug</td>
+<td data-column="AssignedTo" title=""></td>
+<td data-column="Priority" title="Medium">Medium</td>
+<td data-column="ChangedDate" title="2026-06-13 23:10:20">2026-06-13 23:10</td>
+<td data-column="AreaPath" title=""></td>
+<td data-column="Connection" title=""></td>
+<td data-column="Project" title="acme-flow/acmeflow-sdk">acme-flow/acmeflow-sdk</td>
+<td data-column="Tags" title="bug, openapi, sdk:typescript">bug, openapi, sdk:typescript</td>
+</tr>
+<tr>
+<td data-column="Id"><a href="https://github.com/acme-flow/acmeflow-sdk/issues/12" target="_blank" title="12">12</a></td>
+<td data-column="Title" title="OpenAPI: generate TypeScript types from spec">OpenAPI: generate TypeScript types from spec</td>
+<td data-column="State" title="Active">Active</td>
+<td data-column="WorkItemType" title="Feature">Feature</td>
+<td data-column="AssignedTo" title=""></td>
+<td data-column="Priority" title="Medium">Medium</td>
+<td data-column="ChangedDate" title="2026-06-13 23:10:19">2026-06-13 23:10</td>
+<td data-column="AreaPath" title=""></td>
+<td data-column="Connection" title=""></td>
+<td data-column="Project" title="acme-flow/acmeflow-sdk">acme-flow/acmeflow-sdk</td>
+<td data-column="Tags" title="enhancement, task, openapi, in-progress, sdk:typescript">enhancement, task, openapi, in-progress, sdk:typescript</td>
+</tr>
+<tr>
+<td data-column="Id"><a href="https://github.com/acme-flow/acmeflow-sdk/issues/11" target="_blank" title="11">11</a></td>
+<td data-column="Title" title="CLI: shell completion scripts">CLI: shell completion scripts</td>
+<td data-column="State" title="Active">Active</td>
+<td data-column="WorkItemType" title="Feature">Feature</td>
+<td data-column="AssignedTo" title=""></td>
+<td data-column="Priority" title="Medium">Medium</td>
+<td data-column="ChangedDate" title="2026-06-13 23:10:19">2026-06-13 23:10</td>
+<td data-column="AreaPath" title=""></td>
+<td data-column="Connection" title=""></td>
+<td data-column="Project" title="acme-flow/acmeflow-sdk">acme-flow/acmeflow-sdk</td>
+<td data-column="Tags" title="enhancement, task, cli">enhancement, task, cli</td>
+</tr>
+<tr>
+<td data-column="Id"><a href="https://github.com/acme-flow/acmeflow-sdk/issues/10" target="_blank" title="10">10</a></td>
+<td data-column="Title" title="Python SDK retries non-idempotent requests">Python SDK retries non-idempotent requests</td>
+<td data-column="State" title="Active">Active</td>
+<td data-column="WorkItemType" title="Bug">Bug</td>
+<td data-column="AssignedTo" title=""></td>
+<td data-column="Priority" title="Medium">Medium</td>
+<td data-column="ChangedDate" title="2026-06-13 23:10:18">2026-06-13 23:10</td>
+<td data-column="AreaPath" title=""></td>
+<td data-column="Connection" title=""></td>
+<td data-column="Project" title="acme-flow/acmeflow-sdk">acme-flow/acmeflow-sdk</td>
+<td data-column="Tags" title="bug, sdk:python">bug, sdk:python</td>
+</tr>
+<tr>
+<td data-column="Id"><a href="https://github.com/acme-flow/acmeflow-sdk/issues/9" target="_blank" title="9">9</a></td>
+<td data-column="Title" title="Webhook signature validation fails on Node 20">Webhook signature validation fails on Node 20</td>
+<td data-column="State" title="Active">Active</td>
+<td data-column="WorkItemType" title="Bug">Bug</td>
+<td data-column="AssignedTo" title=""></td>
+<td data-column="Priority" title="Medium">Medium</td>
+<td data-column="ChangedDate" title="2026-06-13 23:10:18">2026-06-13 23:10</td>
+<td data-column="AreaPath" title=""></td>
+<td data-column="Connection" title=""></td>
+<td data-column="Project" title="acme-flow/acmeflow-sdk">acme-flow/acmeflow-sdk</td>
+<td data-column="Tags" title="bug, in-progress, sdk:typescript">bug, in-progress, sdk:typescript</td>
+</tr>
+<tr>
+<td data-column="Id"><a href="https://github.com/acme-flow/acmeflow-sdk/issues/8" target="_blank" title="8">8</a></td>
+<td data-column="Title" title="CLI: `acmeflow init` scaffolding">CLI: `acmeflow init` scaffolding</td>
+<td data-column="State" title="Active">Active</td>
+<td data-column="WorkItemType" title="Feature">Feature</td>
+<td data-column="AssignedTo" title=""></td>
+<td data-column="Priority" title="Medium">Medium</td>
+<td data-column="ChangedDate" title="2026-06-13 23:10:17">2026-06-13 23:10</td>
+<td data-column="AreaPath" title=""></td>
+<td data-column="Connection" title=""></td>
+<td data-column="Project" title="acme-flow/acmeflow-sdk">acme-flow/acmeflow-sdk</td>
+<td data-column="Tags" title="enhancement, task, cli">enhancement, task, cli</td>
+</tr>
+<tr>
+<td data-column="Id"><a href="https://github.com/acme-flow/acmeflow-sdk/issues/7" target="_blank" title="7">7</a></td>
+<td data-column="Title" title="Python: async client support">Python: async client support</td>
+<td data-column="State" title="Active">Active</td>
+<td data-column="WorkItemType" title="Feature">Feature</td>
+<td data-column="AssignedTo" title=""></td>
+<td data-column="Priority" title="Medium">Medium</td>
+<td data-column="ChangedDate" title="2026-06-13 23:10:17">2026-06-13 23:10</td>
+<td data-column="AreaPath" title=""></td>
+<td data-column="Connection" title=""></td>
+<td data-column="Project" title="acme-flow/acmeflow-sdk">acme-flow/acmeflow-sdk</td>
+<td data-column="Tags" title="enhancement, task, sdk:python">enhancement, task, sdk:python</td>
+</tr>
+<tr>
+<td data-column="Id"><a href="https://github.com/acme-flow/acmeflow-sdk/issues/6" target="_blank" title="6">6</a></td>
+<td data-column="Title" title="TS: OAuth device-code auth helper">TS: OAuth device-code auth helper</td>
+<td data-column="State" title="Active">Active</td>
+<td data-column="WorkItemType" title="Feature">Feature</td>
+<td data-column="AssignedTo" title=""></td>
+<td data-column="Priority" title="Medium">Medium</td>
+<td data-column="ChangedDate" title="2026-06-13 23:10:16">2026-06-13 23:10</td>
+<td data-column="AreaPath" title=""></td>
+<td data-column="Connection" title=""></td>
+<td data-column="Project" title="acme-flow/acmeflow-sdk">acme-flow/acmeflow-sdk</td>
+<td data-column="Tags" title="enhancement, task, in-progress, sdk:typescript">enhancement, task, in-progress, sdk:typescript</td>
+</tr>
+<tr>
+<td data-column="Id"><a href="https://github.com/acme-flow/acmeflow-sdk/issues/5" target="_blank" title="5">5</a></td>
+<td data-column="Title" title="OpenAPI spec &amp; code generation">OpenAPI spec &amp; code generation</td>
+<td data-column="State" title="Active">Active</td>
+<td data-column="WorkItemType" title="Feature">Feature</td>
+<td data-column="AssignedTo" title=""></td>
+<td data-column="Priority" title="Medium">Medium</td>
+<td data-column="ChangedDate" title="2026-06-13 23:10:16">2026-06-13 23:10</td>
+<td data-column="AreaPath" title=""></td>
+<td data-column="Connection" title=""></td>
+<td data-column="Project" title="acme-flow/acmeflow-sdk">acme-flow/acmeflow-sdk</td>
+<td data-column="Tags" title="enhancement, feature, openapi, in-progress">enhancement, feature, openapi, in-progress</td>
+</tr>
+<tr>
+<td data-column="Id"><a href="https://github.com/acme-flow/acmeflow-sdk/issues/4" target="_blank" title="4">4</a></td>
+<td data-column="Title" title="AcmeFlow CLI">AcmeFlow CLI</td>
+<td data-column="State" title="Active">Active</td>
+<td data-column="WorkItemType" title="Feature">Feature</td>
+<td data-column="AssignedTo" title=""></td>
+<td data-column="Priority" title="Medium">Medium</td>
+<td data-column="ChangedDate" title="2026-06-13 23:10:15">2026-06-13 23:10</td>
+<td data-column="AreaPath" title=""></td>
+<td data-column="Connection" title=""></td>
+<td data-column="Project" title="acme-flow/acmeflow-sdk">acme-flow/acmeflow-sdk</td>
+<td data-column="Tags" title="enhancement, feature, cli">enhancement, feature, cli</td>
+</tr>
+<tr>
+<td data-column="Id"><a href="https://github.com/acme-flow/acmeflow-sdk/issues/3" target="_blank" title="3">3</a></td>
+<td data-column="Title" title="Python SDK">Python SDK</td>
+<td data-column="State" title="Active">Active</td>
+<td data-column="WorkItemType" title="Feature">Feature</td>
+<td data-column="AssignedTo" title=""></td>
+<td data-column="Priority" title="Medium">Medium</td>
+<td data-column="ChangedDate" title="2026-06-13 23:10:15">2026-06-13 23:10</td>
+<td data-column="AreaPath" title=""></td>
+<td data-column="Connection" title=""></td>
+<td data-column="Project" title="acme-flow/acmeflow-sdk">acme-flow/acmeflow-sdk</td>
+<td data-column="Tags" title="enhancement, feature, in-progress, sdk:python">enhancement, feature, in-progress, sdk:python</td>
+</tr>
+<tr>
+<td data-column="Id"><a href="https://github.com/acme-flow/acmeflow-sdk/issues/2" target="_blank" title="2">2</a></td>
+<td data-column="Title" title="TypeScript SDK">TypeScript SDK</td>
+<td data-column="State" title="Active">Active</td>
+<td data-column="WorkItemType" title="Feature">Feature</td>
+<td data-column="AssignedTo" title=""></td>
+<td data-column="Priority" title="Medium">Medium</td>
+<td data-column="ChangedDate" title="2026-06-13 23:10:14">2026-06-13 23:10</td>
+<td data-column="AreaPath" title=""></td>
+<td data-column="Connection" title=""></td>
+<td data-column="Project" title="acme-flow/acmeflow-sdk">acme-flow/acmeflow-sdk</td>
+<td data-column="Tags" title="enhancement, feature, in-progress, sdk:typescript">enhancement, feature, in-progress, sdk:typescript</td>
+</tr>
+<tr>
+<td data-column="Id"><a href="https://github.com/acme-flow/acmeflow-sdk/issues/1" target="_blank" title="1">1</a></td>
+<td data-column="Title" title="Official AcmeFlow SDKs &amp; CLI">Official AcmeFlow SDKs &amp; CLI</td>
+<td data-column="State" title="Active">Active</td>
+<td data-column="WorkItemType" title="Epic">Epic</td>
+<td data-column="AssignedTo" title=""></td>
+<td data-column="Priority" title="Medium">Medium</td>
+<td data-column="ChangedDate" title="2026-06-13 23:10:13">2026-06-13 23:10</td>
+<td data-column="AreaPath" title=""></td>
+<td data-column="Connection" title=""></td>
+<td data-column="Project" title="acme-flow/acmeflow-sdk">acme-flow/acmeflow-sdk</td>
+<td data-column="Tags" title="epic, in-progress">epic, in-progress</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+        </main>
+    </div>
+    <footer class="report-footer">
+        <AzdwSignature/>
+    </footer>
+    
+<script>
+    // Data table functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('table-search');
+        const table = document.getElementById('data-table');
+        
+        if (searchInput && table) {
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const rows = table.querySelectorAll('tbody tr');
+                
+                rows.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(searchTerm) ? '' : 'none';
+                });
+            });
+        }
+        
+        // Sortable headers
+        const sortableHeaders = document.querySelectorAll('.sortable');
+        sortableHeaders.forEach(header => {
+            header.addEventListener('click', function() {
+                const column = this.dataset.column;
+                const tbody = table.querySelector('tbody');
+                const rows = Array.from(tbody.querySelectorAll('tr'));
+                
+                rows.sort((a, b) => {
+                    const aVal = a.querySelector(`td[data-column='${column}']`)?.textContent || '';
+                    const bVal = b.querySelector(`td[data-column='${column}']`)?.textContent || '';
+                    return aVal.localeCompare(bVal);
+                });
+                
+                rows.forEach(row => tbody.appendChild(row));
+            });
+        });
+    });
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</body>
+</html>

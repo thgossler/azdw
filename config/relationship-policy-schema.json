@@ -1,0 +1,316 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Relationship Policy Configuration",
+  "description": "Configuration for work item relationship validation policies with timing and state constraints",
+  "type": "object",
+  "definitions": {
+    "dateSourceType": {
+      "type": "string",
+      "enum": ["targetDate", "startDate", "endDate", "timeframeStart", "timeframeEnd"],
+      "description": "Source of date value: explicit field or derived from Area Path timeframe"
+    },
+    "dateComparisonOperator": {
+      "type": "string",
+      "enum": ["before", "beforeOrEqual", "after", "afterOrEqual", "equal", "within"],
+      "description": "Date comparison operator"
+    },
+    "fieldOperator": {
+      "type": "string",
+      "enum": ["equals", "notEquals", "contains", "in", "notIn", "exists", "notExists", "greaterThan", "lessThan", "isFuture", "isPast", "isWithinDays"],
+      "description": "Field comparison operator"
+    },
+    "stateFilter": {
+      "type": "object",
+      "description": "Filter for work item states",
+      "properties": {
+        "include": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "States to include (OR logic)"
+        },
+        "exclude": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "States to exclude (AND logic)"
+        }
+      },
+      "additionalProperties": false
+    },
+    "fieldConstraint": {
+      "type": "object",
+      "description": "Constraint on a work item field",
+      "properties": {
+        "fieldName": {
+          "type": "string",
+          "description": "Field reference name"
+        },
+        "operator": {
+          "$ref": "#/definitions/fieldOperator"
+        },
+        "value": {
+          "description": "Value to compare against (type depends on operator)"
+        }
+      },
+      "required": ["fieldName", "operator"],
+      "additionalProperties": false
+    },
+    "dateComparison": {
+      "type": "object",
+      "description": "Comparison between dates of source and target work items",
+      "properties": {
+        "sourceDate": {
+          "$ref": "#/definitions/dateSourceType",
+          "description": "Date source from the source work item"
+        },
+        "targetDate": {
+          "$ref": "#/definitions/dateSourceType",
+          "description": "Date source from the target work item"
+        },
+        "operator": {
+          "$ref": "#/definitions/dateComparisonOperator"
+        },
+        "toleranceDays": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0,
+          "description": "Tolerance in days for the comparison"
+        }
+      },
+      "required": ["sourceDate", "targetDate", "operator"],
+      "additionalProperties": false
+    },
+    "dateRequirement": {
+      "type": "object",
+      "description": "Requirements for date existence and temporal constraints",
+      "properties": {
+        "mustExist": {
+          "type": "boolean",
+          "description": "Date must exist (explicit or derived from timeframe)"
+        },
+        "mustBeFuture": {
+          "type": "boolean",
+          "description": "Date must be in the future"
+        },
+        "mustBePast": {
+          "type": "boolean",
+          "description": "Date must be in the past"
+        },
+        "mustBeWithinDays": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Date must be within N days from today"
+        }
+      },
+      "additionalProperties": false
+    },
+    "timeframeAlignment": {
+      "type": "object",
+      "description": "Validation of alignment between explicit dates and Area Path timeframe",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether to validate timeframe alignment"
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["error", "warning", "info"],
+          "default": "warning",
+          "description": "Severity level for alignment violations"
+        },
+        "allowOverlap": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether overlapping (vs exact match) is sufficient"
+        }
+      },
+      "additionalProperties": false
+    },
+    "iterationDateValidation": {
+      "type": "object",
+      "description": "Validation that work item dates fall within the configured sprint/iteration date range",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to validate iteration date alignment"
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["error", "warning", "info"],
+          "default": "warning",
+          "description": "Severity level for violations"
+        },
+        "validateTargetDate": {
+          "type": "boolean",
+          "default": true,
+          "description": "Validate that TargetDate falls within iteration date range"
+        },
+        "validateStartDate": {
+          "type": "boolean",
+          "default": false,
+          "description": "Validate that StartDate falls within iteration date range"
+        },
+        "allowMissingDates": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to pass validation if dates are missing (vs treat as violation)"
+        },
+        "allowMissingIterationDates": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to pass validation if iteration has no configured dates"
+        }
+      },
+      "additionalProperties": false
+    },
+    "timingConstraints": {
+      "type": "object",
+      "description": "Timing-related constraints for relationship validation",
+      "properties": {
+        "useFallbackDates": {
+          "type": "boolean",
+          "default": true,
+          "description": "Use dates derived from Area Path timeframe when explicit dates are missing"
+        },
+        "dateComparison": {
+          "$ref": "#/definitions/dateComparison",
+          "description": "Compare dates between source and target work items (Scenario A)"
+        },
+        "targetWithinSourceTimeframe": {
+          "type": "boolean",
+          "description": "Target's date must be within source's timeframe (Scenario B)"
+        },
+        "requireDate": {
+          "$ref": "#/definitions/dateRequirement",
+          "description": "Requirements for date existence and temporal constraints (Scenario C)"
+        },
+        "validateTimeframeAlignment": {
+          "$ref": "#/definitions/timeframeAlignment",
+          "description": "Validate alignment between explicit dates and Area Path timeframe (Scenario D)"
+        },
+        "validateIterationDates": {
+          "$ref": "#/definitions/iterationDateValidation",
+          "description": "Validate that work item dates fall within the assigned iteration/sprint date range (Scenario E)"
+        }
+      },
+      "additionalProperties": false
+    },
+    "requiredRelationship": {
+      "type": "object",
+      "description": "A required relationship rule with optional timing and state constraints",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["Any", "Parent", "Child", "Related", "Dependency", "Predecessor", "Successor"],
+          "description": "Relationship type. Use 'Any' to match any relationship type. For multiple specific types, use 'types' array instead."
+        },
+        "types": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["Any", "Parent", "Child", "Related", "Dependency", "Predecessor", "Successor"]
+          },
+          "description": "Multiple allowed relationship types (OR logic). When specified, relationships matching ANY of these types will be counted. Takes precedence over 'type' if non-empty. Example: ['Related', 'Parent'] means 'either Related or Parent'."
+        },
+        "targetTypes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Allowed target work item types. Supports both physical Azure DevOps types and virtual types defined in virtual-types.jsonc"
+        },
+        "minCount": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Minimum number of required relationships"
+        },
+        "maxCount": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Maximum number of allowed relationships"
+        },
+        "targetStates": {
+          "$ref": "#/definitions/stateFilter",
+          "description": "State constraints on target work items"
+        },
+        "allTargetsMustMatch": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether all matching targets must satisfy constraints (vs just counting matches)"
+        },
+        "targetFieldConstraints": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/fieldConstraint" },
+          "description": "Field constraints on target work items"
+        },
+        "timingConstraints": {
+          "$ref": "#/definitions/timingConstraints",
+          "description": "Timing-related constraints"
+        }
+      },
+      "required": ["type", "targetTypes"],
+      "additionalProperties": false
+    },
+    "policy": {
+      "type": "object",
+      "description": "A relationship validation policy",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Policy name"
+        },
+        "description": {
+          "type": "string",
+          "description": "Policy description"
+        },
+        "workItemType": {
+          "type": "string",
+          "description": "Work item type this policy applies to. Supports both physical Azure DevOps types and virtual types defined in virtual-types.jsonc. Use '*' for all types."
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether this policy is enabled"
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["error", "warning", "info"],
+          "default": "error",
+          "description": "Default severity for violations of this policy"
+        },
+        "stateConstraint": {
+          "$ref": "#/definitions/stateFilter",
+          "description": "State constraints on the source work item (policy only applies if matched)"
+        },
+        "requiredRelationships": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/requiredRelationship" },
+          "description": "Required relationship rules"
+        },
+        "timingConstraints": {
+          "$ref": "#/definitions/timingConstraints",
+          "description": "Timing constraints that apply to the source work item itself"
+        }
+      },
+      "required": ["name", "workItemType"],
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$",
+      "description": "Configuration schema version (e.g., '1.0'). Used for migration between schema versions.",
+      "default": "1.0"
+    },
+    "policies": {
+      "type": "array",
+      "description": "List of relationship validation policies",
+      "items": { "$ref": "#/definitions/policy" }
+    }
+  },
+  "required": ["policies"],
+  "additionalProperties": false
+}

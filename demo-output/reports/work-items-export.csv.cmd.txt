@@ -1,0 +1,1 @@
+azdw report generate --template-id work-items-export-csv --connections AcmeFlow-GH --limit 20 --output demo-output/all-connections/reports/work-items-export.csv

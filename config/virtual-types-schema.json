@@ -1,0 +1,155 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Virtual Types Configuration",
+  "description": "Configuration for virtual work item types that differentiate the same physical type based on criteria like area path",
+  "type": "object",
+  "definitions": {
+    "patternType": {
+      "type": "string",
+      "enum": ["glob", "regex"],
+      "default": "glob",
+      "description": "Pattern matching type: 'glob' for simple wildcard matching (**, *), 'regex' for regular expressions"
+    },
+    "areaPathCriterion": {
+      "type": "object",
+      "description": "Criterion based on work item area path",
+      "properties": {
+        "pattern": {
+          "type": "string",
+          "description": "Pattern to match against the area path. For glob: use ** for any path segments, * for single segment. For regex: standard regex pattern."
+        },
+        "patternType": {
+          "$ref": "#/definitions/patternType"
+        }
+      },
+      "required": ["pattern"],
+      "additionalProperties": false
+    },
+    "iterationPathCriterion": {
+      "type": "object",
+      "description": "Criterion based on work item iteration path",
+      "properties": {
+        "pattern": {
+          "type": "string",
+          "description": "Pattern to match against the iteration path. For glob: use ** for any path segments, * for single segment. For regex: standard regex pattern."
+        },
+        "patternType": {
+          "$ref": "#/definitions/patternType"
+        }
+      },
+      "required": ["pattern"],
+      "additionalProperties": false
+    },
+    "fieldCriterion": {
+      "type": "object",
+      "description": "Criterion based on a custom field value",
+      "properties": {
+        "fieldName": {
+          "type": "string",
+          "description": "The field reference name (e.g., 'System.Tags', 'Custom.Category')"
+        },
+        "operator": {
+          "type": "string",
+          "enum": ["equals", "notEquals", "contains", "startsWith", "endsWith", "matches"],
+          "default": "equals",
+          "description": "Comparison operator. 'matches' uses regex pattern."
+        },
+        "value": {
+          "type": "string",
+          "description": "Value to compare against"
+        },
+        "caseSensitive": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether the comparison is case-sensitive"
+        }
+      },
+      "required": ["fieldName", "value"],
+      "additionalProperties": false
+    },
+    "matchCriteria": {
+      "type": "object",
+      "description": "Criteria that determine when a work item matches this virtual type",
+      "properties": {
+        "areaPath": {
+          "$ref": "#/definitions/areaPathCriterion",
+          "description": "Match based on area path pattern"
+        },
+        "iterationPath": {
+          "$ref": "#/definitions/iterationPathCriterion",
+          "description": "Match based on iteration path pattern"
+        },
+        "fields": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/fieldCriterion" },
+          "description": "Additional field-based criteria (all must match)"
+        }
+      },
+      "additionalProperties": false
+    },
+    "virtualTypeDefinition": {
+      "type": "object",
+      "description": "Definition of a virtual work item type",
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+          "description": "Unique identifier for the virtual type. Used in queries, policies, and APIs. Should be a valid identifier (letters, numbers, underscore, hyphen)."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Human-readable name for display in reports and UI"
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description of what this virtual type represents"
+        },
+        "physicalType": {
+          "type": "string",
+          "description": "The actual Azure DevOps work item type name that this virtual type is based on"
+        },
+        "criteria": {
+          "$ref": "#/definitions/matchCriteria",
+          "description": "Criteria that determine when a work item of the physical type matches this virtual type"
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether this virtual type definition is active"
+        },
+        "priority": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0,
+          "description": "When multiple virtual types could match, higher priority wins. Default is 0."
+        },
+        "connections": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Optional list of connection names where this virtual type applies. If not specified, applies to all connections."
+        }
+      },
+      "required": ["name", "physicalType", "criteria"],
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$",
+      "description": "Configuration schema version",
+      "default": "1.0"
+    },
+    "virtualTypes": {
+      "type": "array",
+      "description": "List of virtual type definitions",
+      "items": { "$ref": "#/definitions/virtualTypeDefinition" }
+    }
+  },
+  "required": ["virtualTypes"],
+  "additionalProperties": false
+}

@@ -1,0 +1,49 @@
+{
+  "$schema": "./report-template-schema.json",
+  "id": "sprint-report-md",
+  "name": "Sprint Report (Markdown)",
+  "description": "Comprehensive sprint report showing completed and remaining work",
+  "engineType": "scriban",
+  "content": "# Sprint Report\n\n**Sprint:** {{ parameters.sprint_name }}  \n**Generated:** {{ timestamp | format_date 'yyyy-MM-dd HH:mm:ss UTC' }}  \n**Total Items:** {{ items | size }}\n\n## Sprint Summary\n\n{{~ completed_items = items | where 'state == \"Done\" || state == \"Closed\"' ~}}\n{{~ in_progress_items = items | where 'state == \"Active\" || state == \"In Progress\"' ~}}\n{{~ new_items = items | where 'state == \"New\" || state == \"To Do\"' ~}}\n\n- **Completed:** {{ completed_items | size }} items\n- **In Progress:** {{ in_progress_items | size }} items\n- **Not Started:** {{ new_items | size }} items\n\n## Completed Work\n\n{{~ if (completed_items | size) > 0 ~}}\n| ID | Title | Type | Assignee |\n|----|-------|------|----------|\n{{~ for item in completed_items ~}}\n| [{{ item.id }}]({{ item.url }}) | {{ item.title }} | {{ item.work_item_type }} | {{ item.assigned_to }} |\n{{~ end ~}}\n{{~ else ~}}\nNo items completed in this sprint.\n{{~ end ~}}\n\n## Work in Progress\n\n{{~ if (in_progress_items | size) > 0 ~}}\n| ID | Title | Type | Assignee | State |\n|----|-------|------|----------|-------|\n{{~ for item in in_progress_items ~}}\n| [{{ item.id }}]({{ item.url }}) | {{ item.title }} | {{ item.work_item_type }} | {{ item.assigned_to }} | {{ item.state }} |\n{{~ end ~}}\n{{~ else ~}}\nNo items in progress.\n{{~ end ~}}\n\n## Remaining Work\n\n{{~ if (new_items | size) > 0 ~}}\n| ID | Title | Type | Priority |\n|----|-------|------|----------|\n{{~ for item in new_items ~}}\n| [{{ item.id }}]({{ item.url }}) | {{ item.title }} | {{ item.work_item_type }} | {{ item.priority }} |\n{{~ end ~}}\n{{~ else ~}}\nNo remaining items.\n{{~ end ~}}\n\n## Metrics\n\n{{~ total_items = items | size ~}}\n{{~ completed_count = completed_items | size ~}}\n{{~ completion_rate = (completed_count / total_items) * 100 ~}}\n\n- **Sprint Velocity:** {{ completed_count }} items\n- **Completion Rate:** {{ completion_rate | format_number '#0' }}%\n- **Average Days to Complete:** {{ parameters.avg_completion_days | format_number '#0.0' }} days\n\n## Next Steps\n\n{{~ if (in_progress_items | size) > 0 ~}}\n1. Focus on completing {{ in_progress_items | size }} in-progress items\n{{~ end ~}}\n{{~ if (new_items | size) > 0 ~}}\n2. Prioritize {{ new_items | size }} remaining items for next sprint\n{{~ end ~}}\n3. Review sprint metrics and adjust planning for future sprints\n\n---\n\n<AzdwSignature/>",
+  "outputFormat": "markdown",
+  "mimeType": "text/markdown",
+  "fileExtension": ".md",
+  "category": "Sprint Reports",
+  "tags": [
+    "sprint",
+    "report",
+    "markdown",
+    "agile"
+  ],
+  "parameters": {
+    "sprint_name": {
+      "name": "sprint_name",
+      "displayName": "Sprint Name",
+      "description": "Name of the sprint being reported",
+      "dataType": "string",
+      "isRequired": true,
+      "placeholderText": "Sprint 2024.1"
+    },
+    "avg_completion_days": {
+      "name": "avg_completion_days",
+      "displayName": "Average Completion Days",
+      "description": "Average number of days to complete items",
+      "dataType": "number",
+      "isRequired": false,
+      "defaultValue": 0
+    }
+  },
+  "defaultValues": {
+    "sprint_name": "Current Sprint",
+    "avg_completion_days": 0
+  },
+  "isEnabled": true,
+  "isBuiltIn": false,
+  "version": "1.0.0",
+  "author": "Azure DevOps Work Item Handler Library",
+  "supportedDataTypes": [
+    "WorkItem[]"
+  ],
+  "dependencies": [],
+  "sampleInput": "Array of work items with properties: id, title, state, work_item_type, assigned_to, priority, url"
+}

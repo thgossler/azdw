@@ -1,0 +1,1063 @@
+// Command: azdw query --connections AcmeFlow-GH --ids 1 --relationships --format json
+{
+  "$id": "1",
+  "workItems": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "id": 18,
+        "logicalType": "Feature",
+        "title": "Opt-in telemetry for the CLI",
+        "description": "Add privacy-preserving, opt-in usage telemetry to the CLI.\n\nPart of #4.",
+        "state": "Active",
+        "assignedTo": null,
+        "createdBy": null,
+        "createdDate": "2026-06-13T23:10:22Z",
+        "modifiedDate": "2026-06-13T23:10:22Z",
+        "connection": {
+          "$id": "4",
+          "name": "AcmeFlow-GH",
+          "baseUrl": "https://github.com/acme-flow",
+          "tenantId": null,
+          "authenticationMethod": 0,
+          "isEnabled": true,
+          "isCloud": true,
+          "provider": 2,
+          "organization": "acme-flow",
+          "repositoryFilter": {
+            "$id": "5",
+            "$values": [
+              "acmeflow-sdk"
+            ]
+          },
+          "projectStatusRef": null,
+          "requiresCorporateNetwork": false,
+          "fieldMappings": {
+            "$id": "6",
+            "$values": []
+          },
+          "connectionStatus": 1,
+          "lastConnected": "2026-09-14T22:17:49.529905Z",
+          "apiVersion": "7.1",
+          "credentialStorage": {
+            "$id": "7",
+            "storageType": 0,
+            "encryptedFilePath": null,
+            "keyVaultUri": null,
+            "useManagedIdentity": false,
+            "encryptionKey": null,
+            "lastRotated": null,
+            "maxCredentialAge": "90.00:00:00",
+            "autoRotateCredentials": false
+          },
+          "rateLimitingConfig": {
+            "$id": "8",
+            "enableFailFast": true,
+            "rateLimitThreshold": 1000,
+            "timeWindowMinutes": 5,
+            "lastRateLimitHit": null,
+            "retryAfterSeconds": null,
+            "errorReportingLevel": 1,
+            "currentCallCount": 0,
+            "currentWindowStart": "2026-09-09T10:50:25.934018Z",
+            "enableDetailedTracking": false,
+            "organizationSpecificLimits": {
+              "$id": "9"
+            }
+          },
+          "additionalProperties": {
+            "$id": "10"
+          },
+          "lastError": null,
+          "lastErrorAt": null,
+          "availableProjects": {
+            "$id": "11",
+            "$values": []
+          },
+          "defaultProject": null,
+          "scope": 0,
+          "scopeDisplayName": "Organization",
+          "projectName": null,
+          "scopeDescription": "Repo: acmeflow-sdk",
+          "effectiveUrl": "https://github.com/acme-flow",
+          "displayUrl": "https://github.com/acme-flow/acmeflow-sdk"
+        },
+        "project": "acme-flow/acmeflow-sdk",
+        "webUrl": "https://github.com/acme-flow/acmeflow-sdk/issues/18",
+        "provider": 2,
+        "globalId": "https://github.com/acme-flow/acmeflow-sdk/issues/18",
+        "tags": {
+          "$id": "12",
+          "$values": [
+            "enhancement",
+            "task",
+            "telemetry",
+            "cli"
+          ]
+        },
+        "priority": "Medium",
+        "fields": {
+          "$id": "13"
+        },
+        "relationships": {
+          "$id": "14",
+          "$values": []
+        },
+        "globalStackRank": null,
+        "areaPath": null,
+        "iterationPath": null,
+        "reason": null,
+        "originalType": null,
+        "metadata": {
+          "$id": "15"
+        },
+        "isFakeWorkItem": false,
+        "sourcePatternName": null,
+        "url": "https://github.com/acme-flow/acmeflow-sdk/issues/18",
+        "type": "Feature",
+        "workItemType": "Feature",
+        "changedDate": "2026-06-13T23:10:22Z"
+      },
+      {
+        "$id": "16",
+        "id": 17,
+        "logicalType": "Bug",
+        "title": "CLI crashes on Windows path separators",
+        "description": "Workflow file paths using backslashes cause the CLI to throw on Windows.\n\nPart of #4.",
+        "state": "Active",
+        "assignedTo": null,
+        "createdBy": null,
+        "createdDate": "2026-06-13T23:10:22Z",
+        "modifiedDate": "2026-06-13T23:10:22Z",
+        "connection": {
+          "$ref": "4"
+        },
+        "project": "acme-flow/acmeflow-sdk",
+        "webUrl": "https://github.com/acme-flow/acmeflow-sdk/issues/17",
+        "provider": 2,
+        "globalId": "https://github.com/acme-flow/acmeflow-sdk/issues/17",
+        "tags": {
+          "$id": "17",
+          "$values": [
+            "bug",
+            "cli",
+            "in-progress",
+            "os:windows"
+          ]
+        },
+        "priority": "Medium",
+        "fields": {
+          "$id": "18"
+        },
+        "relationships": {
+          "$id": "19",
+          "$values": []
+        },
+        "globalStackRank": null,
+        "areaPath": null,
+        "iterationPath": null,
+        "reason": null,
+        "originalType": null,
+        "metadata": {
+          "$id": "20"
+        },
+        "isFakeWorkItem": false,
+        "sourcePatternName": null,
+        "url": "https://github.com/acme-flow/acmeflow-sdk/issues/17",
+        "type": "Bug",
+        "workItemType": "Bug",
+        "changedDate": "2026-06-13T23:10:22Z"
+      },
+      {
+        "$id": "21",
+        "id": 16,
+        "logicalType": "Feature",
+        "title": "Python: auto-pagination for list endpoints",
+        "description": "Transparently iterate paged list endpoints in the Python SDK.\n\nPart of #3.",
+        "state": "Active",
+        "assignedTo": null,
+        "createdBy": null,
+        "createdDate": "2026-06-13T23:10:21Z",
+        "modifiedDate": "2026-06-13T23:10:21Z",
+        "connection": {
+          "$ref": "4"
+        },
+        "project": "acme-flow/acmeflow-sdk",
+        "webUrl": "https://github.com/acme-flow/acmeflow-sdk/issues/16",
+        "provider": 2,
+        "globalId": "https://github.com/acme-flow/acmeflow-sdk/issues/16",
+        "tags": {
+          "$id": "22",
+          "$values": [
+            "enhancement",
+            "task",
+            "sdk:python"
+          ]
+        },
+        "priority": "Medium",
+        "fields": {
+          "$id": "23"
+        },
+        "relationships": {
+          "$id": "24",
+          "$values": []
+        },
+        "globalStackRank": null,
+        "areaPath": null,
+        "iterationPath": null,
+        "reason": null,
+        "originalType": null,
+        "metadata": {
+          "$id": "25"
+        },
+        "isFakeWorkItem": false,
+        "sourcePatternName": null,
+        "url": "https://github.com/acme-flow/acmeflow-sdk/issues/16",
+        "type": "Feature",
+        "workItemType": "Feature",
+        "changedDate": "2026-06-13T23:10:21Z"
+      },
+      {
+        "$id": "26",
+        "id": 15,
+        "logicalType": "Task",
+        "title": "SDK quickstart docs",
+        "description": "Write a getting-started guide covering install, auth and the first API call.\n\nPart of #1.",
+        "state": "Active",
+        "assignedTo": null,
+        "createdBy": null,
+        "createdDate": "2026-06-13T23:10:21Z",
+        "modifiedDate": "2026-06-13T23:10:21Z",
+        "connection": {
+          "$ref": "4"
+        },
+        "project": "acme-flow/acmeflow-sdk",
+        "webUrl": "https://github.com/acme-flow/acmeflow-sdk/issues/15",
+        "provider": 2,
+        "globalId": "https://github.com/acme-flow/acmeflow-sdk/issues/15",
+        "tags": {
+          "$id": "27",
+          "$values": [
+            "documentation",
+            "task"
+          ]
+        },
+        "priority": "Medium",
+        "fields": {
+          "$id": "28"
+        },
+        "relationships": {
+          "$id": "29",
+          "$values": []
+        },
+        "globalStackRank": null,
+        "areaPath": null,
+        "iterationPath": null,
+        "reason": null,
+        "originalType": null,
+        "metadata": {
+          "$id": "30"
+        },
+        "isFakeWorkItem": false,
+        "sourcePatternName": null,
+        "url": "https://github.com/acme-flow/acmeflow-sdk/issues/15",
+        "type": "Task",
+        "workItemType": "Task",
+        "changedDate": "2026-06-13T23:10:21Z"
+      },
+      {
+        "$id": "31",
+        "id": 14,
+        "logicalType": "Task",
+        "title": "Add CI matrix for Node 18/20/22",
+        "description": "Run SDK tests across Node 18, 20 and 22 in CI.\n\nPart of #2.",
+        "state": "Active",
+        "assignedTo": null,
+        "createdBy": null,
+        "createdDate": "2026-06-13T23:10:20Z",
+        "modifiedDate": "2026-06-13T23:10:20Z",
+        "connection": {
+          "$ref": "4"
+        },
+        "project": "acme-flow/acmeflow-sdk",
+        "webUrl": "https://github.com/acme-flow/acmeflow-sdk/issues/14",
+        "provider": 2,
+        "globalId": "https://github.com/acme-flow/acmeflow-sdk/issues/14",
+        "tags": {
+          "$id": "32",
+          "$values": [
+            "task",
+            "ci",
+            "in-progress"
+          ]
+        },
+        "priority": "Medium",
+        "fields": {
+          "$id": "33"
+        },
+        "relationships": {
+          "$id": "34",
+          "$values": []
+        },
+        "globalStackRank": null,
+        "areaPath": null,
+        "iterationPath": null,
+        "reason": null,
+        "originalType": null,
+        "metadata": {
+          "$id": "35"
+        },
+        "isFakeWorkItem": false,
+        "sourcePatternName": null,
+        "url": "https://github.com/acme-flow/acmeflow-sdk/issues/14",
+        "type": "Task",
+        "workItemType": "Task",
+        "changedDate": "2026-06-13T23:10:20Z"
+      },
+      {
+        "$id": "36",
+        "id": 13,
+        "logicalType": "Bug",
+        "title": "Incorrect nullable types in generated TS",
+        "description": "Generated TypeScript marks required fields as optional for `nullable: true` properties.\n\nPart of #5. Blocks #12.",
+        "state": "Active",
+        "assignedTo": null,
+        "createdBy": null,
+        "createdDate": "2026-06-13T23:10:20Z",
+        "modifiedDate": "2026-06-13T23:10:20Z",
+        "connection": {
+          "$ref": "4"
+        },
+        "project": "acme-flow/acmeflow-sdk",
+        "webUrl": "https://github.com/acme-flow/acmeflow-sdk/issues/13",
+        "provider": 2,
+        "globalId": "https://github.com/acme-flow/acmeflow-sdk/issues/13",
+        "tags": {
+          "$id": "37",
+          "$values": [
+            "bug",
+            "openapi",
+            "sdk:typescript"
+          ]
+        },
+        "priority": "Medium",
+        "fields": {
+          "$id": "38"
+        },
+        "relationships": {
+          "$id": "39",
+          "$values": []
+        },
+        "globalStackRank": null,
+        "areaPath": null,
+        "iterationPath": null,
+        "reason": null,
+        "originalType": null,
+        "metadata": {
+          "$id": "40"
+        },
+        "isFakeWorkItem": false,
+        "sourcePatternName": null,
+        "url": "https://github.com/acme-flow/acmeflow-sdk/issues/13",
+        "type": "Bug",
+        "workItemType": "Bug",
+        "changedDate": "2026-06-13T23:10:20Z"
+      },
+      {
+        "$id": "41",
+        "id": 12,
+        "logicalType": "Feature",
+        "title": "OpenAPI: generate TypeScript types from spec",
+        "description": "Add a codegen step that produces TS types from the OpenAPI spec.\n\nPart of #5.",
+        "state": "Active",
+        "assignedTo": null,
+        "createdBy": null,
+        "createdDate": "2026-06-13T23:10:19Z",
+        "modifiedDate": "2026-06-13T23:10:19Z",
+        "connection": {
+          "$ref": "4"
+        },
+        "project": "acme-flow/acmeflow-sdk",
+        "webUrl": "https://github.com/acme-flow/acmeflow-sdk/issues/12",
+        "provider": 2,
+        "globalId": "https://github.com/acme-flow/acmeflow-sdk/issues/12",
+        "tags": {
+          "$id": "42",
+          "$values": [
+            "enhancement",
+            "task",
+            "openapi",
+            "in-progress",
+            "sdk:typescript"
+          ]
+        },
+        "priority": "Medium",
+        "fields": {
+          "$id": "43"
+        },
+        "relationships": {
+          "$id": "44",
+          "$values": []
+        },
+        "globalStackRank": null,
+        "areaPath": null,
+        "iterationPath": null,
+        "reason": null,
+        "originalType": null,
+        "metadata": {
+          "$id": "45"
+        },
+        "isFakeWorkItem": false,
+        "sourcePatternName": null,
+        "url": "https://github.com/acme-flow/acmeflow-sdk/issues/12",
+        "type": "Feature",
+        "workItemType": "Feature",
+        "changedDate": "2026-06-13T23:10:19Z"
+      },
+      {
+        "$id": "46",
+        "id": 11,
+        "logicalType": "Feature",
+        "title": "CLI: shell completion scripts",
+        "description": "Generate bash, zsh and PowerShell completion scripts.\n\nPart of #4.",
+        "state": "Active",
+        "assignedTo": null,
+        "createdBy": null,
+        "createdDate": "2026-06-13T23:10:19Z",
+        "modifiedDate": "2026-06-13T23:10:19Z",
+        "connection": {
+          "$ref": "4"
+        },
+        "project": "acme-flow/acmeflow-sdk",
+        "webUrl": "https://github.com/acme-flow/acmeflow-sdk/issues/11",
+        "provider": 2,
+        "globalId": "https://github.com/acme-flow/acmeflow-sdk/issues/11",
+        "tags": {
+          "$id": "47",
+          "$values": [
+            "enhancement",
+            "task",
+            "cli"
+          ]
+        },
+        "priority": "Medium",
+        "fields": {
+          "$id": "48"
+        },
+        "relationships": {
+          "$id": "49",
+          "$values": []
+        },
+        "globalStackRank": null,
+        "areaPath": null,
+        "iterationPath": null,
+        "reason": null,
+        "originalType": null,
+        "metadata": {
+          "$id": "50"
+        },
+        "isFakeWorkItem": false,
+        "sourcePatternName": null,
+        "url": "https://github.com/acme-flow/acmeflow-sdk/issues/11",
+        "type": "Feature",
+        "workItemType": "Feature",
+        "changedDate": "2026-06-13T23:10:19Z"
+      },
+      {
+        "$id": "51",
+        "id": 10,
+        "logicalType": "Bug",
+        "title": "Python SDK retries non-idempotent requests",
+        "description": "The retry policy retries POST requests that are not idempotent, risking duplicate side effects.\n\nPart of #3.",
+        "state": "Active",
+        "assignedTo": null,
+        "createdBy": null,
+        "createdDate": "2026-06-13T23:10:18Z",
+        "modifiedDate": "2026-06-13T23:10:18Z",
+        "connection": {
+          "$ref": "4"
+        },
+        "project": "acme-flow/acmeflow-sdk",
+        "webUrl": "https://github.com/acme-flow/acmeflow-sdk/issues/10",
+        "provider": 2,
+        "globalId": "https://github.com/acme-flow/acmeflow-sdk/issues/10",
+        "tags": {
+          "$id": "52",
+          "$values": [
+            "bug",
+            "sdk:python"
+          ]
+        },
+        "priority": "Medium",
+        "fields": {
+          "$id": "53"
+        },
+        "relationships": {
+          "$id": "54",
+          "$values": []
+        },
+        "globalStackRank": null,
+        "areaPath": null,
+        "iterationPath": null,
+        "reason": null,
+        "originalType": null,
+        "metadata": {
+          "$id": "55"
+        },
+        "isFakeWorkItem": false,
+        "sourcePatternName": null,
+        "url": "https://github.com/acme-flow/acmeflow-sdk/issues/10",
+        "type": "Bug",
+        "workItemType": "Bug",
+        "changedDate": "2026-06-13T23:10:18Z"
+      },
+      {
+        "$id": "56",
+        "id": 9,
+        "logicalType": "Bug",
+        "title": "Webhook signature validation fails on Node 20",
+        "description": "Signature verification rejects valid payloads on Node 20 due to a timing-safe compare change.\n\nSteps:\n1. Send a signed webhook to a Node 20 runtime\n2. Observe 401 despite a valid signature\n\nProduct-side duplicate-delivery bug: https://dev.azure.com/acmeflow/AcmeFlow/_workitems/edit/56\nRelated feature: #5",
+        "state": "Active",
+        "assignedTo": null,
+        "createdBy": null,
+        "createdDate": "2026-06-13T23:10:18Z",
+        "modifiedDate": "2026-06-13T23:10:18Z",
+        "connection": {
+          "$ref": "4"
+        },
+        "project": "acme-flow/acmeflow-sdk",
+        "webUrl": "https://github.com/acme-flow/acmeflow-sdk/issues/9",
+        "provider": 2,
+        "globalId": "https://github.com/acme-flow/acmeflow-sdk/issues/9",
+        "tags": {
+          "$id": "57",
+          "$values": [
+            "bug",
+            "in-progress",
+            "sdk:typescript"
+          ]
+        },
+        "priority": "Medium",
+        "fields": {
+          "$id": "58"
+        },
+        "relationships": {
+          "$id": "59",
+          "$values": []
+        },
+        "globalStackRank": null,
+        "areaPath": null,
+        "iterationPath": null,
+        "reason": null,
+        "originalType": null,
+        "metadata": {
+          "$id": "60"
+        },
+        "isFakeWorkItem": false,
+        "sourcePatternName": null,
+        "url": "https://github.com/acme-flow/acmeflow-sdk/issues/9",
+        "type": "Bug",
+        "workItemType": "Bug",
+        "changedDate": "2026-06-13T23:10:18Z"
+      },
+      {
+        "$id": "61",
+        "id": 8,
+        "logicalType": "Feature",
+        "title": "CLI: `acmeflow init` scaffolding",
+        "description": "Scaffold a new workflow project with `acmeflow init`.\n\nPart of #4.",
+        "state": "Active",
+        "assignedTo": null,
+        "createdBy": null,
+        "createdDate": "2026-06-13T23:10:17Z",
+        "modifiedDate": "2026-06-13T23:10:17Z",
+        "connection": {
+          "$ref": "4"
+        },
+        "project": "acme-flow/acmeflow-sdk",
+        "webUrl": "https://github.com/acme-flow/acmeflow-sdk/issues/8",
+        "provider": 2,
+        "globalId": "https://github.com/acme-flow/acmeflow-sdk/issues/8",
+        "tags": {
+          "$id": "62",
+          "$values": [
+            "enhancement",
+            "task",
+            "cli"
+          ]
+        },
+        "priority": "Medium",
+        "fields": {
+          "$id": "63"
+        },
+        "relationships": {
+          "$id": "64",
+          "$values": []
+        },
+        "globalStackRank": null,
+        "areaPath": null,
+        "iterationPath": null,
+        "reason": null,
+        "originalType": null,
+        "metadata": {
+          "$id": "65"
+        },
+        "isFakeWorkItem": false,
+        "sourcePatternName": null,
+        "url": "https://github.com/acme-flow/acmeflow-sdk/issues/8",
+        "type": "Feature",
+        "workItemType": "Feature",
+        "changedDate": "2026-06-13T23:10:17Z"
+      },
+      {
+        "$id": "66",
+        "id": 7,
+        "logicalType": "Feature",
+        "title": "Python: async client support",
+        "description": "Provide an asyncio-based client alongside the sync client.\n\nPart of #3.",
+        "state": "Active",
+        "assignedTo": null,
+        "createdBy": null,
+        "createdDate": "2026-06-13T23:10:17Z",
+        "modifiedDate": "2026-06-13T23:10:17Z",
+        "connection": {
+          "$ref": "4"
+        },
+        "project": "acme-flow/acmeflow-sdk",
+        "webUrl": "https://github.com/acme-flow/acmeflow-sdk/issues/7",
+        "provider": 2,
+        "globalId": "https://github.com/acme-flow/acmeflow-sdk/issues/7",
+        "tags": {
+          "$id": "67",
+          "$values": [
+            "enhancement",
+            "task",
+            "sdk:python"
+          ]
+        },
+        "priority": "Medium",
+        "fields": {
+          "$id": "68"
+        },
+        "relationships": {
+          "$id": "69",
+          "$values": []
+        },
+        "globalStackRank": null,
+        "areaPath": null,
+        "iterationPath": null,
+        "reason": null,
+        "originalType": null,
+        "metadata": {
+          "$id": "70"
+        },
+        "isFakeWorkItem": false,
+        "sourcePatternName": null,
+        "url": "https://github.com/acme-flow/acmeflow-sdk/issues/7",
+        "type": "Feature",
+        "workItemType": "Feature",
+        "changedDate": "2026-06-13T23:10:17Z"
+      },
+      {
+        "$id": "71",
+        "id": 6,
+        "logicalType": "Feature",
+        "title": "TS: OAuth device-code auth helper",
+        "description": "Add a device-code OAuth helper to the TypeScript SDK.\n\nPart of #2.",
+        "state": "Active",
+        "assignedTo": null,
+        "createdBy": null,
+        "createdDate": "2026-06-13T23:10:16Z",
+        "modifiedDate": "2026-06-13T23:10:16Z",
+        "connection": {
+          "$ref": "4"
+        },
+        "project": "acme-flow/acmeflow-sdk",
+        "webUrl": "https://github.com/acme-flow/acmeflow-sdk/issues/6",
+        "provider": 2,
+        "globalId": "https://github.com/acme-flow/acmeflow-sdk/issues/6",
+        "tags": {
+          "$id": "72",
+          "$values": [
+            "enhancement",
+            "task",
+            "in-progress",
+            "sdk:typescript"
+          ]
+        },
+        "priority": "Medium",
+        "fields": {
+          "$id": "73"
+        },
+        "relationships": {
+          "$id": "74",
+          "$values": []
+        },
+        "globalStackRank": null,
+        "areaPath": null,
+        "iterationPath": null,
+        "reason": null,
+        "originalType": null,
+        "metadata": {
+          "$id": "75"
+        },
+        "isFakeWorkItem": false,
+        "sourcePatternName": null,
+        "url": "https://github.com/acme-flow/acmeflow-sdk/issues/6",
+        "type": "Feature",
+        "workItemType": "Feature",
+        "changedDate": "2026-06-13T23:10:16Z"
+      },
+      {
+        "$id": "76",
+        "id": 5,
+        "logicalType": "Feature",
+        "title": "OpenAPI spec & code generation",
+        "description": "Publish the OpenAPI 3.1 spec and generate typed clients from it.\n\nPart of #1.\nPaired product feature in Azure DevOps: https://dev.azure.com/acmeflow/AcmeFlow/_workitems/edit/12",
+        "state": "Active",
+        "assignedTo": null,
+        "createdBy": null,
+        "createdDate": "2026-06-13T23:10:16Z",
+        "modifiedDate": "2026-06-13T23:10:16Z",
+        "connection": {
+          "$ref": "4"
+        },
+        "project": "acme-flow/acmeflow-sdk",
+        "webUrl": "https://github.com/acme-flow/acmeflow-sdk/issues/5",
+        "provider": 2,
+        "globalId": "https://github.com/acme-flow/acmeflow-sdk/issues/5",
+        "tags": {
+          "$id": "77",
+          "$values": [
+            "enhancement",
+            "feature",
+            "openapi",
+            "in-progress"
+          ]
+        },
+        "priority": "Medium",
+        "fields": {
+          "$id": "78"
+        },
+        "relationships": {
+          "$id": "79",
+          "$values": []
+        },
+        "globalStackRank": null,
+        "areaPath": null,
+        "iterationPath": null,
+        "reason": null,
+        "originalType": null,
+        "metadata": {
+          "$id": "80"
+        },
+        "isFakeWorkItem": false,
+        "sourcePatternName": null,
+        "url": "https://github.com/acme-flow/acmeflow-sdk/issues/5",
+        "type": "Feature",
+        "workItemType": "Feature",
+        "changedDate": "2026-06-13T23:10:16Z"
+      },
+      {
+        "$id": "81",
+        "id": 4,
+        "logicalType": "Feature",
+        "title": "AcmeFlow CLI",
+        "description": "Cross-platform command-line tool to manage and run workflows.\n\nPart of #1.",
+        "state": "Active",
+        "assignedTo": null,
+        "createdBy": null,
+        "createdDate": "2026-06-13T23:10:15Z",
+        "modifiedDate": "2026-06-13T23:10:15Z",
+        "connection": {
+          "$ref": "4"
+        },
+        "project": "acme-flow/acmeflow-sdk",
+        "webUrl": "https://github.com/acme-flow/acmeflow-sdk/issues/4",
+        "provider": 2,
+        "globalId": "https://github.com/acme-flow/acmeflow-sdk/issues/4",
+        "tags": {
+          "$id": "82",
+          "$values": [
+            "enhancement",
+            "feature",
+            "cli"
+          ]
+        },
+        "priority": "Medium",
+        "fields": {
+          "$id": "83"
+        },
+        "relationships": {
+          "$id": "84",
+          "$values": []
+        },
+        "globalStackRank": null,
+        "areaPath": null,
+        "iterationPath": null,
+        "reason": null,
+        "originalType": null,
+        "metadata": {
+          "$id": "85"
+        },
+        "isFakeWorkItem": false,
+        "sourcePatternName": null,
+        "url": "https://github.com/acme-flow/acmeflow-sdk/issues/4",
+        "type": "Feature",
+        "workItemType": "Feature",
+        "changedDate": "2026-06-13T23:10:15Z"
+      },
+      {
+        "$id": "86",
+        "id": 3,
+        "logicalType": "Feature",
+        "title": "Python SDK",
+        "description": "Idiomatic Python client for the AcmeFlow REST API.\n\nPart of #1.",
+        "state": "Active",
+        "assignedTo": null,
+        "createdBy": null,
+        "createdDate": "2026-06-13T23:10:15Z",
+        "modifiedDate": "2026-06-13T23:10:15Z",
+        "connection": {
+          "$ref": "4"
+        },
+        "project": "acme-flow/acmeflow-sdk",
+        "webUrl": "https://github.com/acme-flow/acmeflow-sdk/issues/3",
+        "provider": 2,
+        "globalId": "https://github.com/acme-flow/acmeflow-sdk/issues/3",
+        "tags": {
+          "$id": "87",
+          "$values": [
+            "enhancement",
+            "feature",
+            "in-progress",
+            "sdk:python"
+          ]
+        },
+        "priority": "Medium",
+        "fields": {
+          "$id": "88"
+        },
+        "relationships": {
+          "$id": "89",
+          "$values": []
+        },
+        "globalStackRank": null,
+        "areaPath": null,
+        "iterationPath": null,
+        "reason": null,
+        "originalType": null,
+        "metadata": {
+          "$id": "90"
+        },
+        "isFakeWorkItem": false,
+        "sourcePatternName": null,
+        "url": "https://github.com/acme-flow/acmeflow-sdk/issues/3",
+        "type": "Feature",
+        "workItemType": "Feature",
+        "changedDate": "2026-06-13T23:10:15Z"
+      },
+      {
+        "$id": "91",
+        "id": 2,
+        "logicalType": "Feature",
+        "title": "TypeScript SDK",
+        "description": "Typed TypeScript client for the AcmeFlow REST API.\n\nPart of #1.\nConsumed by the product REST connector: https://dev.azure.com/acmeflow/AcmeFlow/_workitems/edit/12",
+        "state": "Active",
+        "assignedTo": null,
+        "createdBy": null,
+        "createdDate": "2026-06-13T23:10:14Z",
+        "modifiedDate": "2026-06-13T23:10:14Z",
+        "connection": {
+          "$ref": "4"
+        },
+        "project": "acme-flow/acmeflow-sdk",
+        "webUrl": "https://github.com/acme-flow/acmeflow-sdk/issues/2",
+        "provider": 2,
+        "globalId": "https://github.com/acme-flow/acmeflow-sdk/issues/2",
+        "tags": {
+          "$id": "92",
+          "$values": [
+            "enhancement",
+            "feature",
+            "in-progress",
+            "sdk:typescript"
+          ]
+        },
+        "priority": "Medium",
+        "fields": {
+          "$id": "93"
+        },
+        "relationships": {
+          "$id": "94",
+          "$values": []
+        },
+        "globalStackRank": null,
+        "areaPath": null,
+        "iterationPath": null,
+        "reason": null,
+        "originalType": null,
+        "metadata": {
+          "$id": "95"
+        },
+        "isFakeWorkItem": false,
+        "sourcePatternName": null,
+        "url": "https://github.com/acme-flow/acmeflow-sdk/issues/2",
+        "type": "Feature",
+        "workItemType": "Feature",
+        "changedDate": "2026-06-13T23:10:14Z"
+      },
+      {
+        "$id": "96",
+        "id": 1,
+        "logicalType": "Epic",
+        "title": "Official AcmeFlow SDKs & CLI",
+        "description": "Umbrella issue for the official open-source SDKs (TypeScript, Python) and the AcmeFlow CLI.\n\nProduct epic in Azure DevOps: https://dev.azure.com/acmeflow/AcmeFlow/_workitems/edit/3\n\nSub-work:\n- TypeScript SDK #2\n- Python SDK #3\n- AcmeFlow CLI #4\n- OpenAPI spec & code generation #5",
+        "state": "Active",
+        "assignedTo": null,
+        "createdBy": null,
+        "createdDate": "2026-06-13T23:10:13Z",
+        "modifiedDate": "2026-06-13T23:10:13Z",
+        "connection": {
+          "$ref": "4"
+        },
+        "project": "acme-flow/acmeflow-sdk",
+        "webUrl": "https://github.com/acme-flow/acmeflow-sdk/issues/1",
+        "provider": 2,
+        "globalId": "https://github.com/acme-flow/acmeflow-sdk/issues/1",
+        "tags": {
+          "$id": "97",
+          "$values": [
+            "epic",
+            "in-progress"
+          ]
+        },
+        "priority": "Medium",
+        "fields": {
+          "$id": "98"
+        },
+        "relationships": {
+          "$id": "99",
+          "$values": []
+        },
+        "globalStackRank": null,
+        "areaPath": null,
+        "iterationPath": null,
+        "reason": null,
+        "originalType": null,
+        "metadata": {
+          "$id": "100"
+        },
+        "isFakeWorkItem": false,
+        "sourcePatternName": null,
+        "url": "https://github.com/acme-flow/acmeflow-sdk/issues/1",
+        "type": "Epic",
+        "workItemType": "Epic",
+        "changedDate": "2026-06-13T23:10:13Z"
+      }
+    ]
+  },
+  "relationships": {
+    "$id": "101",
+    "$values": []
+  },
+  "successfulConnections": {
+    "$id": "102",
+    "$values": [
+      {
+        "$id": "103",
+        "connectionUrl": "https://github.com/acme-flow",
+        "workItemCount": 18,
+        "executionTime": "00:00:00.4778886",
+        "appliedFilter": {
+          "$id": "104",
+          "workItemTypes": {
+            "$id": "105",
+            "$values": []
+          },
+          "states": null,
+          "assignedTo": {
+            "$id": "106",
+            "$values": []
+          },
+          "titleContains": null,
+          "areaPaths": {
+            "$id": "107",
+            "$values": []
+          },
+          "iterationPaths": {
+            "$id": "108",
+            "$values": []
+          },
+          "tags": null,
+          "customFields": {
+            "$id": "109"
+          },
+          "createdDate": null,
+          "modifiedDate": null,
+          "workItemIds": {
+            "$id": "110",
+            "$values": [
+              1
+            ]
+          },
+          "maxResults": null,
+          "connectionSpecificFilters": {
+            "$id": "111"
+          },
+          "includeRelationships": true,
+          "maxRelationshipDepth": 1,
+          "relationshipTypes": {
+            "$id": "112",
+            "$values": []
+          },
+          "followExternalRelationships": true,
+          "includePii": false,
+          "excludeDisabledTypes": false,
+          "resolveHyperlinks": true,
+          "hyperlinksAs": null,
+          "resolveFieldReferences": false,
+          "includeFileRelationships": false,
+          "resolveFileContent": false,
+          "filterRelatedWorkItems": false,
+          "includeAllFields": false,
+          "sortBy": null,
+          "globalStackRankProfile": null
+        },
+        "warnings": {
+          "$id": "113",
+          "$values": []
+        },
+        "rateLimitEncountered": false,
+        "rateLimitStatus": null
+      }
+    ]
+  },
+  "failedConnections": {
+    "$id": "114",
+    "$values": []
+  },
+  "queryFilter": {
+    "$ref": "104"
+  },
+  "queryExecutedAt": "2026-09-14T22:17:53.22152Z",
+  "totalExecutionTime": "00:00:00.4857844",
+  "warnings": {
+    "$id": "115",
+    "$values": []
+  },
+  "policyValidationResults": {
+    "$id": "116"
+  },
+  "globalStackRankSummary": null,
+  "totalWorkItemCount": 18,
+  "totalCount": 18,
+  "successfulConnectionCount": 1,
+  "failedConnectionCount": 0,
+  "totalConnectionCount": 1,
+  "isPartialSuccess": false,
+  "isCompleteSuccess": true,
+  "isCompleteFailure": false,
+  "successRate": 1
+}

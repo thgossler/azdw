@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    This is intentionally a tiny executable project. It compiles against the
+    public azdw.lib.dll from a client package instead of the azdw source tree,
+    which shows how an external .NET application consumes the facade.
+  -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AzdwLibPath Condition="'$(AzdwLibPath)' == ''">$(AZDW_LIB_PATH)</AzdwLibPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- ASP.NET Core assemblies are used by the packaged library's dependency graph. -->
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+
+    <!-- Pass the package DLL with -p:AzdwLibPath=... or AZDW_LIB_PATH. Copy it
+         locally so the sample can load the same assembly at runtime. -->
+    <Reference Include="Azdw.Lib" HintPath="$(AzdwLibPath)" Private="true" />
+  </ItemGroup>
+
+  <!-- Give readers a direct error when the package reference was omitted. -->
+  <Target Name="ValidateAzdwLibPath" BeforeTargets="ResolveReferences" Condition="'$(AzdwLibPath)' == ''">
+    <Error Text="Set AzdwLibPath to the path of the packaged azdw.lib.dll, for example -p:AzdwLibPath=/path/to/azdw.lib.dll." />
+  </Target>
+</Project>

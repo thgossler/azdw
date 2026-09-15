@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Hyperlink Mapping Configuration",
+  "description": "Configuration for interpreting hyperlinks between work item types",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$",
+      "description": "Configuration schema version (e.g., '1.0'). Used for migration between schema versions.",
+      "default": "1.0"
+    },
+    "description": {
+      "type": "string",
+      "description": "A human-readable description of this configuration"
+    },
+    "defaultBehavior": {
+      "type": "string",
+      "enum": ["Parent", "Child", "Dependency", "Related"],
+      "description": "Default relationship type when no specific mapping is found and no CLI override is provided"
+    },
+    "mappings": {
+      "type": "array",
+      "description": "List of hyperlink mapping rules",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sourceType": {
+            "type": "string",
+            "description": "Source work item type (use '*' for wildcard)"
+          },
+          "targetType": {
+            "type": "string",
+            "description": "Target work item type (use '*' for wildcard)"
+          },
+          "relationship": {
+            "type": "string",
+            "enum": ["Parent", "Child", "Dependency", "Related"],
+            "description": "Relationship type for this hyperlink pair"
+          },
+          "description": {
+            "type": "string",
+            "description": "Human-readable explanation of this mapping rule"
+          }
+        },
+        "required": ["sourceType", "targetType", "relationship"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["mappings"],
+  "additionalProperties": false
+}

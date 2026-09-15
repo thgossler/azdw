@@ -1,0 +1,38 @@
+// azdw Allowed Tools Configuration
+// JSON schema: ./allowed-tools-schema.json
+// Location:    ~/.azdw/config/allowed-tools.jsonc
+//
+// This file controls which CLI tools the AI assistant is permitted to execute
+// during ai-chat sessions. Only tools listed here can be invoked via the
+// ExecuteAllowedTool MCP tool.
+//
+// Security notes:
+//   - Use absolute paths only. Relative paths are rejected at startup.
+//   - Tool name must match ^[a-zA-Z0-9_-]+$ (no spaces or path separators).
+//   - Arguments are passed as an array (never interpolated through a shell).
+//   - Processes are killed after timeoutSeconds (default: 30, max: 300).
+//
+// To add a new tool, append an entry to the "tools" array and restart azdw.
+{
+  "$schema": "./allowed-tools-schema.json",
+  "version": "1.0",
+  "tools": [
+    {
+      // GraphViz DOT renderer — used to render .dot files to PNG/SVG images.
+      // Install: macOS: brew install graphviz | Linux: apt install graphviz
+      //          Windows: choco install graphviz
+      // Find path: which dot  (macOS/Linux)  |  where dot  (Windows)
+      "name": "dot",
+      "path": "/usr/local/bin/dot",    // <-- update with your actual path (run: which dot)
+      "description": "GraphViz DOT renderer. Renders .dot files to PNG, SVG, PDF, etc.",
+      "timeoutSeconds": 30
+    }
+    // To add more tools, uncomment and edit the template below:
+    // {
+    //   "name": "my-tool",
+    //   "path": "/usr/local/bin/my-tool",
+    //   "description": "What this tool does.",
+    //   "timeoutSeconds": 60
+    // }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "./field-mapping-schema.json",
+  
+  // Field mapping for Scrum process template - Product Backlog Item
+  // Maps both "Product Backlog Item" (physical type) and "ProductBacklogItem" (normalized)
+
+  "processTemplate": "Scrum",
+  "logicalType": "ProductBacklogItem", 
+  "physicalType": "Product Backlog Item",
+  
+  "stateMapping": {
+    "New": "New",
+    "Approved": "Active",
+    "Committed": "Active",
+    "Done": "Closed",
+    "Removed": "Resolved"
+  },
+
+  "priorityMapping": {
+    "1": "Critical",
+    "2": "High", 
+    "3": "Medium",
+    "4": "Low"
+  },
+
+  "logicalFields": {
+    "StoryPoints": "Microsoft.VSTS.Scheduling.Effort",
+    "AcceptanceCriteria": "Microsoft.VSTS.Common.AcceptanceCriteria",
+    "BusinessValue": "Microsoft.VSTS.Common.BusinessValue"
+  },
+
+  "requiredFields": [
+    "System.Title",
+    "System.State", 
+    "System.WorkItemType"
+  ],
+
+  "optionalFields": [
+    "Microsoft.VSTS.Scheduling.Effort",
+    "Microsoft.VSTS.Common.AcceptanceCriteria",
+    "Microsoft.VSTS.Common.BusinessValue"
+  ],
+
+  "defaultValues": {
+    "Priority": "Medium"
+  },
+
+  "configurationComments": "Scrum template mapping for Product Backlog Item (maps to logical type UserStory).",
+  "validationRules": [],
+  "isDefaultMapping": true,
+  "lastUpdated": "2025-10-28T00:00:00Z"
+}

@@ -1,0 +1,76 @@
+{
+  "$schema": "./file-relationship-config-schema.json",
+  "version": "1.0",
+  "description": "Example configuration for recognizing file artifacts (ADRs, RFCs, design docs) as related work items",
+  "patterns": [
+    {
+      "name": "ADR",
+      "description": "Architecture Decision Records stored in Azure DevOps Git repository",
+      "urlPattern": "https://dev\\.azure\\.com/(?<Org>[^/]+)/_git/DecisionRecords\\?path=/(?<Area>.+?)/(?<Id>\\d+)-(?<Title>.+?)\\.md$",
+      "relationshipName": "Architecture Decision",
+      "workItemType": "Decision Record",
+      "startWorkItemId": 900000,
+      "enabled": true,
+      "fieldMappings": {
+        "Title": "${Title}",
+        "AreaPath": "${Area}",
+        "State": "Unknown",
+        "Tags": "ADR, Fake"
+      },
+      "contentExtractionPatterns": [
+        {
+          "pattern": "(?m)^## Status[:\\s]*(?<State>\\w+)",
+          "description": "Extract ADR status from Markdown heading (e.g., '## Status: Accepted')"
+        },
+        {
+          "pattern": "(?s)\\*\\*Decision\\*\\*:\\s*(?<DecisionSummary>.+?)\\n\\n",
+          "description": "Extract decision summary from bold-formatted section"
+        }
+      ]
+    },
+    {
+      "name": "RFC",
+      "description": "Request for Comments documents in Azure DevOps Wiki",
+      "urlPattern": "https://dev\\.azure\\.com/(?<Org>[^/]+)/(?<Project>[^/]+)/_wiki/wikis/[^/]+/(?<Id>\\d+)/(?<Title>[^?]+)",
+      "relationshipName": "RFC Reference",
+      "workItemType": "RFC",
+      "startWorkItemId": 800000,
+      "enabled": true,
+      "fieldMappings": {
+        "Title": "${Title}",
+        "Project": "${Project}",
+        "State": "Active",
+        "Tags": "RFC, Fake"
+      }
+    },
+    {
+      "name": "DesignDoc",
+      "description": "Design documents without explicit IDs (ID will be hash-generated)",
+      "urlPattern": "https://dev\\.azure\\.com/(?<Org>[^/]+)/_git/(?<Repo>[^?]+)\\?path=/designs/(?<Title>.+?)\\.md$",
+      "relationshipName": "Design Document",
+      "workItemType": "Design Document",
+      "startWorkItemId": 850000,
+      "enabled": true,
+      "fieldMappings": {
+        "Title": "${Title}",
+        "State": "Unknown",
+        "Tags": "Design, Fake"
+      }
+    },
+    {
+      "name": "TFS-ADR",
+      "description": "Architecture Decision Records on on-premises TFS/Azure DevOps Server",
+      "urlPattern": "https?://(?<Server>[^/]+)/tfs/(?<Collection>[^/]+)/_git/DecisionRecords\\?path=/(?<Area>.+?)/(?<Id>\\d+)-(?<Title>.+?)\\.md$",
+      "relationshipName": "Architecture Decision",
+      "workItemType": "Decision Record",
+      "startWorkItemId": 900000,
+      "enabled": true,
+      "fieldMappings": {
+        "Title": "${Title}",
+        "AreaPath": "${Area}",
+        "State": "Unknown",
+        "Tags": "ADR, Fake, OnPrem"
+      }
+    }
+  ]
+}

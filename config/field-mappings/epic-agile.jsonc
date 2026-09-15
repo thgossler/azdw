@@ -1,0 +1,58 @@
+{
+  "$schema": "./field-mapping-schema.json",
+  
+  // Default field mappings for Agile process template - Epic
+  // Auto-generated field mapping
+
+  "processTemplate": "Agile",
+  "logicalType": "Epic", 
+  "physicalType": "Epic",
+  
+  // State mapping
+  "stateMapping": {
+    "New": "New",
+    "Active": "Active",
+    "Resolved": "Resolved", 
+    "Closed": "Closed",
+    "Removed": "Closed"
+  },
+
+  // Priority mapping
+  "priorityMapping": {
+    "1": "Critical",
+    "2": "High", 
+    "3": "Medium",
+    "4": "Low"
+  },
+
+  // Field mapping
+  "logicalFields": {
+    "BusinessValue": "Microsoft.VSTS.Common.BusinessValue",
+    "StartDate": "Microsoft.VSTS.Scheduling.StartDate",
+    "TargetDate": "Microsoft.VSTS.Scheduling.TargetDate"
+  },
+
+  // Required fields
+  "requiredFields": [
+    "System.Title",
+    "System.State", 
+    "System.WorkItemType"
+  ],
+
+  // Optional fields
+  "optionalFields": [
+    "Microsoft.VSTS.Common.BusinessValue",
+    "Microsoft.VSTS.Scheduling.StartDate",
+    "Microsoft.VSTS.Scheduling.TargetDate"
+  ],
+
+  // Default values
+  "defaultValues": {
+    "Priority": "Medium"
+  },
+
+  "configurationComments": "Default Agile process template mapping for Epic work items.",
+  "validationRules": [],
+  "isDefaultMapping": true,
+  "lastUpdated": "2025-10-28T00:00:00Z"
+}

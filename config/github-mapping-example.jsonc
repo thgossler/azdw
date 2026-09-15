@@ -1,0 +1,61 @@
+{
+  // Example GitHub mapping configuration. Copy to ~/.azdw/config/github-mapping.jsonc to customize.
+  // All sections are optional; omitted values use the documented defaults below.
+  // Type and state are resolved independently and in parallel (e.g. labels "bug,analysis" => type "Bug", state "Analysis").
+  "$schema": "./github-mapping-schema.json",
+  "version": "1.0",
+  "description": "Default-style GitHub issue mappings to the unified work item model.",
+
+  // Pull requests are excluded by default; set true to include them as work items.
+  "includePullRequests": false,
+
+  "typeMapping": {
+    // Evaluate the native Issue Type field first, then fall back to label rules.
+    "sourcePrecedence": ["issueType", "labels"],
+    "default": "Issue",
+    "rules": [
+      // Native Issue Type values (GitHub 2025 Issue Types) take precedence per sourcePrecedence.
+      { "issueType": "Bug", "target": "Bug" },
+      { "issueType": "Feature", "target": "Feature" },
+      { "issueType": "Task", "target": "Task" },
+
+      // Label-based fallbacks (common GitHub conventions).
+      { "labels": ["bug"], "target": "Bug" },
+      { "labels": ["enhancement"], "target": "Feature" },
+      { "labels": ["feature"], "target": "Feature" },
+      { "labels": ["documentation"], "target": "Documentation" },
+
+      // Combination rule (most-specific wins): a high-priority bug becomes a Critical Bug.
+      { "labels": ["bug", "priority:high"], "target": "Critical Bug", "description": "High-priority bugs" }
+    ]
+  },
+
+  "stateMapping": {
+    // Projects 'Status' is only consulted when a connection references a Project; then labels; then open/closed.
+    "sourcePrecedence": ["projectStatus", "labels", "openClosed"],
+    "default": "New",
+    "openClosed": {
+      "open": "Active",
+      "closedCompleted": "Closed",
+      "closedNotPlanned": "Removed",
+      "reopened": "Active"
+    },
+    "rules": [
+      // State labels map independently of type (the "analysis" half of "bug,analysis").
+      { "labels": ["triage"], "target": "New" },
+      { "labels": ["analysis"], "target": "Analysis" },
+      { "labels": ["in-progress"], "target": "Active" },
+      { "labels": ["in-review"], "target": "Resolved" }
+    ]
+  },
+
+  "fieldMapping": {
+    "rules": [
+      { "source": "milestone", "target": "Iteration Path" },
+      { "source": "assignees", "target": "Assigned To" },
+      { "source": "body", "target": "Description" },
+      { "source": "html_url", "target": "WebUrl" },
+      { "source": "number", "target": "Id" }
+    ]
+  }
+}

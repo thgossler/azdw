@@ -1,0 +1,54 @@
+{
+  // Capacity-supply input for demand-vs-supply load analysis (`azdw capacity analyze`).
+  //
+  // This file declares SUPPLY ONLY (a user-supplied assertion). Demand is rolled up from real
+  // work-item fields at analysis time (fact). Classification thresholds are policy.
+  //
+  // The dimension -> work-item-field mapping is NOT declared here; it lives in
+  // `field-reference-mappings.jsonc`. Records are sparse by design: declare supply only where
+  // you know it. A supply record is matched to a demand group only on an EXACT dimension-key
+  // match (same keys + values). Unmatched demand is reported as "uncovered demand" and
+  // unmatched supply as "idle supply".
+  //
+  // Default location: ~/.azdw/config/capacity-supply.jsonc (repo config/ fallback).
+  "$schema": "./capacity-supply-schema.json",
+
+  // Optional migration version.
+  "version": "1.0",
+
+  // REQUIRED. Unit of every `amount` below. Must share a unit family with the demand field
+  // unit declared via `--demand-unit` (default: personWeeks). A mismatch is flagged and the
+  // load % is suppressed rather than computing a misleading figure.
+  "unit": "personWeeks",
+
+  // Provenance (carried into every output that shows supply).
+  "source": "PMO capacity plan v3",
+  "asOfDate": "2026-06-01",
+  "notes": "Half-year planning capacity. Contractor budget excluded.",
+
+  // Classification policy (percent). Overridable via command options; always labelled policy.
+  // load% < underUtilisedBelow      -> UnderUtilised
+  // underUtilisedBelow .. atRiskFrom -> Healthy
+  // atRiskFrom .. overAllocatedAbove -> AtRisk
+  // load% > overAllocatedAbove      -> OverAllocated
+  "thresholds": {
+    "underUtilisedBelow": 80,
+    "atRiskFrom": 80,
+    "overAllocatedAbove": 100
+  },
+
+  // REQUIRED, non-empty. Each record needs at least one dimension key and an `amount`.
+  // The SET of dimension keys present defines the record's granularity for exact-match joining.
+  "capacity": [
+    // Supply declared per value stream + horizon (matches demand grouped by valueStream,horizon).
+    { "valueStream": "Payments", "horizon": "H1", "amount": 480 },
+    { "valueStream": "Payments", "horizon": "H2", "amount": 360 },
+    { "valueStream": "Checkout", "horizon": "H1", "amount": 300 },
+
+    // A per-team, per-period record (different granularity; matches only demand grouped the same way).
+    { "team": "Platform", "period": "2026-H1", "amount": 220, "notes": "Includes 1 open req." },
+
+    // A zero-supply record: any matching demand is reported as over-allocated (not divide-by-zero).
+    { "valueStream": "Checkout", "horizon": "H2", "amount": 0, "notes": "No funded capacity yet." }
+  ]
+}

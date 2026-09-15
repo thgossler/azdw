@@ -1,0 +1,30 @@
+{
+  "$schema": "./connection-setup-schema.json",
+  "version": "1.0",
+  "description": "Connection setup configuration for automated azdw connection initialization. Place this file as 'config/connection-setup.json' under the same folder as init.cmd/.sh to use with the -SetupConnections option. The script opens the Azure DevOps PAT creation page in your browser and guides you through creating and pasting the token.",
+  "connections": [
+    {
+      "name": "MyOrg",
+      "url": "https://dev.azure.com/myorganization",
+      "description": "Main organization connection",
+      "validityDays": 365,
+      "tenantId": "optional-tenant-id-for-oauth"
+    },
+    {
+      "name": "PartnerOrg",
+      "url": "https://dev.azure.com/partnerorganization",
+      "description": "Partner organization connection",
+      "validityDays": 180
+    },
+    {
+      "name": "ProjectConnection",
+      "url": "https://dev.azure.com/myorganization/MyProject",
+      "description": "Project-specific connection",
+      "validityDays": 365
+    }
+  ],
+  "validation": {
+    "queryTypes": ["User Story", "Bug"],
+    "queryLimit": 5
+  }
+}

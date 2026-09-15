@@ -1,0 +1,34 @@
+{
+  "$schema": "./report-template-schema.json",
+  "id": "work-items-export-csv",
+  "name": "Work Items Export (CSV)",
+  "description": "Export work items to CSV format with customizable columns",
+  "engineType": "scriban",
+  "content": "\"ID\",\"Title\",\"State\",\"Type\",\"Assigned To\",\"Priority\"\n{{~ for item in items ~}}\n\"{{ item.id }}\",\"{{ item.title | string.replace '\"' '\"\"' }}\",\"{{ item.state }}\",\"{{ item.work_item_type }}\",\"{{ item.assigned_to }}\",\"{{ item.priority }}\"\n{{~ end ~}}",
+  "outputFormat": "csv",
+  "mimeType": "text/csv",
+  "fileExtension": ".csv",
+  "category": "Export",
+  "tags": ["export", "csv", "data", "work-items"],
+  "parameters": {
+    "columns": {
+      "name": "columns",
+      "displayName": "Columns to Export",
+      "description": "Comma-separated list of columns to include in export",
+      "dataType": "string",
+      "isRequired": false,
+      "defaultValue": "ID,Title,State,Type,Assigned To,Priority",
+      "placeholderText": "ID,Title,State,Type,Assigned To,Priority,Created Date"
+    }
+  },
+  "defaultValues": {
+    "columns": "ID,Title,State,Type,Assigned To,Priority"
+  },
+  "isEnabled": true,
+  "isBuiltIn": false,
+  "version": "1.0.0",
+  "author": "Azure DevOps Work Item Handler Library",
+  "supportedDataTypes": ["WorkItem[]"],
+  "dependencies": [],
+  "sampleInput": "Array of work items with properties: id, title, state, work_item_type, assigned_to, priority, area_path, iteration_path, created_date, changed_date, url"
+}

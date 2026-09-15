@@ -1,0 +1,22 @@
+{
+  "$schema": "./url-mappings-schema.json",
+  "version": "1.0",
+  "enabled": true,
+  "domainMappings": [
+    {
+      "oldUrlPrefix": "https://old-tfs-server.company.com:8090/tfs/",
+      "newUrlPrefix": "https://new-tfs-server.company.com/tfs/",
+      "description": "Example: Old TFS server to new TFS server with different port"
+    },
+    {
+      "oldUrlPrefix": "https://legacy.devops.company.com/",
+      "newUrlPrefix": "https://devops.company.com/",
+      "description": "Example: Legacy Azure DevOps URL to new URL"
+    },
+    {
+      "oldUrlPrefix": "http://internal-tfs.local/",
+      "newUrlPrefix": "https://external-devops.company.com/",
+      "description": "Example: HTTP to HTTPS and internal to external domain migration"
+    }
+  ]
+}

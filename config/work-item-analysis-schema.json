@@ -1,0 +1,194 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "azdw Work Item Analysis 1.0",
+  "description": "Read-only offline evidence and review proposals. No field in this document authorizes a write. Qualified keys, not numeric IDs, identify endpoints. Referential integrity must also be checked by consumers.",
+  "type": "object",
+  "required": ["documentType", "schemaVersion", "analysisId", "startedAt", "completedAt", "scope", "effectiveConfiguration", "coverage", "workItems", "observedRelationships", "pairAssessments", "relationshipProposals", "consolidationProposals", "clusters", "evidence", "policyFindings", "errors", "warnings"],
+  "properties": {
+    "documentType": { "enum": ["azdw.work-item-analysis"] },
+    "schemaVersion": { "enum": ["1.0"] },
+    "analysisId": { "type": "string", "minLength": 1 },
+    "startedAt": { "type": "string", "format": "date-time" },
+    "completedAt": { "type": "string", "format": "date-time" },
+    "scope": { "$ref": "#/definitions/request" },
+    "effectiveConfiguration": { "$ref": "#/definitions/configuration" },
+    "coverage": { "$ref": "#/definitions/coverage" },
+    "workItems": { "type": "array", "items": { "$ref": "#/definitions/workItem" } },
+    "observedRelationships": { "type": "array", "items": { "$ref": "#/definitions/observedRelationship" } },
+    "pairAssessments": { "type": "array", "items": { "$ref": "#/definitions/pair" } },
+    "relationshipProposals": { "type": "array", "items": { "$ref": "#/definitions/relationshipProposal" } },
+    "consolidationProposals": { "type": "array", "items": { "$ref": "#/definitions/consolidationProposal" } },
+    "clusters": { "type": "array", "items": { "$ref": "#/definitions/cluster" } },
+    "evidence": { "type": "array", "items": { "$ref": "#/definitions/evidence" } },
+    "policyFindings": { "type": "array", "items": { "$ref": "#/definitions/policyFinding" } },
+    "errors": { "$ref": "#/definitions/strings" },
+    "warnings": { "$ref": "#/definitions/strings" }
+  },
+  "definitions": {
+    "strings": { "type": "array", "items": { "type": "string" } },
+    "key": { "type": "string", "pattern": "^(github:[^/]+/[^/]+/[^#]+|ado:[^#]+)#[1-9][0-9]*$" },
+    "keys": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/definitions/key" } },
+    "nullableString": { "type": ["string", "null"] },
+    "hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "safeUrl": { "type": ["string", "null"], "pattern": "^https?://[^/@?#]+(?:/[^?#]*)?$" },
+    "request": {
+      "type": "object",
+      "required": ["connections", "filter", "maxItems", "maxScanItemsPerConnection", "maxComparisons", "maxCandidatePairs", "seedKeys", "enableAi", "maxAiCalls", "analysisGuidance"],
+      "properties": {
+        "connections": { "type": "array", "minItems": 1, "maxItems": 20, "items": { "type": "string", "minLength": 1 } },
+        "filter": { "type": "object", "description": "Captured existing QueryFilter, including URL-keyed connectionSpecificFilters; selection semantics are owned by QueryFilter." },
+        "maxItems": { "type": "integer", "minimum": 1, "maximum": 1000 },
+        "maxScanItemsPerConnection": { "type": "integer", "minimum": 1, "maximum": 5000 },
+        "maxComparisons": { "type": "integer", "minimum": 1, "maximum": 100000 },
+        "maxCandidatePairs": { "type": "integer", "minimum": 1, "maximum": 1000 },
+        "minimumScore": { "type": "number", "minimum": 0, "maximum": 1 },
+        "seedKeys": { "$ref": "#/definitions/keys" },
+        "enableAi": { "type": "boolean" },
+        "allowCrossConnectionAi": { "type": "boolean" },
+        "maxAiCalls": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "maxOutputTokens": { "type": "integer", "minimum": 100, "maximum": 8000 },
+        "maxPromptCharacters": { "type": "integer", "minimum": 1000, "maximum": 100000 },
+        "maxDurationSeconds": { "type": "integer", "minimum": 1, "maximum": 1800 },
+        "analysisGuidance": { "type": ["string", "null"], "maxLength": 8000 },
+        "topWorkItemType": { "$ref": "#/definitions/nullableString" }
+      }
+    },
+    "configuration": {
+      "type": "object",
+      "required": ["topWorkItemType", "topTypeOrigin", "glossary", "effectiveGlossary", "virtualTypes", "hyperlinkMappings", "policies", "fingerprint", "guidanceHash"],
+      "properties": {
+        "topWorkItemType": { "$ref": "#/definitions/nullableString" },
+        "topTypeOrigin": { "enum": ["request", "defaults-service", "unavailable"] },
+        "glossary": { "$ref": "#/definitions/nullableString" },
+        "effectiveGlossary": { "type": ["object", "null"] },
+        "virtualTypes": { "type": ["object", "null"] },
+        "hyperlinkMappings": { "type": ["object", "null"] },
+        "policies": { "type": ["object", "null"] },
+        "fingerprint": { "$ref": "#/definitions/hash" },
+        "guidanceHash": { "$ref": "#/definitions/hash" }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "required": ["sourceCompleteness", "providerCalls", "retrievedByConnection", "effectiveFilters", "itemBudgetReached", "scanBudgetReached", "comparisons", "pairBudgetReached", "aiCalls", "aiAssessedPairs", "guidanceStatus", "timedOut"],
+      "properties": {
+        "sourceCompleteness": { "enum": ["unknown"] },
+        "providerCalls": { "type": "integer", "minimum": 0 },
+        "retrievedByConnection": { "type": "object", "additionalProperties": { "type": "integer", "minimum": 0 } },
+        "effectiveFilters": { "type": "object", "additionalProperties": { "type": "object" } },
+        "itemBudgetReached": { "type": "boolean" },
+        "scanBudgetReached": { "type": "boolean" },
+        "comparisons": { "type": "integer", "minimum": 0 },
+        "pairBudgetReached": { "type": "boolean" },
+        "aiCalls": { "type": "integer", "minimum": 0 },
+        "aiAssessedPairs": { "type": "integer", "minimum": 0 },
+        "aiTokens": { "type": ["integer", "null"], "minimum": 0 },
+        "model": { "$ref": "#/definitions/nullableString" },
+        "guidanceStatus": { "enum": ["not-applied", "partial", "applied"] },
+        "timedOut": { "type": "boolean" }
+      }
+    },
+    "workItem": {
+      "type": "object",
+      "required": ["key", "id", "connection", "provider", "project", "url", "physicalType", "logicalType", "logicalTypeDisplayName", "typeResolution", "title", "description", "acceptanceCriteria", "state", "areaPath", "iterationPath", "tags", "revision", "modifiedAt", "contentHash", "textTruncated"],
+      "properties": {
+        "key": { "$ref": "#/definitions/key" },
+        "id": { "type": "integer", "minimum": 1 },
+        "connection": { "type": "string" },
+        "provider": { "type": "string" },
+        "project": { "type": "string" },
+        "url": { "$ref": "#/definitions/safeUrl" },
+        "physicalType": { "type": "string" },
+        "logicalType": { "type": "string" },
+        "logicalTypeDisplayName": { "type": "string" },
+        "typeResolution": { "type": "string" },
+        "title": { "type": "string", "maxLength": 4000 },
+        "description": { "type": ["string", "null"], "maxLength": 4000 },
+        "acceptanceCriteria": { "type": ["string", "null"], "maxLength": 4000 },
+        "state": { "type": "string" },
+        "areaPath": { "$ref": "#/definitions/nullableString" },
+        "iterationPath": { "$ref": "#/definitions/nullableString" },
+        "tags": { "$ref": "#/definitions/strings" },
+        "revision": { "$ref": "#/definitions/nullableString" },
+        "modifiedAt": { "type": ["string", "null"], "format": "date-time" },
+        "contentHash": { "$ref": "#/definitions/hash" },
+        "textTruncated": { "type": "boolean" },
+        "normalizedText": { "$ref": "#/definitions/normalizedText" }
+      }
+    },
+    "normalizedText": {
+      "type": "object",
+      "description": "Optional readable projection derived from complete provider text before truncation. Raw source excerpts and evidence remain unchanged.",
+      "required": ["method", "title", "description", "acceptanceCriteria", "textTruncated"],
+      "properties": {
+        "method": { "enum": ["visible-text-v1"] },
+        "title": { "type": "string", "maxLength": 4000 },
+        "description": { "type": ["string", "null"], "maxLength": 4000 },
+        "acceptanceCriteria": { "type": ["string", "null"], "maxLength": 4000 },
+        "textTruncated": { "type": "boolean" }
+      }
+    },
+    "evidence": {
+      "type": "object", "required": ["id", "itemKey", "field", "excerpt", "contentHash"],
+      "properties": {
+        "id": { "$ref": "#/definitions/hash" }, "itemKey": { "$ref": "#/definitions/key" },
+        "field": { "enum": ["title", "description", "acceptanceCriteria"] },
+        "excerpt": { "type": "string", "maxLength": 4000 }, "contentHash": { "$ref": "#/definitions/hash" }
+      }
+    },
+    "observedRelationship": {
+      "type": "object", "required": ["sourceKey", "targetKey", "targetUrl", "semanticType", "originalType", "origin", "resolution"],
+      "properties": {
+        "sourceKey": { "$ref": "#/definitions/key" },
+        "targetKey": { "anyOf": [{ "$ref": "#/definitions/key" }, { "type": "null" }] },
+        "targetUrl": { "$ref": "#/definitions/safeUrl" }, "semanticType": { "$ref": "#/definitions/nullableString" },
+        "originalType": { "type": "string" }, "origin": { "enum": ["native", "hyperlink"] },
+        "resolution": { "enum": ["resolved", "explicit-no-match", "out-of-scope-or-unresolved"] }
+      }
+    },
+    "pair": {
+      "type": "object", "required": ["id", "sourceKey", "targetKey", "retrievalScore", "classification", "reason", "evidenceIds", "differences", "survivorKey"],
+      "properties": {
+        "id": { "$ref": "#/definitions/hash" }, "sourceKey": { "$ref": "#/definitions/key" }, "targetKey": { "$ref": "#/definitions/key" },
+        "retrievalScore": { "type": "number", "minimum": 0, "maximum": 1 },
+        "classification": { "enum": ["unassessed", "duplicate", "partial-overlap", "related-but-distinct", "unrelated", "insufficient-evidence"] },
+        "reason": { "type": "string" }, "evidenceIds": { "$ref": "#/definitions/strings" }, "differences": { "$ref": "#/definitions/strings" },
+        "survivorKey": { "anyOf": [{ "$ref": "#/definitions/key" }, { "type": "null" }] }
+      }
+    },
+    "relationshipProposal": {
+      "type": "object", "required": ["id", "sourceKey", "targetKey", "relationshipType", "direction", "realization", "reason", "evidenceIds", "reviewStatus"],
+      "properties": {
+        "id": { "type": "string" }, "sourceKey": { "$ref": "#/definitions/key" }, "targetKey": { "$ref": "#/definitions/key" },
+        "relationshipType": { "enum": ["Related"] }, "direction": { "enum": ["undirected"] }, "realization": { "enum": ["manual-only"] },
+        "reason": { "type": "string" }, "evidenceIds": { "$ref": "#/definitions/strings" }, "reviewStatus": { "$ref": "#/definitions/reviewStatus" }
+      }
+    },
+    "consolidationProposal": {
+      "type": "object", "required": ["id", "survivorKey", "memberKeys", "reason", "conflicts", "evidenceIds", "reviewStatus"],
+      "properties": {
+        "id": { "type": "string" }, "survivorKey": { "$ref": "#/definitions/key" }, "memberKeys": { "$ref": "#/definitions/keys" },
+        "reason": { "type": "string" }, "conflicts": { "$ref": "#/definitions/strings" }, "evidenceIds": { "$ref": "#/definitions/strings" },
+        "reviewStatus": { "$ref": "#/definitions/reviewStatus" }
+      }
+    },
+    "cluster": {
+      "type": "object", "required": ["id", "kind", "memberKeys", "representativeKey", "assessmentIds", "method", "cohesion"],
+      "properties": {
+        "id": { "type": "string" }, "kind": { "enum": ["duplicate-candidate", "related-topic"] },
+        "memberKeys": { "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": { "$ref": "#/definitions/key" } },
+        "representativeKey": { "$ref": "#/definitions/key" }, "assessmentIds": { "$ref": "#/definitions/strings" },
+        "method": { "enum": ["explicit-pair-v1"] }, "cohesion": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "policyFinding": {
+      "type": "object", "required": ["itemKey", "policyName", "requirement", "status", "observedCount", "reason"],
+      "properties": {
+        "itemKey": { "$ref": "#/definitions/key" }, "policyName": { "type": "string" }, "requirement": { "type": "string" },
+        "status": { "enum": ["not-evaluated", "satisfied-in-scope", "possible-gap"] },
+        "observedCount": { "type": "integer", "minimum": 0 }, "reason": { "type": "string" }
+      }
+    },
+    "reviewStatus": { "enum": ["unreviewed", "accepted", "rejected", "deferred"] }
+  }
+}

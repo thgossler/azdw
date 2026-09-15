@@ -1,0 +1,132 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Report Template Configuration",
+  "description": "Configuration for report templates using Scriban or other template engines",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique template identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name for the template"
+    },
+    "description": {
+      "type": "string",
+      "description": "Template description"
+    },
+    "engineType": {
+      "type": "string",
+      "enum": ["scriban", "liquid", "handlebars"],
+      "description": "Template engine type"
+    },
+    "content": {
+      "type": "string",
+      "description": "Template content with templating syntax"
+    },
+    "outputFormat": {
+      "type": "string",
+      "enum": ["markdown", "html", "csv", "json", "xml", "text"],
+      "description": "Output format"
+    },
+    "mimeType": {
+      "type": ["string", "null"],
+      "description": "MIME type for the output"
+    },
+    "fileExtension": {
+      "type": ["string", "null"],
+      "pattern": "^\\..+$",
+      "description": "File extension including the dot (e.g., .md, .html)"
+    },
+    "category": {
+      "type": "string",
+      "description": "Template category for grouping"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Tags for searching and filtering"
+    },
+    "parameters": {
+      "type": "object",
+      "description": "Template parameters with their definitions",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["string", "number", "boolean", "array", "object"]
+          },
+          "description": {
+            "type": "string"
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "default": {}
+        }
+      }
+    },
+    "defaultValues": {
+      "type": "object",
+      "description": "Default values for template variables"
+    },
+    "isEnabled": {
+      "type": "boolean",
+      "description": "Whether this template is enabled"
+    },
+    "isBuiltIn": {
+      "type": "boolean",
+      "description": "Whether this is a built-in template"
+    },
+    "version": {
+      "type": ["string", "null"],
+      "description": "Template version"
+    },
+    "author": {
+      "type": ["string", "null"],
+      "description": "Template author"
+    },
+    "supportedDataTypes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Data types this template can work with"
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "External dependencies or required plugins"
+    },
+    "createdAt": {
+      "type": "string",
+      "description": "Creation timestamp"
+    },
+    "lastModified": {
+      "type": "string",
+      "description": "Last modification timestamp"
+    },
+    "lastModifiedAt": {
+      "type": "string",
+      "description": "Last modification timestamp (alternate field name)"
+    },
+    "sampleInput": {
+      "description": "Sample input data for testing the template"
+    },
+    "expectedOutput": {
+      "description": "Expected output for testing the template"
+    }
+  },
+  "required": ["id", "name", "engineType", "content", "outputFormat"],
+  "additionalProperties": false
+}

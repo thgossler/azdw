@@ -1,0 +1,24 @@
+{
+  "$schema": "./report-template-schema.json",
+  "id": "default",
+  "name": "List of Work Items (Markdown)",
+  "description": "Simple markdown list of work items with standard fields",
+  "engineType": "scriban",
+  "content": "# {{ name }}\n\n{{ if description }}{{ description }}\n\n{{ end }}{{ if workItems.size > 0 }}## Work Items ({{ workItems.size }})\n\n| ID | Type | Title | State | Area | Last Modified |\n|-----|------|-------|-------|------|---------------|\n{{ for wi in workItems }}\n| {{ wi.id }} | {{ wi.work_item_type ?? wi.logical_type ?? wi.type }} | {{ wi.title }} | {{ wi.state }} | {{ wi.area_path }} | {{ wi.modified_date | date.to_string '%Y-%m-%d' }} |\n{{ end }}\n{{ else }}No work items found.\n{{ end }}\n\n---\n\n<AzdwSignature/>\n",
+  "outputFormat": "markdown",
+  "mimeType": "text/markdown",
+  "fileExtension": ".md",
+  "category": "General",
+  "tags": ["markdown", "list", "simple", "default"],
+  "parameters": {},
+  "defaultValues": {
+    "name": "List of Work Items",
+    "description": ""
+  },
+  "isEnabled": true,
+  "isBuiltIn": true,
+  "version": "1.0.0",
+  "author": "azdw",
+  "supportedDataTypes": ["WorkItem"],
+  "dependencies": []
+}

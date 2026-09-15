@@ -1,0 +1,123 @@
+// =============================================================================
+// Color Map Configuration for azdw visualize graph
+// =============================================================================
+//
+// This file defines custom colors for the GraphViz visualization output.
+// Colors override the built-in defaults when specified.
+//
+// Usage:
+//   azdw visualize graph --from-closure closure.json --format graphviz --color-map config/colormap.jsonc
+//
+// The --color-map path can be absolute or relative to the azdw executable.
+//
+// Format:
+//   All colors must be in web hex format: #RRGGBB or #RGB
+//   Keys are matched case-insensitively for work item types.
+//   Only sections you want to customize need to be included.
+//
+// Supported sections:
+//   workItemTypes      – Node fill color per work item type
+//   relationshipTypes  – Edge color per relationship type
+//   organizations      – Cluster background color per Azure DevOps organization
+//   projects           – (reserved for future use)
+//
+{
+    // -------------------------------------------------------------------------
+    // Work Item Type Colors (node fill)
+    // -------------------------------------------------------------------------
+    // These control the background color of each node in the graph.
+    // The key is the work item type name (case-insensitive match).
+    //
+    // Built-in defaults (overridden when a custom entry exists):
+    //   Epic                  → lightblue
+    //   Feature               → lightgreen
+    //   User Story / Story    → lightyellow
+    //   Product Backlog Item  → lightyellow
+    //   Task                  → lightcoral
+    //   Bug                   → lightpink
+    //   Test Case             → lightcyan
+    //   WorkPackage           → thistle
+    //   TeamMember            → plum
+    //
+    // Unknown types get a color from a hash-based palette automatically.
+    //
+    "workItemTypes": {
+        // --- Standard Azure DevOps types ---
+        "Epic":                  "#ADD8E6",  // lightblue
+        "Feature":               "#90EE90",  // lightgreen
+        "User Story":            "#FFFFE0",  // lightyellow
+        "Story":                 "#FFFFE0",  // lightyellow
+        "Product Backlog Item":  "#FFFFE0",  // lightyellow
+        "Task":                  "#F08080",  // lightcoral
+        "Bug":                   "#FFB6C1",  // lightpink
+        "Test Case":             "#E0FFFF",  // lightcyan
+        "Issue":                 "#FFDAB9",  // peachpuff
+        "Impediment":            "#FFA07A",  // lightsalmon
+        "Test Plan":             "#B0E0E6",  // powderblue
+        "Test Suite":            "#AFEEEE",  // paleturquoise
+
+        // --- Custom / virtual types (used in cross-connection scenarios) ---
+        "WorkPackage":           "#D8BFD8",  // thistle
+        "TeamMember":            "#DDA0DD",  // plum
+
+        // --- SAFe types (if used) ---
+        "Portfolio Epic":        "#87CEEB",  // skyblue
+        "Enabler":               "#98FB98",  // palegreen
+        "Capability":            "#9ACD32",  // yellowgreen
+        "Program Increment":     "#DEB887",  // burlywood
+    },
+
+    // -------------------------------------------------------------------------
+    // Relationship Type Colors (edge lines)
+    // -------------------------------------------------------------------------
+    // These control the color of edges (arrows) between nodes.
+    // The key is the relationship type string as shown in the graph labels.
+    //
+    // Built-in defaults:
+    //   Hierarchy links    → blue   (solid line)
+    //   Dependency links   → green  (dotted line)
+    //   Related links      → purple (solid line)
+    //   Hyperlink-WorkItem → orange (dashed line)
+    //   Remote-Related     → darkorange (bold line)
+    //   Produces-For       → darkgreen (bold dotted)
+    //   Consumes-From      → darkgreen (bold dotted)
+    //   Cross-connection   → red    (dashed line)
+    //
+    "relationshipTypes": {
+        "System.LinkTypes.Hierarchy-Forward":   "#0000FF",  // blue – parent→child
+        "System.LinkTypes.Hierarchy-Reverse":   "#4169E1",  // royalblue – child→parent
+        "System.LinkTypes.Dependency-Forward":  "#008000",  // green – successor
+        "System.LinkTypes.Dependency-Reverse":  "#228B22",  // forestgreen – predecessor
+        "System.LinkTypes.Related":             "#800080",  // purple
+        "Hyperlink-WorkItem":                   "#FFA500",  // orange – hyperlink-mapped
+        "Remote-Related":                       "#FF8C00",  // darkorange – cross-org remote
+        "Produces-For":                         "#006400",  // darkgreen – cross-org flow
+        "Consumes-From":                        "#006400",  // darkgreen – cross-org flow
+    },
+
+    // -------------------------------------------------------------------------
+    // Organization Colors (cluster backgrounds)
+    // -------------------------------------------------------------------------
+    // When the graph spans multiple Azure DevOps organizations, each org is
+    // shown as a cluster (subgraph) with a distinct background color.
+    // The key is the organization name as it appears in connection URLs.
+    //
+    // Built-in defaults cycle through: aliceblue, honeydew, lavenderblush,
+    // azure, mintcream, seashell, ...
+    //
+    "organizations": {
+        // "my-org":          "#F0F8FF",  // aliceblue
+        // "partner-org":     "#F0FFF0",  // honeydew
+    },
+
+    // -------------------------------------------------------------------------
+    // Project Colors (reserved for future use)
+    // -------------------------------------------------------------------------
+    // Per-project coloring is reserved for future visualization modes.
+    // The key is the Azure DevOps project name.
+    //
+    "projects": {
+        // "MyProject":       "#FFFACD",  // lemonchiffon
+        // "SharedServices":  "#E6E6FA",  // lavender
+    },
+}

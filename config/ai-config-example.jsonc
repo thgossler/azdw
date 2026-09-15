@@ -1,0 +1,83 @@
+{
+  "$schema": "./ai-config-schema.json",
+  "version": "1.0",
+  "description": "Example AI configuration for azdw AI features. Copy this file and modify as needed.",
+  
+  "examples": {
+    "openai-direct": {
+      "description": "OpenAI direct API access (requires API key stored via 'azdw config ai set')",
+      "approach": "openai",
+      "provider": "openai",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "xhigh"
+    },
+    
+    "azure-openai": {
+      "description": "Azure OpenAI Service (requires API key stored via 'azdw config ai set')",
+      "approach": "openai",
+      "provider": "microsoft-foundry",
+      "model": "gpt-5.6-luna",
+      "endpoint": "https://your-resource.openai.azure.com",
+      "deployment": "your-deployment-name",
+      "reasoning_effort": "xhigh"
+    },
+
+    "openai-http-compatible": {
+      "description": "HTTP-compatible OpenAI API (custom endpoint, no API key needed for some)",
+      "approach": "openai",
+      "provider": "http",
+      "model": "gpt-5.6-luna",
+      "endpoint": "https://your-custom-endpoint/v1"
+    },
+    
+    "anthropic-direct": {
+      "description": "Anthropic direct API access (requires API key stored via 'azdw config ai set')",
+      "approach": "anthropic",
+      "provider": "anthropic",
+      "model": "claude-sonnet-5"
+    },
+
+    "anthropic-foundry": {
+      "description": "Anthropic Claude via Azure Foundry (requires API key and endpoint)",
+      "approach": "anthropic",
+      "provider": "microsoft-foundry",
+      "model": "claude-sonnet-5",
+      "endpoint": "https://your-resource.services.ai.azure.com/anthropic/"
+    },
+
+    "anthropic-bedrock": {
+      "description": "Anthropic Claude via AWS Bedrock (uses AWS environment credentials)",
+      "approach": "anthropic",
+      "provider": "aws-bedrock",
+      "model": "anthropic.claude-sonnet-5",
+      "aws_region": "us-east-1"
+    },
+
+    "ollama-local": {
+      "description": "Local Ollama instance (no API key required)",
+      "approach": "ollama",
+      "model": "gemma4:12b",
+      "endpoint": "http://localhost:11434"
+    },
+
+    "github-copilot": {
+      "description": "GitHub Copilot (requires active GitHub Copilot subscription)",
+      "approach": "github-copilot",
+      "model": "gpt-5.6-luna"
+    }
+  },
+  
+  "notes": [
+    "Choose ONE of the examples above and use its structure for your configuration.",
+    "Remove the 'examples', 'description', and 'notes' fields from your actual config.",
+    "Approaches: github-copilot, anthropic, openai, ollama.",
+    "Providers per approach:",
+    "  github-copilot: (no provider needed — always uses local Copilot subscription)",
+    "  anthropic:      anthropic (default), microsoft-foundry (Azure), aws-bedrock",
+    "  openai:         openai (default), microsoft-foundry (Azure), http (compatible)",
+    "  ollama:         (no provider needed — always uses local Ollama server)",
+    "For anthropic/openai approaches, store your API key using: azdw config ai set",
+    "For ollama, ensure the Ollama service is running locally before using.",
+    "For github-copilot, ensure you have an active GitHub Copilot subscription."
+  ]
+}

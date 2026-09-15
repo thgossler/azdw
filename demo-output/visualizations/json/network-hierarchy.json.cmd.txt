@@ -1,0 +1,1 @@
+azdw visualize graph --from-closure demo-output/all-connections/queries/work-item-1-closure.json --format graph --max-depth 0 --output demo-output/all-connections/visualizations/json/network-hierarchy.json --hierarchy-only

@@ -1,0 +1,22 @@
+{
+  "$schema": "./report-template-schema.json",
+  "id": "feature-closure-summary-md",
+  "name": "Feature Closure Summary (Markdown)",
+  "description": "Generate a comprehensive summary report from a work item closure, including hierarchy visualization instructions",
+  "engineType": "scriban",
+  "content": "# Feature Closure Summary\n\n**Generated:** {{ timestamp | format_date 'yyyy-MM-dd HH:mm:ss UTC' }}\n**Closure Status:** {{ closure_status }}\n**Total Work Items:** {{ total_count }}\n\n---\n\n## 📋 Overview\n\n{{~ top_item = top_level_work_items | first ~}}\n{{~ if top_item ~}}\n### Top-Level Work Item\n\n| Field | Value |\n|-------|-------|\n| ID | [#{{ top_item.work_item.id }}]({{ top_item.work_item.url }}) |\n| Title | {{ top_item.work_item.title }} |\n| Type | {{ top_item.work_item.work_item_type }} |\n| State | {{ top_item.work_item.state }} |\n{{~ if top_item.work_item.assigned_to ~}}\n| Assigned To | {{ top_item.work_item.assigned_to }} |\n{{~ end ~}}\n{{~ if top_item.work_item.area_path ~}}\n| Area | {{ top_item.work_item.area_path }} |\n{{~ end ~}}\n{{~ if top_item.work_item.iteration_path ~}}\n| Iteration | {{ top_item.work_item.iteration_path }} |\n{{~ end ~}}\n\n{{~ if top_item.work_item.description ~}}\n### Description\n\n{{ top_item.work_item.description | truncate 500 }}\n{{~ end ~}}\n{{~ end ~}}\n\n---\n\n## 📊 Work Item Breakdown\n\n{{~ types_summary = items | group_by 'work_item_type' ~}}\n{{~ for type_group in types_summary ~}}\n### {{ type_group.key }} ({{ type_group | size }})\n\n| ID | Title | State | Assigned To |\n|----|-------|-------|-------------|\n{{~ for item in type_group ~}}\n| [#{{ item.id }}]({{ item.url }}) | {{ item.title | truncate 60 }} | {{ item.state }} | {{ item.assigned_to | default '—' }} |\n{{~ end ~}}\n\n{{~ end ~}}\n\n---\n\n## 📈 Statistics\n\n{{~ states_summary = items | group_by 'state' ~}}\n### By State\n\n| State | Count |\n|-------|-------|\n{{~ for state_group in states_summary ~}}\n| {{ state_group.key }} | {{ state_group | size }} |\n{{~ end ~}}\n\n### By Type\n\n| Type | Count |\n|------|-------|\n{{~ for type_group in types_summary ~}}\n| {{ type_group.key }} | {{ type_group | size }} |\n{{~ end ~}}\n\n{{~ if traversal_stats ~}}\n### Traversal Performance\n\n| Metric | Value |\n|--------|-------|\n{{~ if traversal_stats.upward_traversal_time_ms ~}}\n| Upward Traversal | {{ traversal_stats.upward_traversal_time_ms }}ms |\n{{~ end ~}}\n{{~ if traversal_stats.downward_traversal_time_ms ~}}\n| Downward Traversal | {{ traversal_stats.downward_traversal_time_ms }}ms |\n{{~ end ~}}\n{{~ if traversal_stats.total_api_calls ~}}\n| API Calls | {{ traversal_stats.total_api_calls }} |\n{{~ end ~}}\n{{~ end ~}}\n\n---\n\n## 🔗 Visualization\n\nTo generate a visual representation of this closure hierarchy, use the following command:\n\n```bash\n# Generate GraphViz DOT file and convert to PNG\nazdw visualize graph --from-closure {{ closure_file }} --format graphviz --output {{ closure_file | string.replace '.json' '' }}.dot\n\n# Convert to PNG using GraphViz (requires GraphViz to be installed)\ndot -Tpng {{ closure_file | string.replace '.json' '' }}.dot -o {{ closure_file | string.replace '.json' '' }}.png\n```\n\nAfter generating the PNG, you can add it to this document:\n\n```markdown\n![Work Item Hierarchy]({{ closure_file | string.replace '.json' '' }}.png)\n```\n\n---\n\n{{~ if warnings | size > 0 ~}}\n## ⚠️ Warnings\n\n{{~ for warning in warnings ~}}\n- {{ warning }}\n{{~ end ~}}\n{{~ end ~}}\n\n---\n\n*Report generated from closure file: `{{ closure_file }}`*\n\n<AzdwSignature/>\n",
+  "outputFormat": "markdown",
+  "mimeType": "text/markdown",
+  "fileExtension": ".md",
+  "category": "Closure Analysis",
+  "tags": ["closure", "feature", "summary", "markdown", "visualization"],
+  "parameters": {},
+  "defaultValues": {},
+  "isEnabled": true,
+  "isBuiltIn": false,
+  "version": "1.0.0",
+  "author": "Azure DevOps Work Item Handler Library",
+  "supportedDataTypes": ["ClosureResult"],
+  "dependencies": [],
+  "sampleInput": "ClosureResult JSON from 'relationship find-closure' command containing: nodes (work items with inclusion reason and depth), topLevelWorkItems, startWorkItemId, closureStatus, totalCount, traversalStats, warnings"
+}

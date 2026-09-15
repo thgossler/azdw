@@ -1,0 +1,84 @@
+{
+  "$schema": "./report-template-schema.json",
+  "id": "release-notes-md",
+  "name": "Release Notes (Markdown)",
+  "description": "Generate release notes from completed work items",
+  "engineType": "scriban",
+  "content": "# Release Notes - {{ parameters.version }}\n\n**Release Date:** {{ parameters.release_date }}\n**Generated:** {{ timestamp | format_date 'yyyy-MM-dd HH:mm:ss UTC' }}\n\n## Overview\n\n{{ parameters.overview }}\n\n{{~ features = items | where 'work_item_type == \"Feature\" || work_item_type == \"User Story\"' | where 'state == \"Done\" || state == \"Closed\"' ~}}\n{{~ bugs = items | where 'work_item_type == \"Bug\"' | where 'state == \"Done\" || state == \"Closed\"' ~}}\n{{~ tasks = items | where 'work_item_type == \"Task\"' | where 'state == \"Done\" || state == \"Closed\"' ~}}\n\n## ✨ New Features\n\n{{~ if features | size > 0 ~}}\n{{~ for feature in features ~}}\n- **{{ feature.title }}** ([#{{ feature.id }}]({{ feature.url }}))\n  {{~ if feature.description ~}}\n  {{ feature.description | truncate 150 }}\n  {{~ end ~}}\n{{~ end ~}}\n{{~ else ~}}\nNo new features in this release.\n{{~ end ~}}\n\n## 🐛 Bug Fixes\n\n{{~ if bugs | size > 0 ~}}\n{{~ for bug in bugs ~}}\n- **{{ bug.title }}** ([#{{ bug.id }}]({{ bug.url }}))\n  {{~ if bug.description ~}}\n  {{ bug.description | truncate 150 }}\n  {{~ end ~}}\n{{~ end ~}}\n{{~ else ~}}\nNo bug fixes in this release.\n{{~ end ~}}\n\n## 🔧 Technical Improvements\n\n{{~ if tasks | size > 0 ~}}\n{{~ for task in tasks ~}}\n- **{{ task.title }}** ([#{{ task.id }}]({{ task.url }})\n{{~ end ~}}\n{{~ else ~}}\nNo technical improvements in this release.\n{{~ end ~}}\n\n## 📊 Release Statistics\n\n- **Total Items:** {{ items | size }}\n- **Features:** {{ features | size }}\n- **Bug Fixes:** {{ bugs | size }}\n- **Technical Tasks:** {{ tasks | size }}\n\n## 🔗 Links\n\n- [Full Changelog]({{ parameters.changelog_url }})\n- [Download]({{ parameters.download_url }})\n- [Documentation]({{ parameters.docs_url }})\n\n---\n\n{{~ if parameters.breaking_changes ~}}\n## ⚠️ Breaking Changes\n\n{{ parameters.breaking_changes }}\n\n{{~ end ~}}\n{{~ if parameters.migration_notes ~}}\n## 📋 Migration Notes\n\n{{ parameters.migration_notes }}\n\n{{~ end ~}}\nFor questions or support, please contact the development team.\n\n---\n\n<AzdwSignature/>",
+  "outputFormat": "markdown",
+  "mimeType": "text/markdown",
+  "fileExtension": ".md",
+  "category": "Release Management",
+  "tags": ["release", "notes", "markdown", "changelog"],
+  "parameters": {
+    "version": {
+      "name": "version",
+      "displayName": "Version",
+      "description": "Release version number",
+      "dataType": "string",
+      "isRequired": true,
+      "placeholderText": "1.0.0"
+    },
+    "release_date": {
+      "name": "release_date",
+      "displayName": "Release Date",
+      "description": "Date of the release",
+      "dataType": "date",
+      "isRequired": true
+    },
+    "overview": {
+      "name": "overview",
+      "displayName": "Release Overview",
+      "description": "Brief overview of the release",
+      "dataType": "string",
+      "isRequired": false,
+      "placeholderText": "This release includes new features, bug fixes, and improvements."
+    },
+    "changelog_url": {
+      "name": "changelog_url",
+      "displayName": "Changelog URL",
+      "description": "Link to detailed changelog",
+      "dataType": "string",
+      "isRequired": false
+    },
+    "download_url": {
+      "name": "download_url",
+      "displayName": "Download URL",
+      "description": "Link to download the release",
+      "dataType": "string",
+      "isRequired": false
+    },
+    "docs_url": {
+      "name": "docs_url",
+      "displayName": "Documentation URL",
+      "description": "Link to documentation",
+      "dataType": "string",
+      "isRequired": false
+    },
+    "breaking_changes": {
+      "name": "breaking_changes",
+      "displayName": "Breaking Changes",
+      "description": "Description of any breaking changes",
+      "dataType": "string",
+      "isRequired": false
+    },
+    "migration_notes": {
+      "name": "migration_notes",
+      "displayName": "Migration Notes",
+      "description": "Notes for migrating from previous version",
+      "dataType": "string",
+      "isRequired": false
+    }
+  },
+  "defaultValues": {
+    "overview": "This release includes new features, bug fixes, and improvements.",
+    "release_date": "2024-01-01"
+  },
+  "isEnabled": true,
+  "isBuiltIn": false,
+  "version": "1.0.0",
+  "author": "Azure DevOps Work Item Handler Library",
+  "supportedDataTypes": ["WorkItem[]"],
+  "dependencies": [],
+  "sampleInput": "Array of completed work items with properties: id, title, state, work_item_type, description, url"
+}

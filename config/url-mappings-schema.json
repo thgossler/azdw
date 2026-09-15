@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "URL Mappings Configuration",
+  "description": "Configuration for mapping old Azure DevOps URLs to new ones",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$",
+      "description": "Configuration schema version (e.g., '1.0'). Used for migration between schema versions.",
+      "default": "1.0"
+    },
+    "enabled": {
+      "type": "boolean",
+      "description": "Whether URL mapping is enabled"
+    },
+    "domainMappings": {
+      "type": "array",
+      "description": "List of URL mapping rules",
+      "items": {
+        "type": "object",
+        "properties": {
+          "oldUrlPrefix": {
+            "type": "string",
+            "description": "Old URL prefix to match and replace"
+          },
+          "newUrlPrefix": {
+            "type": "string",
+            "description": "New URL prefix to replace with"
+          },
+          "description": {
+            "type": "string",
+            "description": "Human-readable description of this mapping"
+          }
+        },
+        "required": ["oldUrlPrefix", "newUrlPrefix"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["enabled", "domainMappings"],
+  "additionalProperties": false
+}

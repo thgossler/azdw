@@ -1,0 +1,14 @@
+{
+  "id": "work-summary-md",
+  "name": "Work Item Summary",
+  "description": "Summary report for Epics, Features, and Bugs with ID, title, state, and assigned user",
+  "engineType": "scriban",
+  "content": "- [Epics]\n{{~ epics = items | where 'logical_type == \"Epic\"' ~}}\n{{~ if (epics | size) > 0 ~}}{{~ for item in epics ~}}- {{ item.id }}: {{ item.title }} (State: {{ item.state }}, Assigned to: {{ item.assigned_to }})\n{{~ end ~}}{{~ else ~}}- No Epics\n{{~ end ~}}\n\n- [Features]\n{{~ features = items | where 'logical_type == \"Feature\"' ~}}\n{{~ if (features | size) > 0 ~}}{{~ for item in features ~}}- {{ item.id }}: {{ item.title }} (State: {{ item.state }}, Assigned to: {{ item.assigned_to }})\n{{~ end ~}}{{~ else ~}}- No Features\n{{~ end ~}}\n\n- [Bugs]\n{{~ bugs = items | where 'logical_type == \"Bug\"' ~}}\n{{~ if (bugs | size) > 0 ~}}{{~ for item in bugs ~}}- {{ item.id }}: {{ item.title }} (State: {{ item.state }}, Assigned to: {{ item.assigned_to }})\n{{~ end ~}}{{~ else ~}}- No Bugs\n{{~ end ~}}",
+  "outputFormat": "markdown",
+  "mimeType": "text/markdown",
+  "fileExtension": ".md",
+  "category": "AI Generated",
+  "tags": ["ai-generated"],
+  "isEnabled": true,
+  "version": "1.0.0"
+}

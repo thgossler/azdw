@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://azdw.dev/schemas/mcp-config.json",
+  "title": "MCP Server Configuration",
+  "description": "Configuration for external MCP servers used by azdw ai-chat",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$",
+      "description": "Configuration schema version (e.g., '1.0'). Used for migration between schema versions.",
+      "default": "1.0"
+    },
+    "mcpServers": {
+      "type": "object",
+      "description": "Named MCP server definitions",
+      "additionalProperties": {
+        "$ref": "#/$defs/McpServerDefinition"
+      }
+    }
+  },
+  "required": ["mcpServers"],
+  "$defs": {
+    "McpServerDefinition": {
+      "type": "object",
+      "description": "Configuration for a single MCP server",
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of a remote MCP server (e.g. 'https://mcp.example.com/mcp'). When set, HTTP transport is used. Mutually exclusive with 'command'/'args'."
+        },
+        "command": {
+          "type": "string",
+          "description": "Executable command to start the MCP server (e.g., 'npx', 'python', 'node'). Used only for stdio transport (when 'url' is not set)."
+        },
+        "args": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Command-line arguments for the server. Used only for stdio transport."
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "Environment variables to set for the server process. Used only for stdio transport."
+        },
+        "auth": {
+          "$ref": "#/$defs/McpServerAuthConfig",
+          "description": "Optional Entra ID authentication configuration for remote MCP servers."
+        },
+        "approve": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "List of tool names that are automatically approved without user confirmation"
+        }
+      },
+      "additionalProperties": false
+    },
+    "McpServerAuthConfig": {
+      "type": "object",
+      "description": "Authentication configuration for a remote MCP server. Omit the 'auth' block to use MCP OAuth 2.1 auto-discovery (McpOAuth) — the same protocol used by VS Code Copilot Chat.",
+      "properties": {
+        "authType": {
+          "type": "string",
+          "enum": ["McpOAuth", "None", "EntraIdDeviceCode", "EntraIdInteractive", "EntraIdClientCredentials"],
+          "default": "McpOAuth",
+          "description": "Auth flow. 'McpOAuth' (default): MCP Authorization Protocol, OAuth 2.1 auto-discovery via RFC 9728 — works with any MCP-compliant server, no pre-configuration needed. 'None': no auth. 'EntraIdDeviceCode': Microsoft Entra ID device code (CLI/headless). 'EntraIdInteractive': Entra ID browser pop-up (desktop). 'EntraIdClientCredentials': Entra ID service-to-service."
+        },
+        "clientId": {
+          "type": "string",
+          "description": "For McpOAuth: optional pre-registered client ID (skips dynamic client registration). For EntraId flows: required — the application (client) ID of the Entra ID app registration."
+        },
+        "tenantId": {
+          "type": "string",
+          "description": "Required for EntraId flows. Directory (tenant) ID of the Entra ID tenant where the server app is registered."
+        },
+        "scopes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "OAuth scopes to request. For McpOAuth: optional — server-advertised scopes are used when omitted. For EntraId: e.g. 'api://<server-client-id>/MCP.Tools.Execute'."
+        },
+        "clientSecret": {
+          "type": "string",
+          "description": "Client secret for EntraIdClientCredentials flow. Prefer injecting via an environment variable."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

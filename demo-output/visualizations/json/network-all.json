@@ -1,0 +1,185 @@
+{
+  "nodes": [
+    {
+      "id": "_acme-flow_acmeflow-sdk_1",
+      "label": "#1\nEpic\nOfficial AcmeFlow SDKs & CLI\nacme-flow/acmeflow-sdk",
+      "group": "github.com/acme-flow/acmeflow-sdk (AcmeFlow-GH)",
+      "color": "#93c5fd",
+      "size": 16,
+      "url": "https://github.com/acme-flow/acme-flow%2Facmeflow-sdk/_workitems/edit/1/",
+      "metadata": {
+        "workItemId": 1,
+        "title": "Official AcmeFlow SDKs & CLI",
+        "project": "acme-flow/acmeflow-sdk",
+        "organization": "",
+        "type": "Epic"
+      }
+    },
+    {
+      "id": "acmeflow_AcmeFlow_3",
+      "label": "#3\nUser Story\nFavorite frequently used nodes\nacmeflow/AcmeFlow",
+      "group": "dev.azure.com/acmeflow/AcmeFlow (AcmeFlow-ADO)",
+      "color": "#fde68a",
+      "size": 16,
+      "url": "https://dev.azure.com/acmeflow/AcmeFlow/_workitems/edit/3/",
+      "metadata": {
+        "workItemId": 3,
+        "title": "Favorite frequently used nodes",
+        "project": "AcmeFlow",
+        "organization": "acmeflow",
+        "type": "User Story"
+      }
+    },
+    {
+      "id": "_acme-flow_acmeflow-sdk_2",
+      "label": "#2\nFeature\nTypeScript SDK\nacme-flow/acmeflow-sdk",
+      "group": "github.com/acme-flow/acmeflow-sdk (AcmeFlow-GH)",
+      "color": "#6ee7b7",
+      "size": 16,
+      "url": "https://github.com/acme-flow/acme-flow%2Facmeflow-sdk/_workitems/edit/2/",
+      "metadata": {
+        "workItemId": 2,
+        "title": "TypeScript SDK",
+        "project": "acme-flow/acmeflow-sdk",
+        "organization": "",
+        "type": "Feature"
+      }
+    },
+    {
+      "id": "_acme-flow_acmeflow-sdk_4",
+      "label": "#4\nFeature\nAcmeFlow CLI\nacme-flow/acmeflow-sdk",
+      "group": "github.com/acme-flow/acmeflow-sdk (AcmeFlow-GH)",
+      "color": "#6ee7b7",
+      "size": 16,
+      "url": "https://github.com/acme-flow/acme-flow%2Facmeflow-sdk/_workitems/edit/4/",
+      "metadata": {
+        "workItemId": 4,
+        "title": "AcmeFlow CLI",
+        "project": "acme-flow/acmeflow-sdk",
+        "organization": "",
+        "type": "Feature"
+      }
+    },
+    {
+      "id": "_acme-flow_acmeflow-sdk_5",
+      "label": "#5\nFeature\nOpenAPI spec & code generation\nacme-flow/acmeflow-sdk",
+      "group": "github.com/acme-flow/acmeflow-sdk (AcmeFlow-GH)",
+      "color": "#6ee7b7",
+      "size": 16,
+      "url": "https://github.com/acme-flow/acme-flow%2Facmeflow-sdk/_workitems/edit/5/",
+      "metadata": {
+        "workItemId": 5,
+        "title": "OpenAPI spec & code generation",
+        "project": "acme-flow/acmeflow-sdk",
+        "organization": "",
+        "type": "Feature"
+      }
+    }
+  ],
+  "links": [
+    {
+      "source": "_acme-flow_acmeflow-sdk_1",
+      "target": "acmeflow_AcmeFlow_3",
+      "label": "Related",
+      "value": 1,
+      "color": "#ef4444",
+      "metadata": {
+        "isCrossConnection": true,
+        "relationshipType": "Related",
+        "sourceOrg": "",
+        "targetOrg": "acmeflow"
+      }
+    },
+    {
+      "source": "_acme-flow_acmeflow-sdk_1",
+      "target": "_acme-flow_acmeflow-sdk_2",
+      "label": "Related",
+      "value": 1,
+      "color": "#ef4444",
+      "metadata": {
+        "isCrossConnection": true,
+        "relationshipType": "System.LinkTypes.Related",
+        "sourceOrg": "",
+        "targetOrg": ""
+      }
+    },
+    {
+      "source": "_acme-flow_acmeflow-sdk_1",
+      "target": "acmeflow_AcmeFlow_3",
+      "label": "Related",
+      "value": 1,
+      "color": "#ef4444",
+      "metadata": {
+        "isCrossConnection": true,
+        "relationshipType": "System.LinkTypes.Related",
+        "sourceOrg": "",
+        "targetOrg": "acmeflow"
+      }
+    },
+    {
+      "source": "_acme-flow_acmeflow-sdk_1",
+      "target": "_acme-flow_acmeflow-sdk_4",
+      "label": "Related",
+      "value": 1,
+      "color": "#ef4444",
+      "metadata": {
+        "isCrossConnection": true,
+        "relationshipType": "System.LinkTypes.Related",
+        "sourceOrg": "",
+        "targetOrg": ""
+      }
+    },
+    {
+      "source": "_acme-flow_acmeflow-sdk_1",
+      "target": "_acme-flow_acmeflow-sdk_5",
+      "label": "Related",
+      "value": 1,
+      "color": "#ef4444",
+      "metadata": {
+        "isCrossConnection": true,
+        "relationshipType": "System.LinkTypes.Related",
+        "sourceOrg": "",
+        "targetOrg": ""
+      }
+    },
+    {
+      "source": "_acme-flow_acmeflow-sdk_2",
+      "target": "_acme-flow_acmeflow-sdk_1",
+      "label": "Related",
+      "value": 1,
+      "color": "#ef4444",
+      "metadata": {
+        "isCrossConnection": true,
+        "relationshipType": "System.LinkTypes.Related",
+        "sourceOrg": "",
+        "targetOrg": ""
+      }
+    },
+    {
+      "source": "_acme-flow_acmeflow-sdk_4",
+      "target": "_acme-flow_acmeflow-sdk_1",
+      "label": "Related",
+      "value": 1,
+      "color": "#ef4444",
+      "metadata": {
+        "isCrossConnection": true,
+        "relationshipType": "System.LinkTypes.Related",
+        "sourceOrg": "",
+        "targetOrg": ""
+      }
+    },
+    {
+      "source": "_acme-flow_acmeflow-sdk_5",
+      "target": "_acme-flow_acmeflow-sdk_1",
+      "label": "Related",
+      "value": 1,
+      "color": "#ef4444",
+      "metadata": {
+        "isCrossConnection": true,
+        "relationshipType": "System.LinkTypes.Related",
+        "sourceOrg": "",
+        "targetOrg": ""
+      }
+    }
+  ]
+}

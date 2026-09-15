@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Connection Setup Configuration",
+  "description": "Configuration for automated azdw connection initialization",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$",
+      "description": "Configuration schema version (e.g., '1.0'). Used for migration between schema versions.",
+      "default": "1.0"
+    },
+    "description": {
+      "type": "string",
+      "description": "A human-readable description of this configuration"
+    },
+    "includesSecrets": {
+      "type": "boolean",
+      "description": "Whether this configuration contains sensitive data"
+    },
+    "connections": {
+      "type": "array",
+      "description": "List of Azure DevOps connections to configure",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Connection name (unique identifier)"
+          },
+          "url": {
+            "type": "string",
+            "description": "Azure DevOps organization/project URL, or GitHub/GitHub Enterprise organization URL (e.g. https://github.com/contoso or https://github.contoso.com/contoso)"
+          },
+          "provider": {
+            "type": "string",
+            "enum": ["AzureDevOpsServices", "Tfs", "GitHub", "GitHubEnterprise"],
+            "description": "Backing provider for this connection. When omitted it is derived from the URL host (github.com -> GitHub, *.ghe.com or other GitHub hosts -> GitHubEnterprise, otherwise Azure DevOps Services or TFS based on cloud/on-prem)."
+          },
+          "organization": {
+            "type": "string",
+            "description": "Organization/owner scope for the connection (GitHub org or user; Azure DevOps organization). When omitted it is derived from the URL."
+          },
+          "repos": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Optional repository filter (GitHub). When omitted, all accessible repositories in the organization are in scope. Entries may be plain repo names or owner/repo."
+          },
+          "projectStatusRef": {
+            "type": "string",
+            "description": "Optional GitHub Projects v2 reference (project number or name) used to opt in to project Status as the work item state source."
+          },
+          "description": {
+            "type": "string",
+            "description": "Human-readable description of this connection"
+          },
+          "validityDays": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 365,
+            "description": "Number of days the PAT should remain valid"
+          },
+          "tenantId": {
+            "type": "string",
+            "description": "Optional Azure AD tenant ID for OAuth authentication"
+          }
+        },
+        "required": ["name", "url"],
+        "additionalProperties": false
+      }
+    },
+    "validation": {
+      "type": "object",
+      "description": "Validation settings for connection setup",
+      "properties": {
+        "queryTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Work item types to query for validation"
+        },
+        "queryLimit": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Maximum number of items to query during validation"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": ["connections"],
+  "additionalProperties": false
+}

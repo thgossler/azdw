@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Global Stack Rank Configuration",
+  "description": "Named profiles that select cross-org/cross-project/cross-provider work item sources and normalize each source's ranking field onto a single comparable 0-100 scale, producing one ordered virtual backlog.",
+  "type": "object",
+  "definitions": {
+    "providerKind": {
+      "type": "string",
+      "enum": ["AzureDevOps", "GitHub"],
+      "description": "The provider family a source targets. AzureDevOps covers both Azure DevOps Services and Azure DevOps Server/TFS. GitHub covers both github.com and GitHub Enterprise."
+    },
+    "direction": {
+      "type": "string",
+      "enum": ["LowerIsHigher", "HigherIsHigher"],
+      "description": "Whether a lower or higher raw ranking field value represents higher priority."
+    },
+    "patternType": {
+      "type": "string",
+      "enum": ["Glob", "Regex"],
+      "default": "Glob"
+    },
+    "pathCriterion": {
+      "type": "object",
+      "properties": {
+        "pattern": { "type": "string" },
+        "patternType": { "$ref": "#/definitions/patternType" }
+      },
+      "required": ["pattern"],
+      "additionalProperties": false
+    },
+    "fieldCriterion": {
+      "type": "object",
+      "properties": {
+        "fieldName": { "type": "string" },
+        "operator": {
+          "type": "string",
+          "enum": ["Equals", "NotEquals", "Contains", "StartsWith", "EndsWith", "Matches"],
+          "default": "Equals"
+        },
+        "value": { "type": "string" },
+        "caseSensitive": { "type": "boolean", "default": false }
+      },
+      "required": ["fieldName", "value"],
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "description": "A single stable org/project (Azure DevOps) or owner/repository (GitHub) scope, optionally narrowed further, with its own ranking field normalization range.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Optional label for diagnostics and precedence-tie reporting."
+        },
+        "provider": { "$ref": "#/definitions/providerKind" },
+        "host": {
+          "type": "string",
+          "description": "Optional explicit host filter (e.g. ghe.mycompany.com), matched against the connection's base URL host."
+        },
+        "organization": {
+          "type": "string",
+          "description": "Azure DevOps organization name, or GitHub owner/organization login."
+        },
+        "project": {
+          "type": "string",
+          "description": "Azure DevOps project name. Required for AzureDevOps sources; ignored for GitHub."
+        },
+        "repository": {
+          "type": "string",
+          "description": "GitHub repository name. Ignored for Azure DevOps. When omitted for GitHub, all repositories under the organization are eligible."
+        },
+        "areaPath": { "$ref": "#/definitions/pathCriterion" },
+        "iterationPath": { "$ref": "#/definitions/pathCriterion" },
+        "workItemTypes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "fields": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/fieldCriterion" }
+        },
+        "rankField": {
+          "type": "string",
+          "description": "The field reference name that carries this source's ranking value (e.g. Microsoft.VSTS.Common.StackRank)."
+        },
+        "sourceMin": {
+          "type": "number",
+          "description": "The minimum value of this source's raw ranking field range."
+        },
+        "sourceMax": {
+          "type": "number",
+          "description": "The maximum value of this source's raw ranking field range."
+        },
+        "direction": { "$ref": "#/definitions/direction" },
+        "priority": {
+          "type": "integer",
+          "default": 0,
+          "description": "Explicit precedence when multiple sources match the same work item; higher wins."
+        }
+      },
+      "required": ["organization", "rankField", "sourceMin", "sourceMax"],
+      "additionalProperties": false
+    },
+    "profile": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+          "description": "Unique identifier used to explicitly activate global ranking on a query."
+        },
+        "displayName": { "type": "string" },
+        "description": { "type": "string" },
+        "enabled": { "type": "boolean", "default": true },
+        "sources": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/source" },
+          "minItems": 1
+        }
+      },
+      "required": ["name", "sources"],
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string" },
+    "profiles": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/profile" }
+    }
+  },
+  "additionalProperties": false
+}

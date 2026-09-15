@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q1 2025 Delivery Plan</title>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/plugin/isoWeek.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/plugin/customParseFormat.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #F5F5F0;
+            --bg-card: #FAFAF8;
+            --bg-card-hover: #FFFFFF;
+            --text-primary: #1A1A1A;
+            --text-secondary: #5C5C5C;
+            --text-muted: #8C8C8C;
+            --accent-coral: #D97757;
+            --accent-coral-hover: #C4613F;
+            --accent-coral-light: rgba(217, 119, 87, 0.1);
+            --border-light: #E5E5E0;
+            --border-medium: #D4D4CF;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Merriweather', Georgia, serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow: hidden;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: var(--accent-coral);
+            color: white;
+            padding: 16px 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header h1 {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+        
+        .header-info {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        
+        .toolbar {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-light);
+            padding: 12px 24px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .toolbar button {
+            background: var(--bg-card);
+            border: 1px solid var(--border-medium);
+            border-radius: 6px;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 13px;
+            font-family: 'Merriweather', Georgia, serif;
+            color: var(--text-primary);
+            transition: all 0.2s;
+        }
+        
+        .toolbar button:hover {
+            background: var(--bg-primary);
+            border-color: var(--accent-coral);
+        }
+        
+        .toolbar button.active {
+            background: var(--accent-coral);
+            color: white;
+            border-color: var(--accent-coral);
+        }
+        
+        .toolbar input[type="text"] {
+            padding: 6px 12px;
+            border: 1px solid var(--border-medium);
+            border-radius: 6px;
+            font-size: 13px;
+            font-family: 'Merriweather', Georgia, serif;
+            width: 200px;
+        }
+        
+        .toolbar input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent-coral);
+        }
+        
+        .multi-select-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .multi-select-button {
+            background: var(--bg-card);
+            border: 1px solid var(--border-medium);
+            border-radius: 6px;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 13px;
+            font-family: 'Merriweather', Georgia, serif;
+            color: var(--text-primary);
+            min-width: 150px;
+            text-align: left;
+            transition: all 0.2s;
+        }
+        
+        .multi-select-button:hover {
+            background: var(--bg-primary);
+            border-color: var(--accent-coral);
+        }
+        
+        .multi-select-button.active {
+            background: var(--accent-coral);
+            color: white;
+            border-color: var(--accent-coral);
+        }
+        
+        .multi-select-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-medium);
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            min-width: 200px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 2px;
+        }
+        
+        .multi-select-dropdown.open {
+            display: block;
+        }
+        
+        .multi-select-dropdown label {
+            display: block;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--text-primary);
+            transition: background 0.2s;
+            user-select: none;
+        }
+        
+        .multi-select-dropdown label:hover {
+            background: var(--bg-primary);
+        }
+        
+        .multi-select-dropdown input[type="checkbox"] {
+            margin-right: 8px;
+            cursor: pointer;
+            accent-color: var(--accent-coral);
+        }
+        
+        .toolbar label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .plan-container {
+            height: calc(100vh - 130px);
+            overflow: auto;
+            position: relative;
+        }
+        
+        .timeline-header {
+            position: sticky;
+            top: 0;
+            background: var(--bg-primary);
+            z-index: 100;
+            display: flex;
+            height: 60px;
+        }
+        
+        .team-labels {
+            width: 250px;
+            min-width: 250px;
+            background: var(--bg-card);
+            border-right: 1px solid var(--border-light);
+            position: sticky;
+            left: 0;
+            z-index: 101;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .timeline-months {
+            flex: 1;
+            display: flex;
+        }
+        
+        .month-column {
+            flex: 0 0 auto;
+            border-right: 1px solid var(--border-light);
+            text-align: center;
+            padding: 8px;
+        }
+        
+        .month-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+        
+        .month-year {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .iteration-row {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+        
+        .team-row {
+            display: flex;
+            border-bottom: 1px solid var(--border-light);
+            min-height: 80px;
+            position: relative;
+        }
+        
+        /* Background layer that extends full width for scrolling */
+        .team-row::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: -5000px;
+            bottom: 0;
+            background: var(--bg-card);
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .team-row:nth-child(even)::before {
+            background: var(--bg-primary);
+        }
+        
+        .team-row:hover::before {
+            background: var(--bg-card-hover);
+        }
+        
+        .team-row:nth-child(even):hover::before {
+            background: var(--bg-card);
+        }
+        
+        .team-row.collapsed {
+            min-height: 40px;
+        }
+        
+        .team-name-cell {
+            width: 250px;
+            min-width: 250px;
+            background: var(--bg-card);
+            border-right: 1px solid var(--border-light);
+            padding: 12px 16px;
+            position: sticky;
+            left: 0;
+            z-index: 10;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        
+        .team-row:nth-child(even) .team-name-cell {
+            background: var(--bg-primary);
+        }
+        
+        .team-expand-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            color: var(--text-secondary);
+            padding: 0;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .team-info {
+            flex: 1;
+        }
+        
+        .team-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+        
+        .team-project {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .team-backlog {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        
+        .timeline-grid {
+            flex: 1;
+            display: flex;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .iteration-column {
+            flex: 0 0 auto;
+            border-right: 1px solid var(--border-light);
+            padding: 8px;
+            position: relative;
+            background: transparent;
+        }
+        
+        .work-item-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-left: 4px solid var(--accent-coral);
+            border-radius: 8px;
+            padding: 8px;
+            margin-bottom: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        
+
+
+        .work-item-card:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transform: translateY(-1px);
+            background: var(--bg-card-hover);
+        }
+        
+        .work-item-card.epic {
+            border-left-color: #B8540F;
+        }
+        
+        .work-item-card.feature {
+            border-left-color: var(--accent-coral);
+        }
+        
+        .work-item-card.user-story,
+        .work-item-card.product-backlog-item {
+            border-left-color: #D9A057;
+        }
+        
+        .work-item-card.bug {
+            border-left-color: #cc293d;
+        }
+        
+        .work-item-card.task {
+            border-left-color: #8CAD57;
+        }
+        
+        .work-item-id {
+            font-size: 11px;
+            color: var(--accent-coral);
+            font-weight: 600;
+        }
+        
+        .work-item-title {
+            font-size: 13px;
+            color: var(--text-primary);
+            margin-top: 2px;
+            font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        
+        .work-item-meta {
+            display: flex;
+            gap: 8px;
+            margin-top: 6px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+        }
+        
+        .work-item-type {
+            background: var(--bg-primary);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        
+        .work-item-state {
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        .state-new,
+        .state-active,
+        .state-committed {
+            background: var(--accent-coral-light);
+            color: var(--accent-coral-hover);
+        }
+        
+        .state-resolved,
+        .state-done,
+        .state-closed {
+            background: rgba(140, 173, 87, 0.15);
+            color: #5C7A2E;
+        }
+        
+        .state-removed {
+            background: var(--bg-primary);
+            color: var(--text-muted);
+        }
+        
+        .work-item-assigned {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .avatar {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent-coral);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            font-weight: 600;
+        }
+        
+        .today-marker {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent-coral);
+            z-index: 10;
+            pointer-events: none;
+        }
+        
+        .today-marker::before {
+            content: 'Today';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            background: var(--accent-coral);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .dependency-indicator {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 16px;
+            height: 16px;
+            background: var(--accent-coral);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .summary-bar {
+            display: flex;
+            gap: 4px;
+            margin-top: 8px;
+            height: 4px;
+        }
+        
+        .summary-segment {
+            height: 100%;
+            border-radius: 4px;
+        }
+        
+        .legend {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            font-size: 12px;
+            display: none;
+        }
+        
+        .legend.visible {
+            display: block;
+        }
+        
+        .legend-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+        
+        .legend-color {
+            width: 16px;
+            height: 4px;
+            border-radius: 4px;
+        }
+        
+        .zoom-control {
+            z-index: 1100;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            gap: 8px;
+        }
+        
+        .zoom-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-medium);
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        
+        .zoom-btn:hover {
+            background: var(--bg-primary);
+            border-color: var(--accent-coral);
+        }
+        
+        .stats {
+            background: var(--bg-card);
+            padding: 12px 24px;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            gap: 24px;
+            font-size: 13px;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+        }
+        
+        .stat-value {
+            font-weight: 600;
+            color: var(--accent-coral);
+        }
+        
+        @media print {
+            .toolbar, .zoom-control, .legend {
+                display: none !important;
+            }
+            .plan-container {
+                height: auto;
+                overflow: visible;
+            }
+        }
+    </style>
+<!-- azdw-branding-injected -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+ *     font-family: 'MyCompanyFont';
+ *     src: local('My Company Font'),
+ *          url('fonts/MyCompanyFont.woff2') format('woff2'),
+ *          url('fonts/MyCompanyFont.woff') format('woff');
+ *     font-weight: normal;
+ *     font-style: normal;
+ *     font-display: swap;
+ * }
+    </style>
+<style>
+        :root {
+
+    /* ========================================================================
+     * FONT CONFIGURATION
+     * ========================================================================
+     * 
+     * --font-primary: Main text font (headings, body text)
+     * --font-secondary: Alternative font for specific elements
+     * --font-mono: Monospace font for code and technical content
+     * 
+     * Default uses Merriweather (Google Font) with Georgia/serif fallbacks.
+     * For a modern sans-serif look, try:
+     *   --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+     * ======================================================================== */
+    --font-primary: 'Merriweather', Georgia, 'Times New Roman', serif;
+    --font-secondary: 'Merriweather', Georgia, serif;
+    --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Consolas', monospace;
+    
+    /* ========================================================================
+     * FONT SIZES
+     * ========================================================================
+     * 
+     * Base sizes for typography. Adjust for your brand guidelines.
+     * Uses em/rem for scalability and accessibility.
+     * ======================================================================== */
+    --font-size-base: 16px;
+    --font-size-xs: 0.75em;      /* 12px at base */
+    --font-size-sm: 0.85em;      /* 13.6px at base */
+    --font-size-md: 0.9em;       /* 14.4px at base */
+    --font-size-lg: 1.1em;       /* 17.6px at base */
+    --font-size-xl: 1.4em;       /* 22.4px at base */
+    --font-size-2xl: 2em;        /* 32px at base */
+    --font-size-3xl: 2.2em;      /* 35.2px at base */
+    
+    /* ========================================================================
+     * LINE HEIGHT & SPACING
+     * ======================================================================== */
+    --line-height-base: 1.6;
+    --line-height-tight: 1.4;
+    --line-height-loose: 1.8;
+    
+    /* ========================================================================
+     * BACKGROUND COLORS
+     * ========================================================================
+     * 
+     * --bg-primary: Main page background (warm off-white by default)
+     * --bg-card: Card/panel backgrounds
+     * --bg-card-hover: Card hover state
+     * --bg-header: Header/toolbar backgrounds (uses accent color by default)
+     * ======================================================================== */
+    --bg-primary: #F5F5F0;
+    --bg-card: #FAFAF8;
+    --bg-card-hover: #FFFFFF;
+    --bg-header: var(--accent-primary);
+    
+    /* ========================================================================
+     * TEXT COLORS
+     * ========================================================================
+     * 
+     * --text-primary: Main text color (near black)
+     * --text-secondary: Secondary/supporting text
+     * --text-muted: Subtle text, labels, captions
+     * --text-inverse: Text on dark backgrounds (headers, buttons)
+     * ======================================================================== */
+    --text-primary: #1A1A1A;
+    --text-secondary: #5C5C5C;
+    --text-muted: #8C8C8C;
+    --text-inverse: #FFFFFF;
+    
+    /* ========================================================================
+     * ACCENT / BRAND COLORS
+     * ========================================================================
+     * 
+     * --accent-primary: Main brand/accent color (coral by default)
+     * --accent-primary-hover: Darker shade for hover states
+     * --accent-primary-light: Light tint for backgrounds, badges
+     * 
+     * These colors are used for:
+     * - Links, buttons, interactive elements
+     * - Headers, highlights, emphasis
+     * - Charts, statistics, badges
+     * 
+     * BRAND CUSTOMIZATION EXAMPLES:
+     * 
+     * Blue corporate theme:
+     *   --accent-primary: #0066CC;
+     *   --accent-primary-hover: #004C99;
+     *   --accent-primary-light: rgba(0, 102, 204, 0.1);
+     * 
+     * Green eco theme:
+     *   --accent-primary: #2E7D32;
+     *   --accent-primary-hover: #1B5E20;
+     *   --accent-primary-light: rgba(46, 125, 50, 0.1);
+     * 
+     * Purple modern theme:
+     *   --accent-primary: #7B1FA2;
+     *   --accent-primary-hover: #4A148C;
+     *   --accent-primary-light: rgba(123, 31, 162, 0.1);
+     * ======================================================================== */
+    --accent-primary: #D97757;
+    --accent-primary-hover: #C4613F;
+    --accent-primary-light: rgba(217, 119, 87, 0.1);
+    
+    /* Legacy variable names for backwards compatibility with existing templates */
+    --accent-coral: var(--accent-primary);
+    --accent-coral-hover: var(--accent-primary-hover);
+    --accent-coral-light: var(--accent-primary-light);
+    
+    /* ========================================================================
+     * BORDER COLORS
+     * ======================================================================== */
+    --border-light: #E5E5E0;
+    --border-medium: #D4D4CF;
+    --border-dark: #BFBFBA;
+    
+    /* ========================================================================
+     * SEMANTIC COLORS
+     * ========================================================================
+     * 
+     * Used for badges, status indicators, work item types, etc.
+     * ======================================================================== */
+    
+    /* Success / Completed states */
+    --color-success: #228B22;
+    --color-success-bg: rgba(34, 139, 34, 0.1);
+    --color-success-text: #228B22;
+    
+    /* Warning / In-Progress states */
+    --color-warning: #B8860B;
+    --color-warning-bg: rgba(184, 134, 11, 0.1);
+    --color-warning-text: #B8860B;
+    
+    /* Info / Active states */
+    --color-info: #4682B4;
+    --color-info-bg: rgba(70, 130, 180, 0.1);
+    --color-info-text: #4682B4;
+    
+    /* Error / Bug states */
+    --color-error: #cc293d;
+    --color-error-bg: rgba(204, 41, 61, 0.1);
+    --color-error-text: #cc293d;
+    
+    /* ========================================================================
+     * WORK ITEM TYPE COLORS
+     * ========================================================================
+     * 
+     * Colors for work item types in visualizations and dashboards.
+     * ======================================================================== */
+    --color-epic: #B8540F;
+    --color-feature: #D97757;
+    --color-story: #D9A057;
+    --color-bug: #cc293d;
+    --color-task: #8CAD57;
+    --color-task-done: #5C7A2E;
+    
+    /* ========================================================================
+     * BADGE COLORS
+     * ======================================================================== */
+    --badge-report-bg: var(--color-success-bg);
+    --badge-report-text: var(--color-success-text);
+    --badge-viz-bg: var(--color-info-bg);
+    --badge-viz-text: var(--color-info-text);
+    --badge-query-bg: var(--color-warning-bg);
+    --badge-query-text: var(--color-warning-text);
+    
+    /* ========================================================================
+     * LAYOUT & SIZING
+     * ======================================================================== */
+    --container-max-width: 900px;
+    --border-radius-sm: 6px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+    
+    /* Padding */
+    --padding-xs: 4px;
+    --padding-sm: 8px;
+    --padding-md: 12px;
+    --padding-lg: 16px;
+    --padding-xl: 20px;
+    --padding-2xl: 24px;
+    --padding-3xl: 32px;
+    --padding-4xl: 40px;
+    
+    /* Gaps/margins */
+    --gap-sm: 8px;
+    --gap-md: 12px;
+    --gap-lg: 16px;
+    --gap-xl: 24px;
+    
+    /* ========================================================================
+     * SHADOWS & EFFECTS
+     * ======================================================================== */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.04);
+    --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.15);
+    
+    /* ========================================================================
+     * TRANSITIONS
+     * ======================================================================== */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.2s ease;
+    --transition-slow: 0.3s ease;
+
+        }
+</style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <h1>Q1 2025 Delivery Plan</h1>
+            <div class="header-info">Generated: 14 Sep 2026</div>
+        </div>
+    </div>
+    
+    <div class="toolbar">
+        <button id="toggleAllTeams">▼ Expand All</button>
+        <button id="toggleLegend">Legend</button>
+        <span class="toolbar-separator" style="width: 1px; height: 20px; background: #edebe9;"></span>
+        <label>Filter:</label>
+        <input type="text" id="filterText" placeholder="Type to filter work items...">
+        <div class="multi-select-wrapper">
+            <button class="multi-select-button" id="typeFilterButton">All Types ▼</button>
+            <div class="multi-select-dropdown" id="typeFilterDropdown">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+        <div class="multi-select-wrapper">
+            <button class="multi-select-button" id="stateFilterButton">All States ▼</button>
+            <div class="multi-select-dropdown" id="stateFilterDropdown">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="stats">
+        <div class="stat-item">
+            <span class="stat-label">Total Items:</span>
+            <span class="stat-value" id="totalItems">18</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Teams:</span>
+            <span class="stat-value" id="totalTeams">0</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Iterations:</span>
+            <span class="stat-value" id="totalIterations">0</span>
+        </div>
+    </div>
+    
+    <div class="plan-container" id="planContainer">
+        <!-- Timeline will be rendered here by JavaScript -->
+    </div>
+    
+    <div class="zoom-control">
+        <button class="zoom-btn" id="zoomOut" title="Zoom Out">-</button>
+        <button class="zoom-btn" id="zoomIn" title="Zoom In">+</button>
+    </div>
+    
+    <div class="legend" id="legend">
+        <div class="legend-title">Work Item Types</div>
+        <div id="legendItems">
+            <!-- Dynamically populated -->
+        </div>
+    </div>
+    
+    <script>
+        // Work items data from Scriban
+        const workItems = [
+            {
+                id: 18,
+                title: "Opt-in telemetry for the CLI",
+                state: "Active",
+                type: "Feature",
+                assignedTo: "",
+                organization: "",
+                project: "acme-flow/acmeflow-sdk",
+                iterationPath: "",
+                url: "https://github.com/acme-flow/acmeflow-sdk/issues/18",
+                changedDate: "13 Jun 2026",
+                tags: ["enhancement", "task", "telemetry", "cli"]
+            },
+            {
+                id: 17,
+                title: "CLI crashes on Windows path separators",
+                state: "Active",
+                type: "Bug",
+                assignedTo: "",
+                organization: "",
+                project: "acme-flow/acmeflow-sdk",
+                iterationPath: "",
+                url: "https://github.com/acme-flow/acmeflow-sdk/issues/17",
+                changedDate: "13 Jun 2026",
+                tags: ["bug", "cli", "in-progress", "os:windows"]
+            },
+            {
+                id: 16,
+                title: "Python: auto-pagination for list endpoints",
+                state: "Active",
+                type: "Feature",
+                assignedTo: "",
+                organization: "",
+                project: "acme-flow/acmeflow-sdk",
+                iterationPath: "",
+                url: "https://github.com/acme-flow/acmeflow-sdk/issues/16",
+                changedDate: "13 Jun 2026",
+                tags: ["enhancement", "task", "sdk:python"]
+            },
+            {
+                id: 15,
+                title: "SDK quickstart docs",
+                state: "Active",
+                type: "Task",
+                assignedTo: "",
+                organization: "",
+                project: "acme-flow/acmeflow-sdk",
+                iterationPath: "",
+                url: "https://github.com/acme-flow/acmeflow-sdk/issues/15",
+                changedDate: "13 Jun 2026",
+                tags: ["documentation", "task"]
+            },
+            {
+                id: 14,
+                title: "Add CI matrix for Node 18/20/22",
+                state: "Active",
+                type: "Task",
+                assignedTo: "",
+                organization: "",
+                project: "acme-flow/acmeflow-sdk",
+                iterationPath: "",
+                url: "https://github.com/acme-flow/acmeflow-sdk/issues/14",
+                changedDate: "13 Jun 2026",
+                tags: ["task", "ci", "in-progress"]
+            },
+            {
+                id: 13,
+                title: "Incorrect nullable types in generated TS",
+                state: "Active",
+                type: "Bug",
+                assignedTo: "",
+                organization: "",
+                project: "acme-flow/acmeflow-sdk",
+                iterationPath: "",
+                url: "https://github.com/acme-flow/acmeflow-sdk/issues/13",
+                changedDate: "13 Jun 2026",
+                tags: ["bug", "openapi", "sdk:typescript"]
+            },
+            {
+                id: 12,
+                title: "OpenAPI: generate TypeScript types from spec",
+                state: "Active",
+                type: "Feature",
+                assignedTo: "",
+                organization: "",
+                project: "acme-flow/acmeflow-sdk",
+                iterationPath: "",
+                url: "https://github.com/acme-flow/acmeflow-sdk/issues/12",
+                changedDate: "13 Jun 2026",
+                tags: ["enhancement", "task", "openapi", "in-progress", "sdk:typescript"]
+            },
+            {
+                id: 11,
+                title: "CLI: shell completion scripts",
+                state: "Active",
+                type: "Feature",
+                assignedTo: "",
+                organization: "",
+                project: "acme-flow/acmeflow-sdk",
+                iterationPath: "",
+                url: "https://github.com/acme-flow/acmeflow-sdk/issues/11",
+                changedDate: "13 Jun 2026",
+                tags: ["enhancement", "task", "cli"]
+            },
+            {
+                id: 10,
+                title: "Python SDK retries non-idempotent requests",
+                state: "Active",
+                type: "Bug",
+                assignedTo: "",
+                organization: "",
+                project: "acme-flow/acmeflow-sdk",
+                iterationPath: "",
+                url: "https://github.com/acme-flow/acmeflow-sdk/issues/10",
+                changedDate: "13 Jun 2026",
+                tags: ["bug", "sdk:python"]
+            },
+            {
+                id: 9,
+                title: "Webhook signature validation fails on Node 20",
+                state: "Active",
+                type: "Bug",
+                assignedTo: "",
+                organization: "",
+                project: "acme-flow/acmeflow-sdk",
+                iterationPath: "",
+                url: "https://github.com/acme-flow/acmeflow-sdk/issues/9",
+                changedDate: "13 Jun 2026",
+                tags: ["bug", "in-progress", "sdk:typescript"]
+            },
+            {
+                id: 8,
+                title: "CLI: `acmeflow init` scaffolding",
+                state: "Active",
+                type: "Feature",
+                assignedTo: "",
+                organization: "",
+                project: "acme-flow/acmeflow-sdk",
+                iterationPath: "",
+                url: "https://github.com/acme-flow/acmeflow-sdk/issues/8",
+                changedDate: "13 Jun 2026",
+                tags: ["enhancement", "task", "cli"]
+            },
+            {
+                id: 7,
+                title: "Python: async client support",
+                state: "Active",
+                type: "Feature",
+                assignedTo: "",
+                organization: "",
+                project: "acme-flow/acmeflow-sdk",
+                iterationPath: "",
+                url: "https://github.com/acme-flow/acmeflow-sdk/issues/7",
+                changedDate: "13 Jun 2026",
+                tags: ["enhancement", "task", "sdk:python"]
+            },
+            {
+                id: 6,
+                title: "TS: OAuth device-code auth helper",
+                state: "Active",
+                type: "Feature",
+                assignedTo: "",
+                organization: "",
+                project: "acme-flow/acmeflow-sdk",
+                iterationPath: "",
+                url: "https://github.com/acme-flow/acmeflow-sdk/issues/6",
+                changedDate: "13 Jun 2026",
+                tags: ["enhancement", "task", "in-progress", "sdk:typescript"]
+            },
+            {
+                id: 5,
+                title: "OpenAPI spec & code generation",
+                state: "Active",
+                type: "Feature",
+                assignedTo: "",
+                organization: "",
+                project: "acme-flow/acmeflow-sdk",
+                iterationPath: "",
+                url: "https://github.com/acme-flow/acmeflow-sdk/issues/5",
+                changedDate: "13 Jun 2026",
+                tags: ["enhancement", "feature", "openapi", "in-progress"]
+            },
+            {
+                id: 4,
+                title: "AcmeFlow CLI",
+                state: "Active",
+                type: "Feature",
+                assignedTo: "",
+                organization: "",
+                project: "acme-flow/acmeflow-sdk",
+                iterationPath: "",
+                url: "https://github.com/acme-flow/acmeflow-sdk/issues/4",
+                changedDate: "13 Jun 2026",
+                tags: ["enhancement", "feature", "cli"]
+            },
+            {
+                id: 3,
+                title: "Python SDK",
+                state: "Active",
+                type: "Feature",
+                assignedTo: "",
+                organization: "",
+                project: "acme-flow/acmeflow-sdk",
+                iterationPath: "",
+                url: "https://github.com/acme-flow/acmeflow-sdk/issues/3",
+                changedDate: "13 Jun 2026",
+                tags: ["enhancement", "feature", "in-progress", "sdk:python"]
+            },
+            {
+                id: 2,
+                title: "TypeScript SDK",
+                state: "Active",
+                type: "Feature",
+                assignedTo: "",
+                organization: "",
+                project: "acme-flow/acmeflow-sdk",
+                iterationPath: "",
+                url: "https://github.com/acme-flow/acmeflow-sdk/issues/2",
+                changedDate: "13 Jun 2026",
+                tags: ["enhancement", "feature", "in-progress", "sdk:typescript"]
+            },
+            {
+                id: 1,
+                title: "Official AcmeFlow SDKs & CLI",
+                state: "Active",
+                type: "Epic",
+                assignedTo: "",
+                organization: "",
+                project: "acme-flow/acmeflow-sdk",
+                iterationPath: "",
+                url: "https://github.com/acme-flow/acmeflow-sdk/issues/1",
+                changedDate: "13 Jun 2026",
+                tags: ["epic", "in-progress"]
+            }
+        ];
+        
+        dayjs.extend(window.dayjs_plugin_isoWeek);
+        dayjs.extend(window.dayjs_plugin_customParseFormat);
+        
+        let currentZoom = 1;
+        let collapsedTeams = new Set();
+        
+        // Group work items by organization/project/team
+        function groupByTeam(items) {
+            const teams = new Map();
+            
+            items.forEach(item => {
+                const teamKey = `${item.organization}/${item.project}`;
+                if (!teams.has(teamKey)) {
+                    teams.set(teamKey, {
+                        name: item.project,
+                        organization: item.organization,
+                        items: []
+                    });
+                }
+                teams.get(teamKey).items.push(item);
+            });
+            
+            return Array.from(teams.values());
+        }
+        
+        // Extract unique iterations from work items
+        function getIterations(items) {
+            const iterations = new Set();
+            items.forEach(item => {
+                if (item.iterationPath) {
+                    // Extract sprint name from iteration path
+                    const parts = item.iterationPath.split('\\');
+                    const sprint = parts[parts.length - 1];
+                    if (sprint && sprint.trim()) {
+                        iterations.add(sprint);
+                    }
+                }
+            });
+            
+            const sorted = Array.from(iterations).sort();
+            return sorted.length > 0 ? sorted : ['Sprint 1', 'Sprint 2', 'Sprint 3', 'Sprint 4'];
+        }
+        
+        // Generate month columns for timeline header
+        function generateTimelineHeader(iterations) {
+            const today = dayjs();
+            const months = [];
+            
+            // Generate 6 months: 2 past, current, 3 future
+            for (let i = -2; i <= 3; i++) {
+                const month = today.add(i, 'month');
+                months.push({
+                    name: month.format('MMMM'),
+                    year: month.format('YYYY'),
+                    date: month
+                });
+            }
+            
+            return months;
+        }
+        
+        // Get initials from name
+        function getInitials(name) {
+            if (!name) return '?';
+            const parts = name.split(/[\s@._-]+/);
+            if (parts.length >= 2) {
+                return (parts[0][0] + parts[1][0]).toUpperCase();
+            }
+            return name.substring(0, 2).toUpperCase();
+        }
+        
+        // Normalize state name for CSS class
+        function normalizeState(state) {
+            return state.toLowerCase().replace(/\s+/g, '-');
+        }
+        
+        // Normalize type for CSS class
+        function normalizeType(type) {
+            return type.toLowerCase().replace(/\s+/g, '-');
+        }
+        
+
+        // Render work item card
+        function renderWorkItemCard(item) {
+            const typeClass = normalizeType(item.type);
+            const stateClass = normalizeState(item.state);
+            
+            return `
+                <div class="work-item-card ${typeClass}" data-id="${item.id}" data-type="${item.type}" data-state="${item.state}">
+                    <div class="work-item-id">#${item.id}</div>
+                    <div class="work-item-title">${escapeHtml(item.title)}</div>
+                    <div class="work-item-meta">
+                        <span class="work-item-type">${item.type}</span>
+                        <span class="work-item-state state-${stateClass}">${item.state}</span>
+                        ${item.assignedTo ? `
+                            <span class="work-item-assigned">
+                                <span class="avatar">${getInitials(item.assignedTo)}</span>
+                            </span>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Render team row
+        function renderTeamRow(team, iterations) {
+            const teamKey = `${team.organization}/${team.name}`;
+            const isCollapsed = collapsedTeams.has(teamKey);
+            
+            return `
+                <div class="team-row ${isCollapsed ? 'collapsed' : ''}" data-team="${teamKey}">
+                    <div class="team-name-cell">
+                        <button class="team-expand-btn" data-team="${teamKey}">
+                            ${isCollapsed ? '▶' : '▼'}
+                        </button>
+                        <div class="team-info">
+                            <div class="team-name">${escapeHtml(team.name)}</div>
+                            <div class="team-project">${escapeHtml(team.organization)}</div>
+                            <div class="team-backlog">${team.items.length} items</div>
+                        </div>
+                    </div>
+                    <div class="timeline-grid">
+                        ${iterations.map((iteration, idx) => {
+                            const iterationItems = team.items.filter(item => {
+                                if (!item.iterationPath) return idx === 0; // Put items without iteration in first column
+                                const parts = item.iterationPath.split('\\');
+                                const sprint = parts[parts.length - 1];
+                                return sprint === iteration;
+                            });
+                            
+                            return `
+                                <div class="iteration-column" style="width: ${200 * currentZoom}px; min-width: ${200 * currentZoom}px;">
+                                    ${!isCollapsed ? iterationItems.map(item => renderWorkItemCard(item)).join('') : ''}
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Escape HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Render the entire plan
+        function renderPlan(filteredItems = null) {
+            const items = filteredItems || workItems;
+            const teams = groupByTeam(items);
+            const iterations = getIterations(items);
+            const months = generateTimelineHeader(iterations);
+            
+            // Update stats
+            document.getElementById('totalItems').textContent = items.length;
+            document.getElementById('totalTeams').textContent = teams.length;
+            document.getElementById('totalIterations').textContent = iterations.length;
+            
+            const html = `
+                <div class="timeline-header">
+                    <div class="team-labels">Teams</div>
+                    <div class="timeline-months">
+                        ${iterations.map(iteration => `
+                            <div class="month-column" style="width: ${200 * currentZoom}px; min-width: ${200 * currentZoom}px;">
+                                <div class="month-name">${iteration}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                ${teams.map(team => renderTeamRow(team, iterations)).join('')}
+            `;
+            
+            document.getElementById('planContainer').innerHTML = html;
+            
+            // Add event listeners
+            document.querySelectorAll('.team-expand-btn').forEach(btn => {
+                btn.addEventListener('click', toggleTeam);
+            });
+            
+            document.querySelectorAll('.work-item-card').forEach(card => {
+                card.addEventListener('click', openWorkItem);
+            });
+        }
+        
+        // Toggle team collapsed state
+        function toggleTeam(e) {
+            const teamKey = e.target.dataset.team;
+            if (collapsedTeams.has(teamKey)) {
+                collapsedTeams.delete(teamKey);
+            } else {
+                collapsedTeams.add(teamKey);
+            }
+            renderPlan(getFilteredItems());
+        }
+        
+        // Toggle all teams
+        function toggleAllTeams() {
+            const btn = document.getElementById('toggleAllTeams');
+            const filteredItems = getFilteredItems();
+            const teams = groupByTeam(filteredItems);
+            
+            if (collapsedTeams.size === teams.length) {
+                // All collapsed, expand all
+                collapsedTeams.clear();
+                btn.textContent = '▼ Collapse All';
+            } else {
+                // Some or none collapsed, collapse all
+                teams.forEach(team => {
+                    const teamKey = `${team.organization}/${team.name}`;
+                    collapsedTeams.add(teamKey);
+                });
+                btn.textContent = '▶ Expand All';
+            }
+            
+            renderPlan(filteredItems);
+        }
+        
+        // Open work item in new tab
+        function openWorkItem(e) {
+            const card = e.currentTarget;
+            const itemId = parseInt(card.dataset.id);
+            const item = workItems.find(i => i.id === itemId);
+            if (item && item.url) {
+                window.open(item.url, '_blank');
+            }
+        }
+        
+        // Get filtered items based on current filters
+        function getFilteredItems() {
+            const filterText = document.getElementById('filterText').value.toLowerCase();
+            const typeCheckboxes = document.querySelectorAll('#typeFilterDropdown input[type="checkbox"]:checked');
+            const stateCheckboxes = document.querySelectorAll('#stateFilterDropdown input[type="checkbox"]:checked');
+            const selectedTypes = Array.from(typeCheckboxes).map(cb => cb.value);
+            const selectedStates = Array.from(stateCheckboxes).map(cb => cb.value);
+            
+            return workItems.filter(item => {
+                if (filterText && !item.title.toLowerCase().includes(filterText) && 
+                    !item.id.toString().includes(filterText)) {
+                    return false;
+                }
+                if (selectedTypes.length > 0 && !selectedTypes.includes(item.type)) {
+                    return false;
+                }
+                if (selectedStates.length > 0 && !selectedStates.includes(item.state)) {
+                    return false;
+                }
+                return true;
+            });
+        }
+        
+        // Apply filters
+        function applyFilters() {
+            const filteredItems = getFilteredItems();
+            renderPlan(filteredItems);
+        }
+        
+        // Zoom functions
+        function zoomIn() {
+            currentZoom = Math.min(currentZoom + 0.2, 2);
+            renderPlan(getFilteredItems());
+        }
+        
+        function zoomOut() {
+            currentZoom = Math.max(currentZoom - 0.2, 0.5);
+            renderPlan(getFilteredItems());
+        }
+        
+        // Toggle legend
+        function toggleLegend() {
+            const legend = document.getElementById('legend');
+            legend.classList.toggle('visible');
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderPlan();
+            
+            // Event listeners
+            document.getElementById('toggleAllTeams').addEventListener('click', toggleAllTeams);
+            document.getElementById('toggleLegend').addEventListener('click', toggleLegend);
+            document.getElementById('filterText').addEventListener('input', applyFilters);
+            document.getElementById('zoomIn').addEventListener('click', zoomIn);
+            document.getElementById('zoomOut').addEventListener('click', zoomOut);
+            
+            // Type color mapping
+            const getTypeColor = (type) => {
+                const colorMap = {
+                    'Epic': '#B8540F',
+                    'Feature': '#D97757',
+                    'User Story': '#D9A057',
+                    'Product Backlog Item': '#D9A057',
+                    'Bug': '#cc293d',
+                    'Task': '#8CAD57',
+                    'FocusTopic': '#D97757',
+                    'BizOpportunity': '#B8540F'
+                };
+                return colorMap[type] || '#8C8C8C';
+            };
+            
+            // Populate filter dropdowns based on actual data
+            const populateFilterDropdowns = () => {
+                // Get unique types and states from work items
+                const types = [...new Set(workItems.map(item => item.type))].sort();
+                const states = [...new Set(workItems.map(item => item.state))].sort();
+                
+                // Populate type dropdown
+                const typeDropdown = document.getElementById('typeFilterDropdown');
+                typeDropdown.innerHTML = types.map(type => 
+                    `<label><input type="checkbox" value="${type}"> ${type}</label>`
+                ).join('');
+                
+                // Populate state dropdown
+                const stateDropdown = document.getElementById('stateFilterDropdown');
+                stateDropdown.innerHTML = states.map(state => 
+                    `<label><input type="checkbox" value="${state}"> ${state}</label>`
+                ).join('');
+                
+                // Populate legend with actual types
+                const legendItems = document.getElementById('legendItems');
+                legendItems.innerHTML = types.map(type => `
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: ${getTypeColor(type)}; height: 4px;"></div>
+                        <span>${type}</span>
+                    </div>
+                `).join('');
+            };
+            
+            // Multi-select dropdown functionality
+            const setupMultiSelect = (buttonId, dropdownId, defaultText) => {
+                const button = document.getElementById(buttonId);
+                const dropdown = document.getElementById(dropdownId);
+                const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]');
+                
+                // Toggle dropdown
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    dropdown.classList.toggle('open');
+                    // Close other dropdown
+                    document.querySelectorAll('.multi-select-dropdown').forEach(d => {
+                        if (d !== dropdown) d.classList.remove('open');
+                    });
+                });
+                
+                // Update button text and apply filters
+                const updateButton = () => {
+                    const checked = Array.from(checkboxes).filter(cb => cb.checked);
+                    const count = checked.length;
+                    if (count === 0) {
+                        button.textContent = defaultText + ' ▼';
+                        button.classList.remove('active');
+                    } else if (count === 1) {
+                        button.textContent = checked[0].value + ' ▼';
+                        button.classList.add('active');
+                    } else {
+                        button.textContent = `${count} selected ▼`;
+                        button.classList.add('active');
+                    }
+                    applyFilters();
+                };
+                
+                // Checkbox change handlers
+                checkboxes.forEach(cb => {
+                    cb.addEventListener('change', updateButton);
+                });
+                
+                // Prevent dropdown close on checkbox click
+                dropdown.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+            };
+            
+            // Populate dropdowns first
+            populateFilterDropdowns();
+            
+            // Then setup the multi-select functionality
+            setupMultiSelect('typeFilterButton', 'typeFilterDropdown', 'All Types');
+            setupMultiSelect('stateFilterButton', 'stateFilterDropdown', 'All States');
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', () => {
+                document.querySelectorAll('.multi-select-dropdown').forEach(d => {
+                    d.classList.remove('open');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

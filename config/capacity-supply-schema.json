@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://azdw/config/capacity-supply-schema.json",
+  "title": "Capacity Supply Configuration",
+  "description": "User-provided declaration of delivery capacity (supply) for demand-vs-supply load analysis. Declares supply only; dimension-to-work-item-field mapping lives in field-reference-mappings.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["unit", "capacity"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Relative path to this schema file."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$",
+      "description": "Configuration version for migration (e.g. '1.0')."
+    },
+    "unit": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unit of the capacity amounts (e.g. personWeeks, FTE, storyPoints, budgetCurrency). Must share a unit family with the rolled-up demand field."
+    },
+    "asOfDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Provenance: date the supply figures were stated."
+    },
+    "source": {
+      "type": "string",
+      "description": "Provenance: origin of the supply figures (e.g. 'PMO capacity plan v3')."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free-text provenance notes."
+    },
+    "thresholds": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Classification policy. Overridable by command options. Percentages.",
+      "properties": {
+        "underUtilisedBelow": { "type": "number", "minimum": 0, "default": 80 },
+        "atRiskFrom": { "type": "number", "minimum": 0, "default": 80 },
+        "overAllocatedAbove": { "type": "number", "minimum": 0, "default": 100 }
+      }
+    },
+    "capacity": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Capacity supply records. Sparse by design.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["amount"],
+        "anyOf": [
+          { "required": ["team"] },
+          { "required": ["valueStream"] },
+          { "required": ["horizon"] },
+          { "required": ["areaPath"] },
+          { "required": ["period"] }
+        ],
+        "properties": {
+          "team": { "type": "string", "description": "Team dimension key." },
+          "valueStream": { "type": "string", "description": "Value-stream dimension key." },
+          "horizon": { "type": "string", "description": "Investment-horizon dimension key (e.g. H1, H2)." },
+          "areaPath": { "type": "string", "description": "Area-path dimension key (native Azure DevOps field)." },
+          "period": { "type": "string", "description": "Discrete time bucket the capacity applies to (e.g. 2026-H1, 2026-Q3)." },
+          "amount": { "type": "number", "minimum": 0, "description": "Capacity amount in the file's unit." },
+          "source": { "type": "string", "description": "Per-record provenance override." },
+          "asOfDate": { "type": "string", "format": "date", "description": "Per-record provenance override." },
+          "notes": { "type": "string", "description": "Per-record note." }
+        }
+      }
+    }
+  }
+}

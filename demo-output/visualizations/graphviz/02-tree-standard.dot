@@ -1,0 +1,32 @@
+digraph "WorkItemGraph" {
+  rankdir=TB;
+  node [shape=box, style=filled, fontname="Arial"];
+  edge [fontname="Arial", fontsize=10];
+
+  label="Work Item Relationships - Query Results";
+  labelloc=t;
+  labeljust=c;
+  fontsize=16;
+  fontname="Arial Bold";
+
+  // Nodes grouped by depth for hierarchical layout
+  // Depth 0
+  { rank=same;
+    wi__acme_flow_acmeflow_sdk_1 [label="#1\nEpic\nOfficial AcmeFlow SDKs & CLI\nacme-flow/acmeflow-sdk", fillcolor="lightblue", shape=box];
+    wi_acmeflow_AcmeFlow_3 [label="#3\nUser Story\nFavorite frequently used nodes\nacmeflow/AcmeFlow", fillcolor="lightyellow", shape=box];
+    wi__acme_flow_acmeflow_sdk_2 [label="#2\nFeature\nTypeScript SDK\nacme-flow/acmeflow-sdk", fillcolor="lightgreen", shape=box];
+    wi__acme_flow_acmeflow_sdk_4 [label="#4\nFeature\nAcmeFlow CLI\nacme-flow/acmeflow-sdk", fillcolor="lightgreen", shape=box];
+    wi__acme_flow_acmeflow_sdk_5 [label="#5\nFeature\nOpenAPI spec & code generation\nacme-flow/acmeflow-sdk", fillcolor="lightgreen", shape=box];
+  }
+
+  // Edges
+  wi__acme_flow_acmeflow_sdk_1 -> wi_acmeflow_AcmeFlow_3 [label="Related", color="red", style=dashed, constraint=true];
+  wi__acme_flow_acmeflow_sdk_1 -> wi__acme_flow_acmeflow_sdk_2 [label="Related", color="red", style=dashed, constraint=true];
+  wi__acme_flow_acmeflow_sdk_1 -> wi_acmeflow_AcmeFlow_3 [label="Related", color="red", style=dashed, constraint=true];
+  wi__acme_flow_acmeflow_sdk_1 -> wi__acme_flow_acmeflow_sdk_4 [label="Related", color="red", style=dashed, constraint=true];
+  wi__acme_flow_acmeflow_sdk_1 -> wi__acme_flow_acmeflow_sdk_5 [label="Related", color="red", style=dashed, constraint=true];
+  wi__acme_flow_acmeflow_sdk_2 -> wi__acme_flow_acmeflow_sdk_1 [label="Related", color="red", style=dashed, constraint=true];
+  wi__acme_flow_acmeflow_sdk_4 -> wi__acme_flow_acmeflow_sdk_1 [label="Related", color="red", style=dashed, constraint=true];
+  wi__acme_flow_acmeflow_sdk_5 -> wi__acme_flow_acmeflow_sdk_1 [label="Related", color="red", style=dashed, constraint=true];
+
+}

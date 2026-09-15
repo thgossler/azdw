@@ -1,0 +1,57 @@
+{
+  "$schema": "./field-mapping-schema.json",
+  
+  // Default field mappings for Scrum process template - Task
+
+  "processTemplate": "Scrum",
+  "logicalType": "Task", 
+  "physicalType": "Task",
+  
+  // State mapping
+  "stateMapping": {
+    "New": "New",
+    "To Do": "New",
+    "In Progress": "Active",
+    "Done": "Closed",
+    "Removed": "Closed"
+  },
+
+  // Priority mapping
+  "priorityMapping": {
+    "1": "Critical",
+    "2": "High", 
+    "3": "Medium",
+    "4": "Low"
+  },
+
+  // Field mapping
+  "logicalFields": {
+    "RemainingWork": "Microsoft.VSTS.Scheduling.RemainingWork",
+    "CompletedWork": "Microsoft.VSTS.Scheduling.CompletedWork",
+    "OriginalEstimate": "Microsoft.VSTS.Scheduling.OriginalEstimate"
+  },
+
+  // Required fields
+  "requiredFields": [
+    "System.Title",
+    "System.State", 
+    "System.WorkItemType"
+  ],
+
+  // Optional fields
+  "optionalFields": [
+    "Microsoft.VSTS.Scheduling.RemainingWork",
+    "Microsoft.VSTS.Scheduling.CompletedWork",
+    "Microsoft.VSTS.Scheduling.OriginalEstimate"
+  ],
+
+  // Default values
+  "defaultValues": {
+    "Priority": "Medium"
+  },
+
+  "configurationComments": "Default Scrum process template mapping for Task work items.",
+  "validationRules": [],
+  "isDefaultMapping": true,
+  "lastUpdated": "2025-10-28T00:00:00Z"
+}

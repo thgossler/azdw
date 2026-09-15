@@ -1,0 +1,68 @@
+{
+  "$schema": "./field-mapping-schema.json",
+  
+  // Default field mappings for Scrum process template - UserStory (Product Backlog Item)
+  // 
+  // This file defines how logical work item types and fields are mapped to
+  // the physical Azure DevOps Scrum process template fields.
+
+  "processTemplate": "Scrum",
+  "logicalType": "UserStory", 
+  "physicalType": "Product Backlog Item",
+  
+  // State mapping: maps physical states to logical states
+  "stateMapping": {
+    "New": "New",
+    "Approved": "Active",
+    "Committed": "Active",
+    "Done": "Closed",
+    "Removed": "Closed"
+  },
+
+  // Priority mapping: maps physical priority values to logical priorities
+  "priorityMapping": {
+    "1": "Critical",
+    "2": "High", 
+    "3": "Medium",
+    "4": "Low"
+  },
+
+  // Field mapping: maps logical field names to physical Azure DevOps field references
+  "logicalFields": {
+    "StoryPoints": "Microsoft.VSTS.Scheduling.Effort",
+    "AcceptanceCriteria": "Microsoft.VSTS.Common.AcceptanceCriteria",
+    "BusinessValue": "Microsoft.VSTS.Common.BusinessValue",
+    "Risk": "Microsoft.VSTS.Common.Risk",
+    "TimeCriticality": "Microsoft.VSTS.Common.TimeCriticality",
+    "ValueArea": "Microsoft.VSTS.Common.ValueArea"
+  },
+
+  // Required fields
+  "requiredFields": [
+    "System.Title",
+    "System.State", 
+    "System.WorkItemType"
+  ],
+
+  // Optional fields
+  "optionalFields": [
+    "Microsoft.VSTS.Scheduling.Effort",
+    "Microsoft.VSTS.Common.AcceptanceCriteria",
+    "Microsoft.VSTS.Common.BusinessValue",
+    "Microsoft.VSTS.Common.Risk",
+    "Microsoft.VSTS.Common.TimeCriticality",
+    "Microsoft.VSTS.Common.ValueArea"
+  ],
+
+  // Default values
+  "defaultValues": {
+    "Priority": "Medium",
+    "Risk": "Low", 
+    "ValueArea": "Business"
+  },
+
+  "configurationComments": "Default Scrum process template mapping for Product Backlog Item work items (logical type: UserStory). This mapping provides cross-template compatibility.",
+  "validationRules": [],
+  "isDefaultMapping": true,
+  "lastUpdated": "2025-10-28T00:00:00Z"
+}

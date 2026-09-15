@@ -1,0 +1,98 @@
+// Work Item Spec File — Example
+// Use with: azdw workitem create --from-file workitem-spec-example.jsonc --connection MyOrg
+// Schema: ./workitem-spec-schema.json
+{
+  // Multiple work item definitions in one file (use flat object for single-item shorthand)
+  "workItems": [
+
+    // ─── Example 1: User Story with acceptance criteria (markdown auto-converted to HTML) ───
+    {
+      "workItemType": "User Story",
+      "fields": {
+        "Title": "User can reset password via email link",
+        "Description": "# Overview\n\nAllow users who have forgotten their password to reset it securely via a time-limited email link.\n\n## Motivation\n\nReduces support load and improves user experience.",
+        "AcceptanceCriteria": "- [ ] Reset email sent within 30 seconds\n- [ ] Link expires after 1 hour\n- [ ] Password validation enforced on new password",
+        "Priority": 2,
+        "StoryPoints": 5
+      },
+      "areaPaths": [
+        "MyProject\\Auth Team"
+      ],
+      "project": "MyProject"
+      // The 'azdw' tracking tag is added automatically — no need to include it here
+    },
+
+    // ─── Example 2: Bug with reproduction steps ───
+    {
+      "workItemType": "Bug",
+      "fields": {
+        "Title": "Login button unresponsive on Safari 17",
+        "ReproSteps": "1. Open Safari 17 on macOS Sonoma\n2. Navigate to https://app.example.com/login\n3. Enter valid credentials\n4. Click **Login**\n\n**Observed**: Nothing happens\n**Expected**: User is redirected to dashboard",
+        "Severity": "2 - High",
+        "Priority": 1
+      },
+      "areaPaths": [
+        "MyProject\\Auth Team",
+        "MyProject\\QA Team"
+      ],
+      "tags": "browser-compat, regression"
+    },
+
+    // ─── Example 3: Task rolled out to multiple teams ───
+    {
+      "workItemType": "Task",
+      "fields": {
+        "Title": "Review and acknowledge updated security policy",
+        "Description": "Please read the [updated security policy](https://intranet/security) and mark this task as Done when complete.",
+        "Effort": 1
+      },
+      // Create one work item per area path automatically
+      "areaPaths": [
+        "MyProject\\Team Alpha",
+        "MyProject\\Team Beta",
+        "MyProject\\Team Gamma"
+      ]
+    },
+
+    // ─── Example 4: Update an existing work item by ID ───
+    // (for use with: azdw workitem update --from-file ...)
+    {
+      "id": 12345,
+      "fields": {
+        "State": "Active",
+        "AssignedTo": "alice@example.com",
+        "IterationPath": "MyProject\\Sprint 42"
+      }
+    },
+
+    // ─── Example 5: Batch with intra-batch relations (two-pass) ───
+    // Use sourceRef to give items symbolic IDs that can be referenced by other items.
+    // Relations are resolved after all items in Pass 1 have been created.
+    {
+      "sourceRef": "epic-auth",
+      "workItemType": "Epic",
+      "fields": {
+        "Title": "Authentication Platform Modernisation"
+      },
+      "project": "MyProject"
+    },
+    {
+      "sourceRef": "story-sso",
+      "workItemType": "User Story",
+      "fields": {
+        "Title": "Implement SSO via OIDC"
+      },
+      "project": "MyProject",
+      // parent: resolved to the ID of epic-auth after Pass 1
+      "parent": { "targetRef": "epic-auth" },
+      "relations": [
+        // Link to an existing work item by absolute ID
+        { "type": "related", "targetId": 99010 },
+        // Link to an arbitrary URL (e.g., an external GitHub issue) via a native Hyperlink relation.
+        // Use type "hyperlink" with targetUrl. Mutually exclusive with targetId/targetRef.
+        { "type": "hyperlink", "targetUrl": "https://github.com/acme/repo/issues/42" }
+      ]
+    }
+
+  ]
+}

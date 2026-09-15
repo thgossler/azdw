@@ -1,0 +1,132 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://azdw/config/github-mapping-schema.json",
+  "title": "GitHub Mapping Configuration",
+  "description": "Maps GitHub issue type/state/field signals to the unified work item model. Applied when querying or writing GitHub issues. Invalid configuration falls back to documented defaults.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string", "description": "Config schema version, e.g. '1.0'." },
+    "description": { "type": "string" },
+    "includePullRequests": {
+      "type": "boolean",
+      "default": false,
+      "description": "When true, GitHub pull requests are also projected as work items. Default false (issues only)."
+    },
+    "typeMapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourcePrecedence": {
+          "type": "array",
+          "description": "Order in which type signals are evaluated. Default: ['issueType','labels'].",
+          "items": { "enum": ["issueType", "labels"] },
+          "default": ["issueType", "labels"]
+        },
+        "default": {
+          "type": "string",
+          "description": "Fallback work item type when no rule matches.",
+          "default": "Issue"
+        },
+        "rules": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/typeRule" }
+        }
+      }
+    },
+    "stateMapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourcePrecedence": {
+          "type": "array",
+          "description": "Order in which state signals are evaluated. 'projectStatus' is honored only when the connection references a Project. Default: ['projectStatus','labels','openClosed'].",
+          "items": { "enum": ["projectStatus", "labels", "openClosed"] },
+          "default": ["projectStatus", "labels", "openClosed"]
+        },
+        "default": {
+          "type": "string",
+          "description": "Fallback state when no rule matches.",
+          "default": "New"
+        },
+        "openClosed": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Mapping from GitHub open/closed state and close reason to unified states.",
+          "properties": {
+            "open": { "type": "string", "default": "Active" },
+            "closedCompleted": { "type": "string", "default": "Closed" },
+            "closedNotPlanned": { "type": "string", "default": "Removed" },
+            "reopened": { "type": "string", "default": "Active" }
+          }
+        },
+        "rules": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/stateRule" }
+        }
+      }
+    },
+    "fieldMapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/fieldRule" }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "typeRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Matches a native issue type value OR a set of labels (all required) and yields a work item type.",
+      "properties": {
+        "labels": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "All labels must be present (AND) to match. Most-specific (largest set) wins; ties by declaration order."
+        },
+        "issueType": {
+          "type": "string",
+          "description": "Native GitHub Issue Type value to match (alternative to labels)."
+        },
+        "target": { "type": "string", "description": "Resulting unified work item type name." },
+        "description": { "type": "string" }
+      },
+      "required": ["target"],
+      "anyOf": [
+        { "required": ["labels"] },
+        { "required": ["issueType"] }
+      ]
+    },
+    "stateRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Matches a set of labels (all required) and yields a unified state.",
+      "properties": {
+        "labels": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "target": { "type": "string", "description": "Resulting unified state name." },
+        "description": { "type": "string" }
+      },
+      "required": ["labels", "target"]
+    },
+    "fieldRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source": { "type": "string", "description": "GitHub field key (e.g. 'milestone','assignees','body','number','html_url','created_at')." },
+        "target": { "type": "string", "description": "Unified work item field name (e.g. 'Iteration Path','Assigned To','Description')." },
+        "description": { "type": "string" }
+      },
+      "required": ["source", "target"]
+    }
+  }
+}

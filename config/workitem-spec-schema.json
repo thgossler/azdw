@@ -1,0 +1,159 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/thgossler/azdw/schemas/workitem-spec.json",
+  "title": "azdw Work Item Spec File",
+  "description": "JSON/JSONC file format for creating or updating Azure DevOps work items via 'azdw workitem create --from-file' or 'azdw workitem update --from-file'. Compatible with azdo-wi-creator spec files.",
+  "oneOf": [
+    {
+      "$ref": "#/definitions/MultiItemSpecFile"
+    },
+    {
+      "$ref": "#/definitions/SingleItemDefinition"
+    }
+  ],
+  "definitions": {
+    "MultiItemSpecFile": {
+      "type": "object",
+      "description": "Spec file with a workItems array containing one or more work item definitions.",
+      "properties": {
+        "workItems": {
+          "type": "array",
+          "description": "Array of work item definitions to create or update.",
+          "items": {
+            "$ref": "#/definitions/WorkItemDefinition"
+          },
+          "minItems": 0
+        }
+      },
+      "required": ["workItems"],
+      "additionalProperties": false
+    },
+    "SingleItemDefinition": {
+      "$ref": "#/definitions/WorkItemDefinition",
+      "description": "Shorthand: a single work item definition without the workItems wrapper."
+    },
+    "WorkItemDefinition": {
+      "type": "object",
+      "description": "A single work item definition. For creation, at least 'fields' with a Title is required. For update, an 'id' is required.",
+      "properties": {
+        "fields": {
+          "type": "object",
+          "description": "Key-value pairs of field names (short or qualified) to values. Short names (e.g., 'Title') are auto-resolved to qualified names (e.g., 'System.Title'). Rich text fields support markdown content that is auto-converted to HTML.",
+          "additionalProperties": true,
+          "examples": [
+            {
+              "Title": "Implement user authentication",
+              "Description": "# Overview\n\nOAuth 2.0 with JWT tokens.",
+              "Priority": 1,
+              "AcceptanceCriteria": "- [ ] Login works\n- [ ] Logout works",
+              "StoryPoints": 8
+            }
+          ]
+        },
+        "workItemType": {
+          "type": "string",
+          "description": "Work item type (e.g., 'Bug', 'Task', 'User Story', 'Feature'). Overrides CLI --type and any WorkItemType inside fields. If omitted, falls back to fields.WorkItemType or CLI --type.",
+          "examples": ["Bug", "Task", "User Story", "Feature", "Epic"]
+        },
+        "project": {
+          "type": "string",
+          "description": "Target Azure DevOps project. Overrides CLI --project or connection default. If both 'project' and 'projects' are present, they are merged (deduplicated).",
+          "examples": ["MyProject"]
+        },
+        "projects": {
+          "type": "array",
+          "description": "Multiple target projects. One work item is created per project. Merged with 'project' if both present.",
+          "items": {
+            "type": "string"
+          },
+          "examples": [["ProjectAlpha", "ProjectBeta"]]
+        },
+        "areaPaths": {
+          "type": "array",
+          "description": "Target area paths. One work item is created per area path. If empty or omitted, the project root area path is used.",
+          "items": {
+            "type": "string"
+          },
+          "examples": [["MyProject\\Team1", "MyProject\\Team2"]]
+        },
+        "tags": {
+          "description": "Tags to attach to the work item. Can be a comma/semicolon-separated string or an array of strings. The 'azdw' tracking tag is always added automatically.",
+          "oneOf": [
+            {
+              "type": "string",
+              "examples": ["security, oauth, backend"]
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "examples": [["security", "oauth", "backend"]]
+            }
+          ]
+        },
+        "id": {
+          "type": "integer",
+          "description": "Work item ID (for update operations only). Required when using 'workitem update --from-file' with a multi-item file.",
+          "examples": [12345]
+        },
+        "sourceRef": {
+          "type": "string",
+          "description": "Symbolic identifier for this item within the batch. Can be referenced by other items via 'relations[].targetRef' or 'parent.targetRef' for intra-batch linking (resolved after Pass 1).",
+          "examples": ["epic-auth", "story-sso"]
+        },
+        "parent": {
+          "description": "Parent relationship. Use 'targetId' for an existing work item ID, or 'targetRef' to reference another item in the same batch by its sourceRef.",
+          "type": "object",
+          "properties": {
+            "targetId": {
+              "type": "integer",
+              "description": "Absolute Azure DevOps work item ID of the parent.",
+              "examples": [42]
+            },
+            "targetRef": {
+              "type": "string",
+              "description": "sourceRef of another item in this batch to use as parent.",
+              "examples": ["epic-auth"]
+            }
+          },
+          "additionalProperties": false
+        },
+        "relations": {
+          "type": "array",
+          "description": "Relationships to establish for this work item. Resolved after all items in the batch have been created (Pass 2).",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Relationship type. Supported: parent, child, related, predecessor, successor, duplicate, duplicateof, hyperlink. Use 'hyperlink' together with 'targetUrl' to link to an arbitrary URL (e.g., an external GitHub issue).",
+                "default": "related",
+                "examples": ["related", "parent", "child", "predecessor", "hyperlink"]
+              },
+              "targetId": {
+                "type": "integer",
+                "description": "Absolute Azure DevOps work item ID of the relationship target. Mutually exclusive with targetRef and targetUrl.",
+                "examples": [99010]
+              },
+              "targetRef": {
+                "type": "string",
+                "description": "sourceRef of another item in this batch. Resolved to an ID after Pass 1. Mutually exclusive with targetId and targetUrl.",
+                "examples": ["epic-auth"]
+              },
+              "targetUrl": {
+                "type": "string",
+                "format": "uri",
+                "description": "Absolute URL the relationship points to. When set (or when 'type' is 'hyperlink'), a native Azure DevOps 'Hyperlink' relation is created instead of a work-item-to-work-item link. Mutually exclusive with targetId and targetRef.",
+                "examples": ["https://github.com/acme/repo/issues/42"]
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["fields"],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,1 @@
+azdw visualize graph --from-closure demo-output/all-connections/queries/work-item-1-closure.json --format graphviz --output demo-output/all-connections/visualizations/graphviz/01-graph-standard.dot --max-depth 0 --layout graph

@@ -1,0 +1,181 @@
+<!--
+  This is a dependency-free browser sample for the packaged azdw HTTP service.
+  It demonstrates the REST workflow in one page: configure a service URL, call
+  health/status endpoints, or load connections and recent work items together.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>azdw REST API sample</title>
+  <style>
+    /* Keep the page intentionally small so it can be opened or served without
+       a frontend build tool or framework. */
+    :root { color-scheme: light dark; font-family: system-ui, sans-serif; }
+    body { margin: 2rem auto; max-width: 56rem; padding: 0 1rem; }
+    label { display: block; font-weight: 600; margin: 1rem 0 0.35rem; }
+    input, button { font: inherit; padding: 0.55rem 0.7rem; }
+    input { box-sizing: border-box; width: 100%; }
+    .actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1rem 0; }
+    button { cursor: pointer; }
+    pre { background: #222; border-radius: 0.35rem; color: #eee; min-height: 12rem; overflow: auto; padding: 1rem; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <!-- The controls below are the complete user interface for this sample. -->
+  <h1>azdw REST API sample</h1>
+  <p>Call the local azdw service without a framework or build step.</p>
+
+  <label for="apiBase">Service base URL</label>
+  <input id="apiBase" value="http://localhost:5016" spellcheck="false">
+
+  <div class="actions">
+    <button type="button" id="loadData">Load connections and recent work items</button>
+    <button type="button" data-path="/api/v1/health">Health</button>
+    <button type="button" data-path="/api/v1/status">Status</button>
+  </div>
+
+  <pre id="output" aria-live="polite">Choose an endpoint.</pre>
+
+  <script>
+    // Cache the output area and URL field because every request updates them.
+    const output = document.querySelector('#output');
+    const baseInput = document.querySelector('#apiBase');
+
+    // The grouped work-item endpoint accepts this small, reusable query body.
+    // It deliberately excludes PII so the sample output is safe to share.
+    const recentQuery = {
+      maxResults: 3,
+      sortBy: 'System.ChangedDate:desc',
+      includePii: false
+    };
+
+    function serviceUrl(path) {
+      // Normalize a user-entered base URL before resolving an API-relative path.
+      return new URL(path, baseInput.value.trim().replace(/\/$/, '') + '/').toString();
+    }
+
+    async function call(path) {
+      // This helper powers the simple health and status buttons. It displays
+      // JSON with indentation when possible and raw text for other responses.
+      output.textContent = `GET ${serviceUrl(path)} ...`;
+      try {
+        const response = await fetch(serviceUrl(path), {
+          headers: { Accept: 'application/json' }
+        });
+        const text = await response.text();
+        let body;
+        try {
+          body = JSON.stringify(JSON.parse(text), null, 2);
+        } catch {
+          body = text;
+        }
+        output.textContent = `${response.status} ${response.statusText}\n\n${body}`;
+      } catch (error) {
+        output.textContent = `Request failed: ${error.message}\n\nCheck that azdw.service is running and that its CORS policy permits this page.`;
+      }
+    }
+
+    function responseArray(payload, propertyName) {
+      // Some endpoints return an array directly while others wrap it in a
+      // named property. Supporting both shapes keeps the sample version-tolerant.
+      return Array.isArray(payload) ? payload : payload[propertyName] || [];
+    }
+
+    function property(value, name) {
+      // Accept either JavaScript camelCase or .NET-style PascalCase JSON.
+      return value?.[name] ?? value?.[name[0].toUpperCase() + name.slice(1)];
+    }
+
+    function field(workItem, name) {
+      // Azure DevOps work items may expose standard fields in either casing.
+      return workItem.fields?.[name] ?? workItem.Fields?.[name];
+    }
+
+    function workItemLine(workItem) {
+      // Convert one API work-item object into the compact line shown in the
+      // output pane, with field-bag fallbacks for raw responses.
+      const id = property(workItem, 'id') ?? '?';
+      const type = property(workItem, 'type') || 'Work item';
+      const title = property(workItem, 'title') || field(workItem, 'System.Title') || '(untitled)';
+      const changed = property(workItem, 'changedDate') || field(workItem, 'System.ChangedDate') || 'unknown';
+      return `  #${id} | ${type} | ${title} | changed ${changed}`;
+    }
+
+    async function loadConnectionsAndRecentWorkItems() {
+      // This is the main demonstration flow: fetch connections, query recent
+      // work items grouped by connection, and join each group back to its
+      // configured connection using the normalized URL.
+      output.textContent = 'Loading configured connections...';
+      try {
+        const connectionsResponse = await fetch(serviceUrl('/api/v1/connections'), {
+          headers: { Accept: 'application/json' }
+        });
+        const connectionsPayload = await connectionsResponse.json();
+        if (!connectionsResponse.ok) {
+          throw new Error(JSON.stringify(connectionsPayload));
+        }
+
+        const connections = responseArray(connectionsPayload, 'connections');
+        const queryResponse = await fetch(serviceUrl('/api/v1/workitems/query?groupByConnection=true&pageSize=3'), {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(recentQuery)
+        });
+        const queryPayload = await queryResponse.json();
+        if (!queryResponse.ok) {
+          throw new Error(JSON.stringify(queryPayload));
+        }
+
+        // Query the service for at most three changed items per connection.
+        const groups = responseArray(queryPayload, 'groups');
+        const lines = [
+          'Configured connections',
+          ...connections.map(connection => `- ${property(connection, 'name') || '(unnamed)'} | ${property(connection, 'provider') || 'Unknown provider'} | ${property(connection, 'isEnabled') === false ? 'disabled' : 'enabled'} | ${property(connection, 'baseUrl') || property(connection, 'effectiveUrl') || property(connection, 'url') || ''}`),
+          '',
+          'Most recently changed 3 work items per connection'
+        ];
+
+        // Build output in the same order as the configured connections so the
+        // result is easy to compare with the connection list above.
+        for (const connection of connections) {
+          const connectionName = property(connection, 'name') || '';
+          const connectionUrl = property(connection, 'baseUrl') || property(connection, 'effectiveUrl') || property(connection, 'url');
+          const group = groups.find(candidate => {
+            const groupUrl = property(candidate, 'key');
+            return groupUrl && connectionUrl && groupUrl.replace(/\/$/, '').toLowerCase() === connectionUrl.replace(/\/$/, '').toLowerCase();
+          });
+          const items = responseArray(group || {}, 'workItems').slice(0, 3);
+          lines.push(`\n${connectionName}`);
+          if (items.length) {
+            lines.push(...items.map(workItemLine));
+          } else {
+            lines.push('  No work items returned.');
+          }
+        }
+
+        // Preserve provider-level failures in the output instead of silently
+        // presenting an incomplete success response.
+        if (queryPayload.failedConnections?.length) {
+          lines.push('', 'Connection query failures', JSON.stringify(queryPayload.failedConnections, null, 2));
+        }
+        output.textContent = lines.join('\n');
+      } catch (error) {
+        output.textContent = `Request failed: ${error.message}\n\nCheck that azdw.service is running and that its CORS policy permits this page.`;
+      }
+    }
+
+    // Wire the generic endpoint buttons to the shared GET helper.
+    document.querySelectorAll('button[data-path]').forEach(button => {
+      button.addEventListener('click', () => call(button.dataset.path));
+    });
+
+    // Wire the main workflow button to the grouped connections/work-items call.
+    document.querySelector('#loadData').addEventListener('click', loadConnectionsAndRecentWorkItems);
+  </script>
+</body>
+</html>

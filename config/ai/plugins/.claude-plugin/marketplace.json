@@ -1,0 +1,16 @@
+{
+  "name": "azdw-plugins",
+  "owner": {
+    "name": "azdw"
+  },
+  "metadata": {
+    "description": "AI plugins for Azure DevOps work item management"
+  },
+  "plugins": [
+    {
+      "name": "manage-workitems",
+      "source": "./manage-workitems",
+      "description": "Manages Azure DevOps work items across multiple organizations using the azdw tool. Supports querying, creating, updating, visualizing, and creating reports for work items via MCP server tools or CLI commands."
+    }
+  ]
+}

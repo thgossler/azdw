@@ -1,0 +1,182 @@
+/**
+ * azdw Branding Configuration Example - Custom Theme
+ * 
+ * This is an example showing how to customize the azdw branding for your organization.
+ * Copy this file to: config/branding.css (for general use)
+ * Or to: clients/<ClientName>/config/branding.css (for client-specific packages)
+ * 
+ * This example shows a corporate blue theme as an alternative to the default coral.
+ */
+
+/* ============================================================================
+ * CUSTOM FONT IMPORT
+ * ============================================================================
+ * 
+ * Replace with your organization's font or preferred Google Font.
+ * This example uses Inter, a modern sans-serif font.
+ * ============================================================================
+ */
+
+/* Using Inter - a clean, modern sans-serif font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Alternative: Use a locally installed corporate font
+ *
+ * @font-face {
+ *     font-family: 'CorpFont';
+ *     src: local('Corporate Font Regular'),
+ *          url('fonts/CorpFont-Regular.woff2') format('woff2');
+ *     font-weight: 400;
+ *     font-style: normal;
+ *     font-display: swap;
+ * }
+ * 
+ * @font-face {
+ *     font-family: 'CorpFont';
+ *     src: local('Corporate Font Bold'),
+ *          url('fonts/CorpFont-Bold.woff2') format('woff2');
+ *     font-weight: 700;
+ *     font-style: normal;
+ *     font-display: swap;
+ * }
+ */
+
+:root {
+    /* ========================================================================
+     * FONTS - Modern Sans-Serif Theme
+     * ======================================================================== */
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --font-secondary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Consolas', monospace;
+    
+    /* ========================================================================
+     * FONT SIZES - Slightly smaller for modern look
+     * ======================================================================== */
+    --font-size-base: 15px;
+    --font-size-xs: 0.75em;
+    --font-size-sm: 0.875em;
+    --font-size-md: 0.9375em;
+    --font-size-lg: 1.125em;
+    --font-size-xl: 1.5em;
+    --font-size-2xl: 2em;
+    --font-size-3xl: 2.25em;
+    
+    /* ========================================================================
+     * BACKGROUNDS - Clean white/gray theme
+     * ======================================================================== */
+    --bg-primary: #F8FAFC;
+    --bg-card: #FFFFFF;
+    --bg-card-hover: #F1F5F9;
+    --bg-header: var(--accent-primary);
+    
+    /* ========================================================================
+     * TEXT COLORS
+     * ======================================================================== */
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #94A3B8;
+    --text-inverse: #FFFFFF;
+    
+    /* ========================================================================
+     * ACCENT COLORS - Corporate Blue Theme
+     * ========================================================================
+     * 
+     * This example uses a professional blue color scheme.
+     * Adjust these values to match your organization's brand guidelines.
+     * ======================================================================== */
+    --accent-primary: #2563EB;
+    --accent-primary-hover: #1D4ED8;
+    --accent-primary-light: rgba(37, 99, 235, 0.1);
+    
+    /* Legacy variable names */
+    --accent-coral: var(--accent-primary);
+    --accent-coral-hover: var(--accent-primary-hover);
+    --accent-coral-light: var(--accent-primary-light);
+    
+    /* ========================================================================
+     * BORDERS - Slightly cooler gray tones
+     * ======================================================================== */
+    --border-light: #E2E8F0;
+    --border-medium: #CBD5E1;
+    --border-dark: #94A3B8;
+    
+    /* ========================================================================
+     * SEMANTIC COLORS
+     * ======================================================================== */
+    --color-success: #16A34A;
+    --color-success-bg: rgba(22, 163, 74, 0.1);
+    --color-success-text: #15803D;
+    
+    --color-warning: #CA8A04;
+    --color-warning-bg: rgba(202, 138, 4, 0.1);
+    --color-warning-text: #A16207;
+    
+    --color-info: #0284C7;
+    --color-info-bg: rgba(2, 132, 199, 0.1);
+    --color-info-text: #0369A1;
+    
+    --color-error: #DC2626;
+    --color-error-bg: rgba(220, 38, 38, 0.1);
+    --color-error-text: #B91C1C;
+    
+    /* ========================================================================
+     * WORK ITEM TYPE COLORS - Azure DevOps inspired
+     * ======================================================================== */
+    --color-epic: #5C2D91;
+    --color-feature: #773B93;
+    --color-story: #009CCC;
+    --color-bug: #CC293D;
+    --color-task: #F2CB1D;
+    --color-task-done: #339933;
+    
+    /* ========================================================================
+     * BADGES
+     * ======================================================================== */
+    --badge-report-bg: var(--color-success-bg);
+    --badge-report-text: var(--color-success-text);
+    --badge-viz-bg: var(--color-info-bg);
+    --badge-viz-text: var(--color-info-text);
+    --badge-query-bg: var(--color-warning-bg);
+    --badge-query-text: var(--color-warning-text);
+    
+    /* ========================================================================
+     * LAYOUT - Wider container for dashboards
+     * ======================================================================== */
+    --container-max-width: 1000px;
+    --border-radius-sm: 4px;
+    --border-radius-md: 6px;
+    --border-radius-lg: 8px;
+    
+    /* ========================================================================
+     * SHADOWS - Softer shadows for modern look
+     * ======================================================================== */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.03);
+    --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* ============================================================================
+ * DARK MODE OVERRIDE
+ * ============================================================================
+ * 
+ * Uncomment to enable automatic dark mode based on system preference.
+ * ============================================================================
+ */
+
+/*
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-primary: #0F172A;
+        --bg-card: #1E293B;
+        --bg-card-hover: #334155;
+        --text-primary: #F1F5F9;
+        --text-secondary: #CBD5E1;
+        --text-muted: #64748B;
+        --border-light: #334155;
+        --border-medium: #475569;
+        --accent-primary: #3B82F6;
+        --accent-primary-hover: #60A5FA;
+        --accent-primary-light: rgba(59, 130, 246, 0.15);
+    }
+}
+*/

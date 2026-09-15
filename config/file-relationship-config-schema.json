@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "file-relationship-config-schema.json",
+  "title": "File Relationship Configuration",
+  "description": "Configuration for recognizing file hyperlinks as custom work item relationships",
+  "type": "object",
+  "required": ["patterns"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON schema reference"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$",
+      "description": "Configuration schema version (e.g., '1.0'). Used for migration between schema versions.",
+      "default": "1.0"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of this configuration"
+    },
+    "patterns": {
+      "type": "array",
+      "description": "Array of file relationship pattern definitions",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/FileRelationshipPattern"
+      }
+    }
+  },
+  "$defs": {
+    "FileRelationshipPattern": {
+      "type": "object",
+      "description": "A single URL pattern configuration for recognizing file artifacts",
+      "required": ["name", "urlPattern", "relationshipName", "workItemType", "startWorkItemId"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Unique identifier for this pattern (e.g., 'ADR', 'RFC')",
+          "minLength": 1,
+          "pattern": "^[a-zA-Z][a-zA-Z0-9_-]*$"
+        },
+        "urlPattern": {
+          "type": "string",
+          "description": "Regex pattern with named capture groups to match hyperlink URLs",
+          "minLength": 1
+        },
+        "relationshipName": {
+          "type": "string",
+          "description": "The relationship type name displayed (e.g., 'Architecture Decision')",
+          "minLength": 1
+        },
+        "workItemType": {
+          "type": "string",
+          "description": "The work item type for generated fake work items",
+          "minLength": 1
+        },
+        "startWorkItemId": {
+          "type": "integer",
+          "description": "Base ID for fake work items (actual ID = startWorkItemId + computed offset)",
+          "minimum": 100000
+        },
+        "fieldMappings": {
+          "type": "object",
+          "description": "Maps work item fields to values. Use ${CaptureGroupName} syntax for dynamic substitution from regex captures; values without ${...} are used as static literals.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether this pattern is active",
+          "default": true
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable description for documentation"
+        },
+        "contentExtractionPatterns": {
+          "type": "array",
+          "description": "Optional regex patterns for extracting field values from file content. Patterns are applied in order; last match wins for each field (top-to-bottom). File content is only fetched when --resolve-file-content (-rfc) is specified AND at least one pattern is configured.",
+          "items": {
+            "$ref": "#/$defs/ContentExtractionPattern"
+          }
+        }
+      }
+    },
+    "ContentExtractionPattern": {
+      "type": "object",
+      "description": "A regex pattern for extracting fields from file content",
+      "required": ["pattern"],
+      "properties": {
+        "pattern": {
+          "type": "string",
+          "description": "Regex pattern with named capture groups. Each named group maps to a field. Use flags like (?s) for DOTALL, (?m) for MULTILINE. Example: '(?m)^## Status:\\s*(?<State>\\w+)' to extract State from Markdown.",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable description of what this pattern extracts"
+        }
+      }
+    }
+  }
+}

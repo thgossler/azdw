@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "defaults-schema.json",
+  "title": "azdw Defaults Configuration",
+  "description": "Configuration file for azdw default settings that can be overridden per client or user.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Reference to the JSON schema for validation."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$",
+      "description": "Configuration schema version (e.g., '1.0'). Used for migration between schema versions.",
+      "default": "1.0"
+    },
+    "topWorkItemType": {
+      "type": "string",
+      "description": "Default top-level work item type for hierarchy traversal (e.g., 'Epic'). Used by commands like 'relationship find-closure'. If not specified, defaults to 'Epic'.",
+      "default": "Epic",
+      "examples": ["Epic", "Feature", "Initiative"]
+    },
+    "themeLightnessOffset": {
+      "type": "number",
+      "description": "Lightness offset used when deriving darker/lighter primary color variants from the loaded CSS theme. Smaller values produce more subtle variants; larger values produce higher contrast. Default: 0.10.",
+      "minimum": 0.01,
+      "maximum": 0.30,
+      "default": 0.10
+    },
+    "mcpOAuthClientId": {
+      "type": "string",
+      "description": "MCP OAuth client ID for the Authorization Code + PKCE flow. Overrides the built-in azdw multi-tenant Entra ID app registration (1b5c5fc3-256f-4d5f-868b-a43b98df2168). Use this to substitute a client-specific Entra ID app registration for all URL-only MCP server entries.",
+      "examples": ["1b5c5fc3-256f-4d5f-868b-a43b98df2168"]
+    },
+    "followUpSuggestions": {
+      "type": "string",
+      "enum": ["enabled", "disabled", "minimal"],
+      "default": "enabled",
+      "description": "Controls follow-up suggestion generation in AI chat. 'enabled' (default): 3-5 suggestions after each response. 'minimal': 1-2 suggestions. 'disabled': no suggestions (saves ~150 tokens in system prompt)."
+    },
+    "connectionStalenessThresholdMinutes": {
+      "type": "integer",
+      "description": "When an AI-enabled command starts, connections whose last successful test is older than this many minutes are automatically re-tested before the first AI interaction. Set to 0 to always re-test all connections. Set to -1 (or any negative value) to disable automatic staleness checks. Default: 60.",
+      "default": 60,
+      "examples": [0, 30, 60, 120, -1]
+    },
+    "capacityDemandField": {
+      "type": "string",
+      "description": "Default work-item numeric field reference summed as demand by 'azdw capacity analyze' (e.g. 'Microsoft.VSTS.Scheduling.Effort'). When set, the --demand-field option becomes optional and falls back to this value; when not set, --demand-field is mandatory. No built-in default (org/process-specific).",
+      "examples": ["Microsoft.VSTS.Scheduling.Effort", "Microsoft.VSTS.Scheduling.StoryPoints"]
+    },
+    "piiApprovalValidityMinutes": {
+      "type": "integer",
+      "description": "How long (in minutes) a PII inclusion approval granted via the 'request_pii_inclusion' MCP handshake remains valid before the model must request it again. Applies to externally reachable MCP hosts where the PII inclusion gate is enabled. Non-positive values fall back to the built-in default. Default: 5.",
+      "minimum": 1,
+      "default": 5,
+      "examples": [5, 10, 15, 30]
+    }
+  },
+  "additionalProperties": false
+}

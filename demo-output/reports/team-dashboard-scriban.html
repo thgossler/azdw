@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Team Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #F5F5F0;
+            --bg-card: #FAFAF8;
+            --bg-card-hover: #FFFFFF;
+            --text-primary: #1A1A1A;
+            --text-secondary: #5C5C5C;
+            --text-muted: #8C8C8C;
+            --accent-coral: #D97757;
+            --accent-coral-hover: #C4613F;
+            --accent-coral-light: rgba(217, 119, 87, 0.1);
+            --border-light: #E5E5E0;
+            --border-medium: #D4D4CF;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Merriweather', Georgia, serif; background: var(--bg-primary); color: var(--text-primary); padding: 40px 20px; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .hero { text-align: center; padding: 40px 0 50px; }
+        .hero-icon { font-size: 2.5em; margin-bottom: 16px; }
+        .hero h1 { font-size: 2.2em; font-weight: 600; color: var(--text-primary); margin-bottom: 12px; letter-spacing: -0.02em; }
+        .hero p { font-size: 1.1em; color: var(--text-secondary); max-width: 500px; margin: 0 auto; }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+        .stat-card { background: var(--bg-card); border: 1px solid var(--border-light); padding: 24px 20px; border-radius: 12px; text-align: center; }
+        .stat-value { font-size: 2em; font-weight: 600; color: var(--accent-coral); margin-bottom: 4px; }
+        .stat-label { font-size: 0.85em; color: var(--text-secondary); }
+        .section { margin-bottom: 32px; }
+        .section h2 { font-size: 1.4em; font-weight: 600; color: var(--text-primary); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+        .card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 12px; padding: 24px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px 8px; text-align: left; border-bottom: 1px solid var(--border-light); }
+        th { background: var(--bg-card); font-weight: 600; color: var(--text-secondary); font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.03em; }
+        tr:hover { background: var(--bg-card-hover); }
+        td a { color: var(--accent-coral); text-decoration: none; font-weight: 500; }
+        td a:hover { text-decoration: underline; }
+        .footer { border-top: 1px solid var(--border-light); padding: 40px 0; text-align: center; margin-top: 40px; }
+        .info-block, .azdw-signature { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 12px; padding: 24px 32px; font-family: 'SF Mono', Monaco, monospace; font-size: 0.85em; line-height: 1.5; color: var(--text-secondary); text-align: left; white-space: pre-wrap; display: inline-block; }
+        .info-block a, .azdw-signature a { color: var(--accent-coral); text-decoration: none; }
+        .info-block a:hover, .azdw-signature a:hover { text-decoration: underline; }
+        @media (max-width: 768px) {
+            body { padding: 20px 16px; }
+            .hero h1 { font-size: 1.8em; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+<!-- azdw-branding-injected -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+ *     font-family: 'MyCompanyFont';
+ *     src: local('My Company Font'),
+ *          url('fonts/MyCompanyFont.woff2') format('woff2'),
+ *          url('fonts/MyCompanyFont.woff') format('woff');
+ *     font-weight: normal;
+ *     font-style: normal;
+ *     font-display: swap;
+ * }
+    </style>
+<style>
+        :root {
+
+    /* ========================================================================
+     * FONT CONFIGURATION
+     * ========================================================================
+     * 
+     * --font-primary: Main text font (headings, body text)
+     * --font-secondary: Alternative font for specific elements
+     * --font-mono: Monospace font for code and technical content
+     * 
+     * Default uses Merriweather (Google Font) with Georgia/serif fallbacks.
+     * For a modern sans-serif look, try:
+     *   --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+     * ======================================================================== */
+    --font-primary: 'Merriweather', Georgia, 'Times New Roman', serif;
+    --font-secondary: 'Merriweather', Georgia, serif;
+    --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Consolas', monospace;
+    
+    /* ========================================================================
+     * FONT SIZES
+     * ========================================================================
+     * 
+     * Base sizes for typography. Adjust for your brand guidelines.
+     * Uses em/rem for scalability and accessibility.
+     * ======================================================================== */
+    --font-size-base: 16px;
+    --font-size-xs: 0.75em;      /* 12px at base */
+    --font-size-sm: 0.85em;      /* 13.6px at base */
+    --font-size-md: 0.9em;       /* 14.4px at base */
+    --font-size-lg: 1.1em;       /* 17.6px at base */
+    --font-size-xl: 1.4em;       /* 22.4px at base */
+    --font-size-2xl: 2em;        /* 32px at base */
+    --font-size-3xl: 2.2em;      /* 35.2px at base */
+    
+    /* ========================================================================
+     * LINE HEIGHT & SPACING
+     * ======================================================================== */
+    --line-height-base: 1.6;
+    --line-height-tight: 1.4;
+    --line-height-loose: 1.8;
+    
+    /* ========================================================================
+     * BACKGROUND COLORS
+     * ========================================================================
+     * 
+     * --bg-primary: Main page background (warm off-white by default)
+     * --bg-card: Card/panel backgrounds
+     * --bg-card-hover: Card hover state
+     * --bg-header: Header/toolbar backgrounds (uses accent color by default)
+     * ======================================================================== */
+    --bg-primary: #F5F5F0;
+    --bg-card: #FAFAF8;
+    --bg-card-hover: #FFFFFF;
+    --bg-header: var(--accent-primary);
+    
+    /* ========================================================================
+     * TEXT COLORS
+     * ========================================================================
+     * 
+     * --text-primary: Main text color (near black)
+     * --text-secondary: Secondary/supporting text
+     * --text-muted: Subtle text, labels, captions
+     * --text-inverse: Text on dark backgrounds (headers, buttons)
+     * ======================================================================== */
+    --text-primary: #1A1A1A;
+    --text-secondary: #5C5C5C;
+    --text-muted: #8C8C8C;
+    --text-inverse: #FFFFFF;
+    
+    /* ========================================================================
+     * ACCENT / BRAND COLORS
+     * ========================================================================
+     * 
+     * --accent-primary: Main brand/accent color (coral by default)
+     * --accent-primary-hover: Darker shade for hover states
+     * --accent-primary-light: Light tint for backgrounds, badges
+     * 
+     * These colors are used for:
+     * - Links, buttons, interactive elements
+     * - Headers, highlights, emphasis
+     * - Charts, statistics, badges
+     * 
+     * BRAND CUSTOMIZATION EXAMPLES:
+     * 
+     * Blue corporate theme:
+     *   --accent-primary: #0066CC;
+     *   --accent-primary-hover: #004C99;
+     *   --accent-primary-light: rgba(0, 102, 204, 0.1);
+     * 
+     * Green eco theme:
+     *   --accent-primary: #2E7D32;
+     *   --accent-primary-hover: #1B5E20;
+     *   --accent-primary-light: rgba(46, 125, 50, 0.1);
+     * 
+     * Purple modern theme:
+     *   --accent-primary: #7B1FA2;
+     *   --accent-primary-hover: #4A148C;
+     *   --accent-primary-light: rgba(123, 31, 162, 0.1);
+     * ======================================================================== */
+    --accent-primary: #D97757;
+    --accent-primary-hover: #C4613F;
+    --accent-primary-light: rgba(217, 119, 87, 0.1);
+    
+    /* Legacy variable names for backwards compatibility with existing templates */
+    --accent-coral: var(--accent-primary);
+    --accent-coral-hover: var(--accent-primary-hover);
+    --accent-coral-light: var(--accent-primary-light);
+    
+    /* ========================================================================
+     * BORDER COLORS
+     * ======================================================================== */
+    --border-light: #E5E5E0;
+    --border-medium: #D4D4CF;
+    --border-dark: #BFBFBA;
+    
+    /* ========================================================================
+     * SEMANTIC COLORS
+     * ========================================================================
+     * 
+     * Used for badges, status indicators, work item types, etc.
+     * ======================================================================== */
+    
+    /* Success / Completed states */
+    --color-success: #228B22;
+    --color-success-bg: rgba(34, 139, 34, 0.1);
+    --color-success-text: #228B22;
+    
+    /* Warning / In-Progress states */
+    --color-warning: #B8860B;
+    --color-warning-bg: rgba(184, 134, 11, 0.1);
+    --color-warning-text: #B8860B;
+    
+    /* Info / Active states */
+    --color-info: #4682B4;
+    --color-info-bg: rgba(70, 130, 180, 0.1);
+    --color-info-text: #4682B4;
+    
+    /* Error / Bug states */
+    --color-error: #cc293d;
+    --color-error-bg: rgba(204, 41, 61, 0.1);
+    --color-error-text: #cc293d;
+    
+    /* ========================================================================
+     * WORK ITEM TYPE COLORS
+     * ========================================================================
+     * 
+     * Colors for work item types in visualizations and dashboards.
+     * ======================================================================== */
+    --color-epic: #B8540F;
+    --color-feature: #D97757;
+    --color-story: #D9A057;
+    --color-bug: #cc293d;
+    --color-task: #8CAD57;
+    --color-task-done: #5C7A2E;
+    
+    /* ========================================================================
+     * BADGE COLORS
+     * ======================================================================== */
+    --badge-report-bg: var(--color-success-bg);
+    --badge-report-text: var(--color-success-text);
+    --badge-viz-bg: var(--color-info-bg);
+    --badge-viz-text: var(--color-info-text);
+    --badge-query-bg: var(--color-warning-bg);
+    --badge-query-text: var(--color-warning-text);
+    
+    /* ========================================================================
+     * LAYOUT & SIZING
+     * ======================================================================== */
+    --container-max-width: 900px;
+    --border-radius-sm: 6px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+    
+    /* Padding */
+    --padding-xs: 4px;
+    --padding-sm: 8px;
+    --padding-md: 12px;
+    --padding-lg: 16px;
+    --padding-xl: 20px;
+    --padding-2xl: 24px;
+    --padding-3xl: 32px;
+    --padding-4xl: 40px;
+    
+    /* Gaps/margins */
+    --gap-sm: 8px;
+    --gap-md: 12px;
+    --gap-lg: 16px;
+    --gap-xl: 24px;
+    
+    /* ========================================================================
+     * SHADOWS & EFFECTS
+     * ======================================================================== */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.04);
+    --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.15);
+    
+    /* ========================================================================
+     * TRANSITIONS
+     * ======================================================================== */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.2s ease;
+    --transition-slow: 0.3s ease;
+
+        }
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <div class="hero-icon">📊</div>
+            <h1>Demo Team Dashboard</h1>
+            <p>Generated: 2026-09-14 22:18:09 UTC</p>
+        </div>
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value">18</div>
+                <div class="stat-label">Total Work Items</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">18</div>
+                <div class="stat-label">Active</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">0</div>
+                <div class="stat-label">Completed</div>
+            </div>
+        </div>
+        <div class="section">
+            <h2><span>📋</span> Work Items</h2>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>State</th>
+                            <th>Type</th>
+                            <th>Organization</th>
+                            <th>Project</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="https://github.com/acme-flow/acmeflow-sdk/issues/18" target="_blank">18</a></td>
+                            <td>Opt-in telemetry for the CLI</td>
+                            <td>Active</td>
+                            <td>Feature</td>
+                            <td></td>
+                            <td>acme-flow/acmeflow-sdk</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://github.com/acme-flow/acmeflow-sdk/issues/17" target="_blank">17</a></td>
+                            <td>CLI crashes on Windows path separators</td>
+                            <td>Active</td>
+                            <td>Bug</td>
+                            <td></td>
+                            <td>acme-flow/acmeflow-sdk</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://github.com/acme-flow/acmeflow-sdk/issues/16" target="_blank">16</a></td>
+                            <td>Python: auto-pagination for list endpoints</td>
+                            <td>Active</td>
+                            <td>Feature</td>
+                            <td></td>
+                            <td>acme-flow/acmeflow-sdk</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://github.com/acme-flow/acmeflow-sdk/issues/15" target="_blank">15</a></td>
+                            <td>SDK quickstart docs</td>
+                            <td>Active</td>
+                            <td>Task</td>
+                            <td></td>
+                            <td>acme-flow/acmeflow-sdk</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://github.com/acme-flow/acmeflow-sdk/issues/14" target="_blank">14</a></td>
+                            <td>Add CI matrix for Node 18/20/22</td>
+                            <td>Active</td>
+                            <td>Task</td>
+                            <td></td>
+                            <td>acme-flow/acmeflow-sdk</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://github.com/acme-flow/acmeflow-sdk/issues/13" target="_blank">13</a></td>
+                            <td>Incorrect nullable types in generated TS</td>
+                            <td>Active</td>
+                            <td>Bug</td>
+                            <td></td>
+                            <td>acme-flow/acmeflow-sdk</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://github.com/acme-flow/acmeflow-sdk/issues/12" target="_blank">12</a></td>
+                            <td>OpenAPI: generate TypeScript types from spec</td>
+                            <td>Active</td>
+                            <td>Feature</td>
+                            <td></td>
+                            <td>acme-flow/acmeflow-sdk</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://github.com/acme-flow/acmeflow-sdk/issues/11" target="_blank">11</a></td>
+                            <td>CLI: shell completion scripts</td>
+                            <td>Active</td>
+                            <td>Feature</td>
+                            <td></td>
+                            <td>acme-flow/acmeflow-sdk</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://github.com/acme-flow/acmeflow-sdk/issues/10" target="_blank">10</a></td>
+                            <td>Python SDK retries non-idempotent requests</td>
+                            <td>Active</td>
+                            <td>Bug</td>
+                            <td></td>
+                            <td>acme-flow/acmeflow-sdk</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://github.com/acme-flow/acmeflow-sdk/issues/9" target="_blank">9</a></td>
+                            <td>Webhook signature validation fails on Node 20</td>
+                            <td>Active</td>
+                            <td>Bug</td>
+                            <td></td>
+                            <td>acme-flow/acmeflow-sdk</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://github.com/acme-flow/acmeflow-sdk/issues/8" target="_blank">8</a></td>
+                            <td>CLI: `acmeflow init` scaffolding</td>
+                            <td>Active</td>
+                            <td>Feature</td>
+                            <td></td>
+                            <td>acme-flow/acmeflow-sdk</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://github.com/acme-flow/acmeflow-sdk/issues/7" target="_blank">7</a></td>
+                            <td>Python: async client support</td>
+                            <td>Active</td>
+                            <td>Feature</td>
+                            <td></td>
+                            <td>acme-flow/acmeflow-sdk</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://github.com/acme-flow/acmeflow-sdk/issues/6" target="_blank">6</a></td>
+                            <td>TS: OAuth device-code auth helper</td>
+                            <td>Active</td>
+                            <td>Feature</td>
+                            <td></td>
+                            <td>acme-flow/acmeflow-sdk</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://github.com/acme-flow/acmeflow-sdk/issues/5" target="_blank">5</a></td>
+                            <td>OpenAPI spec & code generation</td>
+                            <td>Active</td>
+                            <td>Feature</td>
+                            <td></td>
+                            <td>acme-flow/acmeflow-sdk</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://github.com/acme-flow/acmeflow-sdk/issues/4" target="_blank">4</a></td>
+                            <td>AcmeFlow CLI</td>
+                            <td>Active</td>
+                            <td>Feature</td>
+                            <td></td>
+                            <td>acme-flow/acmeflow-sdk</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://github.com/acme-flow/acmeflow-sdk/issues/3" target="_blank">3</a></td>
+                            <td>Python SDK</td>
+                            <td>Active</td>
+                            <td>Feature</td>
+                            <td></td>
+                            <td>acme-flow/acmeflow-sdk</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://github.com/acme-flow/acmeflow-sdk/issues/2" target="_blank">2</a></td>
+                            <td>TypeScript SDK</td>
+                            <td>Active</td>
+                            <td>Feature</td>
+                            <td></td>
+                            <td>acme-flow/acmeflow-sdk</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://github.com/acme-flow/acmeflow-sdk/issues/1" target="_blank">1</a></td>
+                            <td>Official AcmeFlow SDKs & CLI</td>
+                            <td>Active</td>
+                            <td>Epic</td>
+                            <td></td>
+                            <td>acme-flow/acmeflow-sdk</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <pre class="info-block azdw-signature">                _       
+               | |      
+ _____ _____ __| |_ _ _ 
+(____ (___  ) _  | | | |
+/ ___ |/ __( (_| | | | |
+\_____(_____)____|\___/ 
+
+(say: &quot;A-Z-D-U&quot; /eɪ ziː diː juː/)
+
+Azure DevOps Work Item Handler - A cross-platform tool for
+unified access to Azure DevOps and GitHub work items across
+multiple tenants, organizations and projects.
+
+Version: 0.17.5
+Build: 2026-09-14 22:17:26 UTC
+
+Copyright &#169; Thomas Gossler, 2025-2026
+License: Commercial (use --license to view full license text)
+Demo license: sample
+Expiry: not applicable
+
+What&#39;s new: run azdw release-notes or use /release-notes in ai-chat.
+</pre>
+    </footer>
+</body>
+</html>

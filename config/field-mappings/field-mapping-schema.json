@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Field Mapping Configuration",
+  "description": "Configuration for mapping logical work item fields to physical Azure DevOps fields",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference"
+    },
+    "processTemplate": {
+      "type": "string",
+      "enum": ["Agile", "Scrum", "CMMI", "Basic"],
+      "description": "Azure DevOps process template"
+    },
+    "logicalType": {
+      "type": "string",
+      "description": "Logical work item type (e.g., Bug, Story)"
+    },
+    "physicalType": {
+      "type": "string",
+      "description": "Physical work item type in Azure DevOps"
+    },
+    "stateMapping": {
+      "type": "object",
+      "description": "Mapping of logical states to physical states",
+      "patternProperties": {
+        "^.*$": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "priorityMapping": {
+      "type": "object",
+      "description": "Mapping of priority values",
+      "patternProperties": {
+        "^.*$": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "logicalFields": {
+      "type": "object",
+      "description": "Mapping of logical field names to physical field names",
+      "patternProperties": {
+        "^.*$": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "requiredFields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of required field names"
+    },
+    "optionalFields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of optional field names"
+    },
+    "defaultValues": {
+      "type": "object",
+      "description": "Default values for fields"
+    },
+    "configurationComments": {
+      "type": "string",
+      "description": "Comments about this field mapping configuration"
+    },
+    "validationRules": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "description": "Custom validation rules"
+    },
+    "isDefaultMapping": {
+      "type": "boolean",
+      "description": "Whether this is a default mapping"
+    },
+    "lastUpdated": {
+      "type": "string",
+      "description": "Last update timestamp"
+    }
+  },
+  "required": ["processTemplate", "logicalType", "physicalType"],
+  "additionalProperties": false
+}

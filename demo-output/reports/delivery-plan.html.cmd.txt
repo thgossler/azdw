@@ -1,0 +1,1 @@
+azdw report generate --template-id delivery-plan-html --connections AcmeFlow-GH --limit 20 --relationships --parameters "{"plan_name":"Q1 2025 Delivery Plan"}" --output demo-output/all-connections/reports/delivery-plan.html

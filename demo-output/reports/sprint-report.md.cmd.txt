@@ -1,0 +1,1 @@
+azdw report generate --template-id sprint-report-md --connections AcmeFlow-GH --states "Active,Closed,Done,New,To Do,In Progress" --limit 20 --parameters "{"sprint_name":"Current Sprint","avg_completion_days":5.2}" --output demo-output/all-connections/reports/sprint-report.md

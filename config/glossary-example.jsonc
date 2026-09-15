@@ -1,0 +1,23 @@
+{
+  "$schema": "./glossary-schema.json",
+  "version": "1.0",
+  "description": "Example glossary for domain-specific abbreviations and terminology",
+  
+  "abbreviations": {
+    "PBI": "Product Backlog Item",
+    "DI": "Dependency Injection",
+    "CI": "Continuous Integration",
+    "CD": "Continuous Deployment",
+    "API": "Application Programming Interface",
+    "SDK": "Software Development Kit",
+    "MCP": "Model Context Protocol"
+  },
+  
+  "terms": {
+    "SignalR": "Real-time communication library for .NET applications",
+    "Redis": "In-memory data structure store used for caching and messaging",
+    "ServiceBus": "Azure Service Bus - cloud messaging service"
+  },
+  
+  "projectContext": "This project involves developing software that processes data in cloud and edge environments."
+}

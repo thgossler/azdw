@@ -1,0 +1,5 @@
+{
+  "allStates": null,
+  "command": "azdw metadata states --connection AcmeFlow-GH --type <WorkItemType> --json",
+  "statesByType": {}
+}

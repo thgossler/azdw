@@ -1,0 +1,76 @@
+{
+  "$schema": "./virtual-types-schema.json",
+  "version": "1.0",
+  "virtualTypes": [
+    // Example: Differentiate Epics by area path
+    {
+      "name": "CustReq",
+      "displayName": "Customer Requirement",
+      "description": "Customer Requirement items representing features requested by customers, located under the 'Customer' area path",
+      "physicalType": "Epic",
+      "criteria": {
+        "areaPath": {
+          "pattern": "**\\Customer\\**",
+          "patternType": "glob"
+        }
+      },
+      "priority": 10
+    },
+    {
+      "name": "TechReq",
+      "displayName": "Technical Requirement",
+      "description": "Technical Requirement items representing technical features, located under the 'Technical' area path",
+      "physicalType": "Epic",
+      "criteria": {
+        "areaPath": {
+          // Using regex to match Technical
+          "pattern": ".*\\\\Technical(?:\\\\.*)?$",
+          "patternType": "regex"
+        }
+      },
+      "priority": 5
+    },
+
+    // Example: Virtual type restricted to specific connections
+    {
+      "name": "TechDebt",
+      "displayName": "Technical Debt Item",
+      "description": "Bugs tagged as technical debt",
+      "physicalType": "Bug",
+      "criteria": {
+        "fields": [
+          {
+            "fieldName": "System.Tags",
+            "operator": "contains",
+            "value": "TechDebt"
+          }
+        ]
+      },
+      "connections": ["DevTeam", "Engineering"],
+      "enabled": true
+    },
+
+    // Example: Combined criteria (area path AND field value)
+    {
+      "name": "SecurityBug",
+      "displayName": "Security Bug",
+      "description": "Bug items in the Security area with security tag",
+      "physicalType": "Bug",
+      "criteria": {
+        "areaPath": {
+          "pattern": "**\\Security\\**",
+          "patternType": "glob"
+        },
+        "fields": [
+          {
+            "fieldName": "System.Tags",
+            "operator": "contains",
+            "value": "security",
+            "caseSensitive": false
+          }
+        ]
+      },
+      "priority": 20
+    }
+  ]
+}

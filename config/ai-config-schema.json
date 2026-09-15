@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AI Configuration",
+  "description": "Configuration for AI-powered features using Microsoft.Extensions.AI or GitHub Copilot SDK",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$",
+      "description": "Configuration schema version (e.g., '1.0'). Used for migration between schema versions.",
+      "default": "1.0"
+    },
+    "approach": {
+      "type": "string",
+      "enum": ["github-copilot", "anthropic", "openai", "ollama"],
+      "default": "openai",
+      "description": "The AI approach to use. github-copilot uses your GitHub Copilot subscription. anthropic uses Anthropic Claude (direct, Azure Foundry, or AWS Bedrock). openai uses OpenAI-compatible APIs (direct, Azure, or HTTP). ollama uses a local Ollama server."
+    },
+    "provider": {
+      "type": "string",
+      "enum": ["local", "anthropic", "microsoft-foundry", "aws-bedrock", "openai", "http", "default"],
+      "description": "The AI provider within the chosen approach. github-copilot uses local. anthropic supports anthropic/microsoft-foundry/aws-bedrock. openai supports openai/microsoft-foundry/http. ollama uses default."
+    },
+    "model": {
+      "type": "string",
+      "description": "The model identifier (e.g., 'gpt-5.6-luna', 'gemma4:12b', 'claude-sonnet-5')",
+      "examples": ["gpt-5.6-luna", "gpt-6-astra", "gpt-5-mini", "gemma4:12b", "claude-opus-5", "claude-sonnet-5", "claude-haiku-4-5"]
+    },
+    "endpoint": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "Required for microsoft-foundry providers. Optional for ollama. The API endpoint URL (e.g., 'https://your-resource.openai.azure.com', 'http://localhost:11434', or 'https://{resource}.services.ai.azure.com/anthropic/')"
+    },
+    "deployment": {
+      "type": ["string", "null"],
+      "description": "Required for Azure OpenAI (approach=openai, provider=microsoft-foundry). The deployment name in your Azure OpenAI resource."
+    },
+    "aws_region": {
+      "type": ["string", "null"],
+      "description": "AWS region for AWS Bedrock provider (e.g., 'us-east-1'). Required when provider=aws-bedrock."
+    },
+    "reasoning_effort": {
+      "type": ["string", "null"],
+      "enum": ["none", "low", "medium", "high", "xhigh", "max", null],
+      "default": "xhigh",
+      "description": "Reasoning effort level for GPT-5+ models on OpenAI (direct or Azure). Lower values (none, low) provide faster responses but less thorough reasoning. Higher values (high, xhigh, max) provide more thorough reasoning but slower responses. Default is 'xhigh' to match the default GPT-5.6 Luna (xHigh) model."
+    },
+    "sdk_preview_warning": {
+      "type": "boolean",
+      "default": true,
+      "description": "When using github-copilot approach, show a warning about the SDK being in technical preview. Set to false to suppress the warning."
+    },
+    "approvalPreference": {
+      "type": "string",
+      "enum": ["AlwaysAsk", "AutoApproveEdits", "AutoApproveAll"],
+      "default": "AlwaysAsk",
+      "description": "Approval preference for AI tool execution. AlwaysAsk prompts for every operation (safest). AutoApproveEdits auto-approves non-critical read operations. AutoApproveAll auto-approves all operations (use with caution)."
+    }
+  },
+  "required": [],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": { "provider": { "const": "microsoft-foundry" } }
+      },
+      "then": {
+        "required": ["endpoint"],
+        "properties": {
+          "endpoint": { "type": "string" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "approach": { "const": "openai" }, "provider": { "const": "microsoft-foundry" } }
+      },
+      "then": {
+        "required": ["endpoint", "deployment"],
+        "properties": {
+          "deployment": { "type": "string" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "provider": { "const": "aws-bedrock" } }
+      },
+      "then": {
+        "required": ["aws_region"],
+        "properties": {
+          "aws_region": { "type": "string" }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+# Command: azdw relationship find-closure --id 1 --connection AcmeFlow-GH --top-type "Epic" --include-top-siblings --include-predecessors --states-exclude Removed --max-depth 0 --format table --force-unicode
+
+Finding closure for work item 1 in connection 'AcmeFlow-GH'...
+
+Closure Status: Complete
+Total Items: 5
+Start Work Item: 1
+Top-Level Items: 1
+
+Work Items (Hierarchical Order)
+╭───────┬──────────────┬────┬────────────┬────────┬────────────────┬───────────╮
+│ Depth │ Connection   │ ID │ Type       │ State  │ Title          │ Reason    │
+├───────┼──────────────┼────┼────────────┼────────┼────────────────┼───────────┤
+│ 0     │ AcmeFlow-GH  │ 1  │ Epic       │ Active │ Official       │ TopLevel  │
+│       │              │    │            │        │ AcmeFlow SDKs  │           │
+│       │              │    │            │        │ & CLI          │           │
+│ 0     │ AcmeFlow-GH  │ 2  │ Feature    │ Active │ TypeScript SDK │ Hyperlink │
+│ 0     │ AcmeFlow-ADO │ 3  │ User Story │ New    │ Favorite       │ Hyperlink │
+│       │              │    │            │        │ frequently     │           │
+│       │              │    │            │        │ used nodes     │           │
+│ 0     │ AcmeFlow-GH  │ 4  │ Feature    │ Active │ AcmeFlow CLI   │ Hyperlink │
+│ 0     │ AcmeFlow-GH  │ 5  │ Feature    │ Active │ OpenAPI spec & │ Hyperlink │
+│       │              │    │            │        │ code           │           │
+│       │              │    │            │        │ generation     │           │
+╰───────┴──────────────┴────┴────────────┴────────┴────────────────┴───────────╯
+
+Traversal Statistics:
+  Upward Traversal: 33ms
+  Downward Traversal: 1ms
+  API Calls: 11
+  Cached Items: 0
+
+
+---
+                _       
+               | |      
+ _____ _____ __| |_ _ _ 
+(____ (___  ) _  | | | |
+/ ___ |/ __( (_| | | | |
+\_____(_____)____|\___/ 
+
+(say: "A-Z-D-U" /eɪ ziː diː juː/)
+
+Azure DevOps Work Item Handler - A cross-platform tool for
+unified access to Azure DevOps and GitHub work items across
+multiple tenants, organizations and projects.
+
+Version: 0.17.5
+Build: 2026-09-14 22:17:26 UTC
+
+Copyright © Thomas Gossler, 2025-2026
+License: Commercial (use --license to view full license text)
+Demo license: sample
+Expiry: not applicable
+
+What's new: run azdw release-notes or use /release-notes in ai-chat.
+
+Location: azdw
+.NET Runtime: 10.0.12
+GitHub Copilot SDK: 1.0.13
+Node.js: v26.8.1

@@ -1,0 +1,1 @@
+azdw report generate --template-id team-dashboard-interactive-html --connections AcmeFlow-GH --limit 20 --relationships --parameters "{"team_name":"Demo Team"}" --output demo-output/all-connections/reports/team-dashboard-interactive.html
