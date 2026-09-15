@@ -1,4 +1,31 @@
-# azdw
+<!-- SHIELDS -->
+<div align="center">
+
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+
+</div>
+
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/thgossler/azdw">
+    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  </a>
+
+  <h1 align="center">azdw</h1>
+
+  <p align="center">
+    Connect. Resolve. Insight.<br /><br />
+    Cross-tenant work-item and portfolio intelligence for Azure DevOps and GitHub.
+    <br />
+    <a href="https://github.com/thgossler/azdw/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/thgossler/azdw/issues">Request Feature</a>
+    ·
+    <a href="https://apps.thomas-gossler.de/azdw/?utm_source=GitHub">Homepage</a>
+  </p>
+</div>
 
 Generic documentation, configuration examples, demo output, and integration
 samples for **azdw**, a CLI tool, MCP server, .NET library, and REST API service for
@@ -16,8 +43,6 @@ requiring a separate reporting warehouse for every organization.
 [Visit the official azdw website](https://apps.thomas-gossler.de/azdw/) for the
 product tour, screenshots, current availability, evaluation details, pricing,
 and contact options.
-
-> Connect. Resolve. Insight.
 
 ## Why azdw
 
@@ -234,3 +259,10 @@ systems or exposing its REST/MCP services.
 
 [`SBOM.json`](SBOM.json) is the SPDX 2.3 dependency-graph export captured for
 the source snapshot used to produce these materials.
+
+
+<!-- MARKDOWN LINKS & IMAGES (https://www.markdownguide.org/basic-syntax/#reference-style-links) -->
+[stars-shield]: https://img.shields.io/github/stars/thgossler/azdw.svg
+[stars-url]: https://github.com/thgossler/azdw/stargazers
+[issues-shield]: https://img.shields.io/github/issues/thgossler/azdw.svg
+[issues-url]: https://github.com/thgossler/azdw/issues
