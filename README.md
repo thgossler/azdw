@@ -9,11 +9,11 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/thgossler/azdw">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
-
-  <h1 align="center">azdw</h1>
+  <h1 align="center">
+    <a href="https://github.com/thgossler/azdw">
+      <img src="images/logo.png" alt="Logo" width="80" height="80">
+    </a>
+  </h1>
 
   <p align="center">
     Connect. Resolve. Insight.<br /><br />
