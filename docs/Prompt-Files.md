@@ -1,3 +1,8 @@
+---
+title: Prompt Files and Slash Commands
+nav_order: 190
+---
+
 # Prompt Files and Slash Commands
 
 `azdw ai-chat` can load reusable Markdown prompt templates and expose them as

@@ -1,44 +1,11 @@
+---
+title: Output Rendering and Automation
+nav_order: 170
+---
+
 # Output Rendering and Automation
 
 This document explains how to use the azdw CLI's powerful output rendering capabilities to generate human-readable documents and automate report generation workflows.
-
-## Table of Contents
-
-- [Overview](#overview)
-  - [Cross-Organization Power](#cross-organization-power)
-- [Template-Based Rendering](#template-based-rendering)
-  - [Built-in Templates](#built-in-templates)
-  - [Using Templates](#using-templates)
-  - [Custom Templates](#custom-templates)
-- [Output Formats](#output-formats)
-  - [Markdown Reports](#markdown-reports)
-  - [Self-Contained HTML](#self-contained-html)
-  - [GraphViz Visualizations](#graphviz-visualizations)
-  - [Mermaid Visualizations](#mermaid-visualizations)
-  - [CSV Data Export](#csv-data-export)
-  - [Excel Export with ImportExcel Module](#excel-export-with-importexcel-module)
-- [Automation Workflows](#automation-workflows)
-  - [Example: Daily Work Item Report](#example-daily-work-item-report)
-  - [Scheduling with Cron (macOS/Linux)](#scheduling-with-cron-macoslinux)
-  - [Scheduling with launchd (macOS)](#scheduling-with-launchd-macos)
-  - [Scheduling with Task Scheduler (Windows)](#scheduling-with-task-scheduler-windows)
-- [Advanced Use Cases](#advanced-use-cases)
-  - [Weekly Sprint Retrospective](#weekly-sprint-retrospective)
-  - [Release Notes Generation](#release-notes-generation)
-  - [Team Dashboard Auto-Refresh](#team-dashboard-auto-refresh)
-  - [Multi-Tenant Cross-Organization Report](#multi-tenant-cross-organization-report)
-- [Best Practices](#best-practices)
-  - [1. Use Version Control for Templates](#1-use-version-control-for-templates)
-  - [2. Parameterize Your Scripts](#2-parameterize-your-scripts)
-  - [3. Handle Errors Gracefully](#3-handle-errors-gracefully)
-  - [4. Log Automation Runs](#4-log-automation-runs)
-  - [5. Use JSON for Piping](#5-use-json-for-piping)
-  - [6. Secure Credentials](#6-secure-credentials)
-- [Troubleshooting](#troubleshooting)
-  - [Report Generation Fails](#report-generation-fails)
-  - [Browser Doesn't Open](#browser-doesnt-open)
-  - [Cron Job Not Running](#cron-job-not-running)
-- [See Also](#see-also)
 
 ## Overview
 
@@ -158,6 +125,7 @@ azdw report generate \
 
 Create your own templates by defining a JSON file with:
 
+{% raw %}
 ```json
 {
   "id": "my-custom-report",
@@ -187,6 +155,7 @@ Create your own templates by defining a JSON file with:
   "supportedDataTypes": ["WorkItem[]"]
 }
 ```
+{% endraw %}
 
 > _**Note**: The Visual Studio Code extension [Escape Buster](https://marketplace.visualstudio.com/items?itemName=deng-wt.escape-buster) is very useful to review and edit the content string value._
 
@@ -249,6 +218,7 @@ azdw report template import --file ./my-dashboard.html \
 
 **Example Workflow:**
 
+{% raw %}
 ```bash
 # 1. Create your Scriban template content in a .md file
 cat > my-release-notes.md << 'EOF'
@@ -284,6 +254,7 @@ azdw report generate \
   --param date="2025-11-20" \
   --output release-2.1.0.md
 ```
+{% endraw %}
 
 **Why Use the Converter?**
 
@@ -302,45 +273,6 @@ The generated JSON file will have the template content properly escaped and read
 3. **Add sample input** describing the expected work item structure
 4. **Test the template** with `azdw report generate --template-id <id> --help`
 
-## Output Formats
-
-### Markdown Reports
-
-Perfect for documentation that can be committed to Git, rendered on GitHub/Azure DevOps, or converted to other formats:
-
-```bash
-# Sprint report with links and tables
-# Query across ALL configured organizations - no --connection needed!
-azdw query \
-  --assigned-to "@me" \
-  --state Active Resolved \
-  | azdw report generate \
-      --template-id sprint-report-md \
-      --output sprint-report.md
-```
-
-**Example Output:**
-```markdown
-# Sprint Report
-
-**Sprint:** Sprint 2024.Q4
-**Generated:** 2025-10-23 08:00:00 UTC
-**Total Items:** 15
-
-## Sprint Summary
-
-- **Completed:** 8 items
-- **In Progress:** 5 items
-- **Not Started:** 2 items
-
-## Completed Work
-
-| ID | Title | Type | Assignee |
-|----|-------|------|----------|
-| [1234](https://dev.azure.com/...) | Implement OAuth2 | User Story | John Doe |
-```
-
-### Self-Contained HTML
 
 Generate fully self-contained HTML files with embedded CSS and JavaScript for interactive dashboards. This example showcases querying across multiple organizations and tenants:
 

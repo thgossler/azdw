@@ -1,7 +1,7 @@
 <!-- SHIELDS -->
 <div align="center">
 
-[![Stargazers][stars-shield]][stars-url]
+[![Stargazers][stars-shield]][stars-url] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 [![Issues][issues-shield]][issues-url]
 
 </div>

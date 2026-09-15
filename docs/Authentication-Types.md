@@ -1,52 +1,8 @@
-# Authentication Types
+---
+title: Authentication Types
+nav_order: 20
+---
 
-## Table of Contents
-
-- [Overview](#overview)
-- [1. PAT (Personal Access Token)](#1-pat-personal-access-token)
-  - [Description](#description)
-  - [When to Use](#when-to-use)
-  - [Requirements](#requirements)
-  - [Required PAT Scopes](#required-pat-scopes)
-  - [User Account Requirements](#user-account-requirements)
-  - [GitHub & GitHub Enterprise PAT Permissions](#github--github-enterprise-pat-permissions)
-  - [Usage](#usage)
-  - [Advantages](#advantages)
-  - [Disadvantages](#disadvantages)
-  - [PAT Security Best Practices](#pat-security-best-practices)
-- [2. Device Code Flow (OAuth2)](#2-device-code-flow-oauth2)
-  - [Description](#description-1)
-  - [When to Use](#when-to-use-1)
-  - [Requirements](#requirements-1)
-  - [Usage](#usage-1)
-  - [Flow](#flow)
-  - [Advantages](#advantages-1)
-  - [Disadvantages](#disadvantages-1)
-- [3. Interactive Browser Flow (OAuth2)](#3-interactive-browser-flow-oauth2)
-  - [Description](#description-2)
-  - [When to Use](#when-to-use-2)
-  - [Requirements](#requirements-2)
-  - [Usage](#usage-2)
-  - [Flow](#flow-1)
-  - [Advantages](#advantages-2)
-  - [Disadvantages](#disadvantages-2)
-- [Comparison Table](#comparison-table)
-- [Examples](#examples)
-  - [Example 1: Local Development (Interactive Browser)](#example-1-local-development-interactive-browser)
-  - [Example 2: CI/CD Pipeline (Device Code)](#example-2-cicd-pipeline-device-code)
-  - [Example 3: Quick Testing (PAT)](#example-3-quick-testing-pat)
-- [Token Expiration & Refresh](#token-expiration--refresh)
-  - [PAT (Personal Access Token) Expiration](#pat-personal-access-token-expiration)
-  - [OAuth Token Expiration (Device Code & Interactive Browser)](#oauth-token-expiration-device-code--interactive-browser)
-  - [Choosing Authentication Method Based on Token Lifetime](#choosing-authentication-method-based-on-token-lifetime)
-  - [Token Expiration FAQ](#token-expiration-faq)
-- [Security Best Practices](#security-best-practices)
-- [Troubleshooting](#troubleshooting)
-  - [PAT Authentication Issues](#pat-authentication-issues)
-  - [Device Code Flow Issues](#device-code-flow-issues)
-  - [Interactive Browser Issues](#interactive-browser-issues)
-- [Automated Connection Setup](#automated-connection-setup)
-- [See Also](#see-also)
 
 
 azdw supports three authentication methods for Azure DevOps, each optimized for different scenarios.

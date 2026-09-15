@@ -1,20 +1,9 @@
-# Relationship Commands - Comprehensive Guide
+---
+title: Relationship Commands
+nav_order: 120
+---
 
-## Table of Contents
-
-1. [Overview](#overview)
-2. [Commands](#commands)
-   - [relationship resolve](#relationship-resolve)
-   - [relationship analyze](#relationship-analyze)
-   - [relationship validate](#relationship-validate)
-   - [relationship find-closure](#relationship-find-closure)
-3. [Common Options](#common-options)
-4. [Use Cases and Scenarios](#use-cases-and-scenarios)
-5. [Advanced Examples](#advanced-examples)
-6. [Output Processing](#output-processing)
-7. [Best Practices](#best-practices)
-8. [Troubleshooting](#troubleshooting)
-
+# Relationship Commands
 
 ## Overview
 

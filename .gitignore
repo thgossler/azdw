@@ -14,3 +14,15 @@
 [Tt]emp/
 /samples/**/bin/
 /samples/**/obj/
+
+# Local GitHub Pages preview artifacts
+/.jekyll-cache/
+/.jekyll-metadata
+/.sass-cache/
+/_site/
+/docs/.jekyll-cache/
+/docs/.jekyll-metadata
+/docs/.sass-cache/
+/docs/_site/
+/.bundle/
+/vendor/bundle/

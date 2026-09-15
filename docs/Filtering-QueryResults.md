@@ -1,398 +1,9 @@
-# Filtering and Post-Processing Multi-Connection WIQL Query Results
+---
+title: Filtering/Processing Query Results
+nav_order: 90
+---
 
-This guide demonstrates how to filter and post-process `QueryResult` objects from multi-connection WIQL queries using both LINQ (for .NET library consumers) and CLI tools like `jq` (for CLI users).
-
-## Table of Contents
-
-1. [Understanding QueryResult Structure](#understanding-queryresult-structure)
-2. [LINQ-Based Filtering (Library Usage)](#linq-based-filtering-library-usage)
-3. [CLI Tool-Based Filtering and Analysis](#cli-tool-based-filtering-and-analysis)
-   - [Tool 1: jq - Command-Line JSON Processor](#tool-1-jq---command-line-json-processor)
-   - [Tool 2: jp - JMESPath Command-Line Tool](#tool-2-jp---jmespath-command-line-tool)
-   - [Tool 3: jless - Interactive JSON Viewer](#tool-3-jless---interactive-json-viewer)
-   - [Tool 4: gron - Make JSON Greppable](#tool-4-gron---make-json-greppable)
-   - [Tool 5: jid - JSON Incremental Digger](#tool-5-jid---json-incremental-digger)
-   - [Tool 6: play - Interactive JSON Explorer](#tool-6-play---interactive-json-explorer)
-   - [Tool 7: VisiData - Spreadsheet-like JSON Interface](#tool-7-visidata---spreadsheet-like-json-interface)
-   - [Tool Comparison Matrix](#tool-comparison-matrix)
-4. [Common Filtering Scenarios](#common-filtering-scenarios)
-5. [Performance Considerations](#performance-considerations)
-6. [Additional Resources](#additional-resources)
-7. [Examples Repository](#examples-repository)
-
-
-## Understanding QueryResult Structure
-
-The `QueryResult` class represents results from WIQL queries executed across multiple Azure DevOps organizations. It contains:
-
-```csharp
-public class QueryResult
-{
-    // Core data
-    public List<WorkItem> WorkItems { get; set; }
-    public List<WorkItemRelationship> Relationships { get; set; }
-    
-    // Execution metadata
-    public List<ConnectionQueryResult> SuccessfulConnections { get; set; }
-    public List<FailedConnectionQuery> FailedConnections { get; set; }
-    public QueryFilter? QueryFilter { get; set; }
-    public DateTime QueryExecutedAt { get; set; }
-    public TimeSpan TotalExecutionTime { get; set; }
-    public List<string> Warnings { get; set; }
-    
-    // Computed properties
-    public int TotalCount { get; }
-    public int SuccessfulConnectionCount { get; }
-    public int FailedConnectionCount { get; }
-    public bool IsPartialSuccess { get; }
-    public bool IsCompleteSuccess { get; }
-    public double SuccessRate { get; }
-}
-```
-
-Each `WorkItem` contains:
-
-```csharp
-public class WorkItem
-{
-    public int Id { get; set; }
-    public string LogicalType { get; set; }  // Epic, Feature, UserStory, Task, Bug
-    public string Title { get; set; }
-    public string State { get; set; }        // New, Active, Resolved, Closed
-    public string Priority { get; set; }      // Critical, High, Medium, Low
-    public User? AssignedTo { get; set; }
-    public User? CreatedBy { get; set; }
-    public DateTime CreatedDate { get; set; }
-    public DateTime ModifiedDate { get; set; }
-    public Connection? Organization { get; set; }
-    public string Project { get; set; }
-    public string WebUrl { get; set; }
-    public List<string> Tags { get; set; }
-    public string? AreaPath { get; set; }
-    public string? IterationPath { get; set; }
-    public Dictionary<string, object?> Fields { get; set; }
-    public List<WorkItemRelationship> Relationships { get; set; }
-}
-```
-
-
-## LINQ-Based Filtering (Library Usage)
-
-When using the `azdw.lib` library in your .NET applications, use LINQ to filter and transform `QueryResult` data.
-
-### Basic Filtering Examples
-
-#### 1. Filter by Work Item Type
-
-```csharp
-using Azdw.Lib.Models;
-using Azdw.Lib.Services;
-
-// Execute WIQL query
-var wiqlService = serviceProvider.GetRequiredService<WiqlQueryService>();
-var result = await wiqlService.ExecuteWiqlAsync(
-    "SELECT [System.Id], [System.Title] FROM WorkItems WHERE [System.State] = 'Active'"
-);
-
-// Filter only bugs
-var bugs = result.WorkItems
-    .Where(wi => wi.LogicalType == "Bug")
-    .ToList();
-
-// Filter features and epics
-var strategicItems = result.WorkItems
-    .Where(wi => wi.LogicalType == "Feature" || wi.LogicalType == "Epic")
-    .OrderByDescending(wi => wi.Priority)
-    .ToList();
-```
-
-#### 2. Filter by State
-
-```csharp
-// Get only active work items
-var activeItems = result.WorkItems
-    .Where(wi => wi.State == "Active")
-    .ToList();
-
-// Get work items that need attention (not closed)
-var openItems = result.WorkItems
-    .Where(wi => wi.State != "Closed")
-    .OrderBy(wi => wi.Priority)
-    .ThenByDescending(wi => wi.CreatedDate)
-    .ToList();
-```
-
-#### 3. Filter by Organization
-
-```csharp
-// Get work items from specific organization
-var orgWorkItems = result.WorkItems
-    .Where(wi => wi.Organization?.BaseUrl == "https://dev.azure.com/myorg")
-    .ToList();
-
-// Use built-in grouping method
-var groupedByOrg = result.GroupByConnection();
-foreach (var (orgUrl, items) in groupedByOrg)
-{
-    Console.WriteLine($"{orgUrl}: {items.Count} items");
-}
-```
-
-#### 4. Filter by Priority
-
-```csharp
-// Get high-priority items
-var highPriorityItems = result.WorkItems
-    .Where(wi => wi.Priority == "Critical" || wi.Priority == "High")
-    .ToList();
-
-// Get critical bugs only
-var criticalBugs = result.WorkItems
-    .Where(wi => wi.LogicalType == "Bug" && wi.Priority == "Critical")
-    .ToList();
-```
-
-#### 5. Filter by Date Range
-
-```csharp
-// Get work items created in the last 30 days
-var recentItems = result.WorkItems
-    .Where(wi => wi.CreatedDate >= DateTime.UtcNow.AddDays(-30))
-    .OrderByDescending(wi => wi.CreatedDate)
-    .ToList();
-
-// Get work items modified this week
-var modifiedThisWeek = result.WorkItems
-    .Where(wi => wi.ModifiedDate >= DateTime.UtcNow.AddDays(-7))
-    .ToList();
-```
-
-#### 6. Filter by Assignment
-
-```csharp
-// Get unassigned work items
-var unassigned = result.WorkItems
-    .Where(wi => wi.AssignedTo == null)
-    .ToList();
-
-// Get work items assigned to specific user
-var assignedToUser = result.WorkItems
-    .Where(wi => wi.AssignedTo?.Email == "user@example.com")
-    .ToList();
-```
-
-#### 7. Filter by Tags
-
-```csharp
-// Get work items with specific tag
-var taggedItems = result.WorkItems
-    .Where(wi => wi.Tags.Contains("urgent"))
-    .ToList();
-
-// Get work items with any of multiple tags
-var multiTagItems = result.WorkItems
-    .Where(wi => wi.Tags.Any(tag => new[] { "bug", "hotfix", "critical" }.Contains(tag)))
-    .ToList();
-```
-
-### Advanced Filtering Examples
-
-#### 8. Complex Multi-Criteria Filtering
-
-```csharp
-// Get high-priority bugs from specific organizations created in last 14 days
-var targetBugs = result.WorkItems
-    .Where(wi => 
-        wi.LogicalType == "Bug" &&
-        (wi.Priority == "Critical" || wi.Priority == "High") &&
-        wi.State != "Closed" &&
-        wi.CreatedDate >= DateTime.UtcNow.AddDays(-14) &&
-        (wi.Organization?.BaseUrl?.Contains("org1") == true || 
-         wi.Organization?.BaseUrl?.Contains("org2") == true))
-    .OrderByDescending(wi => wi.Priority)
-    .ThenByDescending(wi => wi.CreatedDate)
-    .ToList();
-```
-
-#### 9. Grouping and Aggregation
-
-```csharp
-// Group by type and count
-var typeSummary = result.WorkItems
-    .GroupBy(wi => wi.LogicalType)
-    .Select(g => new { Type = g.Key, Count = g.Count() })
-    .OrderByDescending(x => x.Count)
-    .ToList();
-
-// Group by state and priority
-var statesPriorities = result.WorkItems
-    .GroupBy(wi => new { wi.State, wi.Priority })
-    .Select(g => new 
-    { 
-        State = g.Key.State, 
-        Priority = g.Key.Priority, 
-        Count = g.Count() 
-    })
-    .OrderBy(x => x.State)
-    .ThenBy(x => x.Priority)
-    .ToList();
-
-// Group by organization and work item type
-var orgTypeSummary = result.WorkItems
-    .Where(wi => wi.Organization?.BaseUrl != null)
-    .GroupBy(wi => wi.Organization!.BaseUrl)
-    .Select(orgGroup => new
-    {
-        Organization = orgGroup.Key,
-        TypeBreakdown = orgGroup
-            .GroupBy(wi => wi.LogicalType)
-            .Select(typeGroup => new 
-            { 
-                Type = typeGroup.Key, 
-                Count = typeGroup.Count() 
-            })
-            .ToList()
-    })
-    .ToList();
-```
-
-#### 10. Statistical Analysis
-
-```csharp
-// Calculate average age of work items by type
-var ageByType = result.WorkItems
-    .GroupBy(wi => wi.LogicalType)
-    .Select(g => new
-    {
-        Type = g.Key,
-        AverageDaysOld = g.Average(wi => (DateTime.UtcNow - wi.CreatedDate).TotalDays),
-        OldestItem = g.OrderBy(wi => wi.CreatedDate).First(),
-        NewestItem = g.OrderByDescending(wi => wi.CreatedDate).First()
-    })
-    .ToList();
-
-// Find work items with no recent activity
-var staleItems = result.WorkItems
-    .Where(wi => 
-        wi.State == "Active" && 
-        wi.ModifiedDate < DateTime.UtcNow.AddDays(-60))
-    .OrderBy(wi => wi.ModifiedDate)
-    .ToList();
-```
-
-#### 11. Partial Success Handling
-
-```csharp
-// Check if query was partially successful
-if (result.IsPartialSuccess)
-{
-    Console.WriteLine($"Warning: {result.FailedConnectionCount} organizations failed");
-    
-    // Log failed organizations
-    foreach (var failed in result.FailedConnections)
-    {
-        Console.WriteLine($"  - {failed.ConnectionName}: {failed.ErrorMessage}");
-    }
-}
-
-// Get only work items from successfully queried organizations
-var reliableWorkItems = result.GetWorkItemsFromSuccessfulConnections();
-
-// Filter out data from organizations with rate limit issues
-var noRateLimitData = result.WorkItems
-    .Where(wi => 
-    {
-        var orgResult = result.SuccessfulConnections
-            .FirstOrDefault(o => o.ConnectionUrl == wi.Organization?.BaseUrl);
-        return orgResult?.RateLimitEncountered != true;
-    })
-    .ToList();
-```
-
-#### 12. Custom Field Filtering
-
-```csharp
-// Filter by custom field values
-var customFiltered = result.WorkItems
-    .Where(wi => 
-        wi.Fields.TryGetValue("Custom.RiskLevel", out var risk) &&
-        risk?.ToString() == "High")
-    .ToList();
-
-// Filter by multiple custom fields
-var complexCustomFilter = result.WorkItems
-    .Where(wi =>
-    {
-        var hasCustomer = wi.Fields.TryGetValue("Custom.Customer", out var customer) &&
-                         customer?.ToString() == "Contoso";
-        var hasModule = wi.Fields.TryGetValue("Custom.Module", out var module) &&
-                       module?.ToString() == "Authentication";
-        return hasCustomer && hasModule;
-    })
-    .ToList();
-```
-
-#### 13. Projection and Transformation
-
-```csharp
-// Project to anonymous type for reporting
-var report = result.WorkItems
-    .Select(wi => new
-    {
-        wi.Id,
-        wi.Title,
-        Type = wi.LogicalType,
-        AgeInDays = (DateTime.UtcNow - wi.CreatedDate).TotalDays,
-        Organization = wi.Organization?.BaseUrl ?? "Unknown",
-        Priority = wi.Priority,
-        AssignedTo = wi.AssignedTo?.DisplayName ?? "Unassigned"
-    })
-    .ToList();
-
-// Create summary DTO
-var summary = new
-{
-    TotalItems = result.TotalCount,
-    ByType = result.GroupByWorkItemType()
-        .Select(kvp => new { Type = kvp.Key, Count = kvp.Value.Count }),
-    ByOrganization = result.GroupByConnection()
-        .Select(kvp => new { Org = kvp.Key, Count = kvp.Value.Count }),
-    SuccessRate = result.SuccessRate,
-    Warnings = result.Warnings
-};
-```
-
-### Performance Tips
-
-```csharp
-// ✅ Good: Filter before processing
-var criticalBugs = result.WorkItems
-    .Where(wi => wi.Priority == "Critical" && wi.LogicalType == "Bug")
-    .Select(wi => new { wi.Id, wi.Title })
-    .ToList();
-
-// ❌ Bad: Process everything then filter
-var allBugs = result.WorkItems
-    .Select(wi => new ComplexObject(wi)) // Expensive operation
-    .Where(obj => obj.IsCritical) // Filter after expensive operation
-    .ToList();
-
-// ✅ Good: Use built-in methods when available
-var byOrg = result.GroupByConnection();
-
-// ❌ Bad: Manually group when built-in method exists
-var manualGroup = result.WorkItems
-    .Where(wi => wi.Organization?.BaseUrl != null)
-    .GroupBy(wi => wi.Organization!.BaseUrl)
-    .ToDictionary(g => g.Key, g => g.ToList());
-
-// ✅ Good: Check for partial success
-if (!result.IsCompleteSuccess)
-{
-    // Handle failures appropriately
-}
-```
-
+# Filtering/Processing Query Results
 
 ## CLI Tool-Based Filtering and Analysis
 
@@ -454,7 +65,7 @@ The CLI outputs JSON in two formats:
 ```
 
 
-## Tool 1: jq - Command-Line JSON Processor
+## jq - Command-Line JSON Processor
 
 **Website:** https://jqlang.org/  
 **Installation:**
@@ -473,7 +84,7 @@ choco install jq
 
 ### jq Filtering Examples
 
-#### 1. Basic Work Item Filtering
+#### Basic Work Item Filtering
 
 ```bash
 # Get only bugs
@@ -489,7 +100,7 @@ azdw wiql "SELECT * FROM WorkItems" -o json | \
   jq '.workItems[] | select(.state == "Active")'
 ```
 
-#### 2. Field Selection
+#### Field Selection
 
 ```bash
 # Get only ID and title
@@ -505,7 +116,7 @@ azdw wiql "SELECT * FROM WorkItems" -o json | \
   jq '.workItems[] | {id, title, assignedTo: .assignedTo.displayName}'
 ```
 
-#### 3. Filtering by Organization
+#### Filtering by Organization
 
 ```bash
 # Get work items from specific organization
@@ -518,7 +129,7 @@ azdw wiql "SELECT * FROM WorkItems" -o json | \
       map({org: .[0].organization.baseUrl, count: length})'
 ```
 
-#### 4. Date-Based Filtering
+#### Date-Based Filtering
 
 ```bash
 # Get work items created in last 30 days
@@ -533,7 +144,7 @@ azdw wiql "SELECT * FROM WorkItems" -o json | \
   '.workItems[] | select(.modifiedDate > $cutoff)'
 ```
 
-#### 5. Complex Multi-Criteria Filtering
+#### Complex Multi-Criteria Filtering
 
 ```bash
 # Get critical bugs that are not closed
@@ -550,7 +161,7 @@ azdw wiql "SELECT * FROM WorkItems" -o json | \
              (.priority == "High" or .priority == "Critical"))'
 ```
 
-#### 6. Grouping and Aggregation
+#### Grouping and Aggregation
 
 ```bash
 # Count work items by type
@@ -574,7 +185,7 @@ azdw wiql "SELECT * FROM WorkItems" -o json | \
       })'
 ```
 
-#### 7. Statistical Queries
+#### Statistical Queries
 
 ```bash
 # Get work item count summary
@@ -593,7 +204,7 @@ azdw wiql "SELECT * FROM WorkItems" -o json | \
       add / length'
 ```
 
-#### 8. Tag-Based Filtering
+#### Tag-Based Filtering
 
 ```bash
 # Get work items with specific tag
@@ -607,7 +218,7 @@ azdw wiql "SELECT * FROM WorkItems" -o json | \
              any(. == "bug" or . == "hotfix" or . == "critical"))'
 ```
 
-#### 9. Custom Field Access
+#### Custom Field Access
 
 ```bash
 # Filter by custom field
@@ -622,7 +233,7 @@ azdw wiql "SELECT * FROM WorkItems" -o json | \
              .fields["Custom.Module"] == "Authentication")'
 ```
 
-#### 10. Formatted Output
+#### Formatted Output
 
 ```bash
 # Create CSV-like output
@@ -644,7 +255,7 @@ azdw wiql "SELECT * FROM WorkItems" -o json | \
          @tsv'
 ```
 
-#### 11. Handling Partial Success
+#### andling Partial Success
 
 ```bash
 # Check for failures
@@ -664,7 +275,7 @@ azdw wiql "SELECT * FROM WorkItems" -o json --include-failed | \
    select([.organization.baseUrl] | inside($successOrgs))'
 ```
 
-#### 12. Sorting
+#### Sorting
 
 ```bash
 # Sort by priority (custom order)
@@ -694,7 +305,7 @@ azdw wiql "SELECT * FROM WorkItems" -o json | \
 ```
 
 
-## Tool 2: jp - JMESPath Command-Line Tool
+## jp - JMESPath Command-Line Tool
 
 **Website:** https://github.com/jmespath/jp  
 **Installation:**
@@ -746,7 +357,7 @@ azdw wiql "SELECT * FROM WorkItems" -o json | \
 - Better for users coming from Python/boto3 background
 
 
-## Tool 3: jless - Interactive JSON Viewer
+## jless - Interactive JSON Viewer
 
 **Website:** https://github.com/PaulJuliusMartinez/jless  
 **Installation:**
@@ -798,7 +409,7 @@ azdw wiql "SELECT * FROM WorkItems" -o json --include-failed --pretty | jless
 - `h` - Help screen
 
 
-## Tool 4: gron - Make JSON Greppable
+## gron - Make JSON Greppable
 
 **Website:** https://github.com/tomnomnom/gron  
 **Installation:**
@@ -858,7 +469,7 @@ azdw wiql "SELECT * FROM WorkItems" -o json | gron | \
 - **Debugging** - See all values at a glance
 
 
-## Tool 5: jid - JSON Incremental Digger
+## jid - JSON Incremental Digger
 
 **Website:** https://github.com/simeji/jid  
 **Installation:**
@@ -916,7 +527,7 @@ $ azdw wiql "SELECT * FROM WorkItems" -o json | jid
 ```
 
 
-## Tool 6: play - Interactive JSON Explorer
+## play - Interactive JSON Explorer
 
 **Website:** https://github.com/paololazzari/play  
 **Installation:**
@@ -970,7 +581,7 @@ play results.json
 ```
 
 
-## Tool 7: VisiData - Spreadsheet-like JSON Interface
+## VisiData - Spreadsheet-like JSON Interface
 
 **Website:** https://www.visidata.org/  
 **Installation:**
@@ -1188,7 +799,7 @@ azdw wiql "SELECT * FROM WorkItems" -o json | \
 
 ### Multi-Tool Workflows
 
-#### Workflow 1: Exploration to Automation
+#### Exploration to Automation
 
 ```bash
 # Step 1: Explore with jless
@@ -1209,7 +820,7 @@ EOF
 chmod +x filter-critical.sh
 ```
 
-#### Workflow 2: Analysis and Reporting
+#### Analysis and Reporting
 
 ```bash
 # Step 1: Get data
@@ -1232,7 +843,7 @@ vd active-items.json -o report.xlsx  # Excel report
 vd active-items.json -o report.html  # HTML dashboard
 ```
 
-#### Workflow 3: Cross-Organization Consistency
+#### Cross-Organization Consistency
 
 ```bash
 # Step 1: Query all organizations
@@ -1265,17 +876,7 @@ cat all-orgs.json | jq '.workItems | group_by(.organization.baseUrl) |
 
 ## Common Filtering Scenarios
 
-### Scenario 1: Find Stale Work Items
-
-**LINQ:**
-```csharp
-var staleItems = result.WorkItems
-    .Where(wi => 
-        wi.State == "Active" && 
-        wi.ModifiedDate < DateTime.UtcNow.AddDays(-30))
-    .OrderBy(wi => wi.ModifiedDate)
-    .ToList();
-```
+### Find Stale Work Items
 
 **CLI:**
 ```bash
@@ -1284,18 +885,7 @@ azdw wiql "SELECT * FROM WorkItems WHERE [System.State] = 'Active'" -o json | \
   '.workItems[] | select(.modifiedDate < $cutoff) | {id, title, modifiedDate}'
 ```
 
-### Scenario 2: Security Bug Analysis
-
-**LINQ:**
-```csharp
-var securityBugs = result.WorkItems
-    .Where(wi => 
-        wi.LogicalType == "Bug" &&
-        wi.Tags.Any(t => t.Contains("security", StringComparison.OrdinalIgnoreCase)) &&
-        wi.State != "Closed")
-    .OrderByDescending(wi => wi.Priority)
-    .ToList();
-```
+### Security Bug Analysis
 
 **CLI:**
 ```bash
@@ -1305,23 +895,7 @@ azdw wiql "SELECT * FROM WorkItems WHERE [System.WorkItemType] = 'Bug'" -o json 
              (.tags | any(. | ascii_downcase | contains("security"))))'
 ```
 
-### Scenario 3: Cross-Organization Consistency Check
-
-**LINQ:**
-```csharp
-var workItemsByOrg = result.WorkItems
-    .Where(wi => wi.Organization?.BaseUrl != null)
-    .GroupBy(wi => wi.Organization!.BaseUrl)
-    .Select(g => new
-    {
-        Organization = g.Key,
-        TotalItems = g.Count(),
-        TypeDistribution = g.GroupBy(wi => wi.LogicalType)
-            .ToDictionary(tg => tg.Key, tg => tg.Count()),
-        AvgAge = g.Average(wi => (DateTime.UtcNow - wi.CreatedDate).TotalDays)
-    })
-    .ToList();
-```
+### Cross-Organization Consistency Check
 
 **CLI:**
 ```bash
@@ -1337,18 +911,7 @@ azdw wiql "SELECT * FROM WorkItems" -o json | \
       })'
 ```
 
-### Scenario 4: Unassigned Critical Work
-
-**LINQ:**
-```csharp
-var unassignedCritical = result.WorkItems
-    .Where(wi => 
-        wi.AssignedTo == null &&
-        (wi.Priority == "Critical" || wi.Priority == "High") &&
-        wi.State != "Closed")
-    .OrderBy(wi => wi.CreatedDate)
-    .ToList();
-```
+### Unassigned Critical Work
 
 **CLI:**
 ```bash
@@ -1360,25 +923,7 @@ azdw wiql "SELECT * FROM WorkItems" -o json | \
       {id, title, priority, createdDate}'
 ```
 
-### Scenario 5: Sprint Summary Report
-
-**LINQ:**
-```csharp
-var sprintSummary = new
-{
-    TotalItems = result.TotalCount,
-    Completed = result.WorkItems.Count(wi => wi.State == "Closed"),
-    InProgress = result.WorkItems.Count(wi => wi.State == "Active"),
-    NotStarted = result.WorkItems.Count(wi => wi.State == "New"),
-    ByType = result.GroupByWorkItemType()
-        .Select(kvp => new { Type = kvp.Key, Count = kvp.Value.Count }),
-    HighPriorityOpen = result.WorkItems
-        .Count(wi => 
-            (wi.Priority == "Critical" || wi.Priority == "High") && 
-            wi.State != "Closed"),
-    Warnings = result.Warnings
-};
-```
+### Sprint Summary Report
 
 **CLI:**
 ```bash
@@ -1398,27 +943,6 @@ azdw wiql "SELECT * FROM WorkItems" -o json | \
 
 
 ## Performance Considerations
-
-### LINQ Performance
-
-1. **Filter Early**: Apply filters as early as possible in the query chain
-2. **Use Built-in Methods**: The `QueryResult` class provides optimized methods like `GroupByConnection()`
-3. **Avoid Repeated Enumeration**: Call `.ToList()` once if you need to iterate multiple times
-4. **Consider Partial Results**: Use `GetWorkItemsFromSuccessfulConnections()` to avoid inconsistent data
-
-```csharp
-// ✅ Good: Filter before heavy operations
-var result = queryResult.WorkItems
-    .Where(wi => wi.State == "Active")  // Filter first
-    .Select(wi => new ExpensiveDto(wi)) // Then transform
-    .ToList();
-
-// ❌ Bad: Heavy operations before filtering
-var result = queryResult.WorkItems
-    .Select(wi => new ExpensiveDto(wi)) // Transform everything
-    .Where(dto => dto.IsActive)         // Then filter
-    .ToList();
-```
 
 ### jq Performance
 
@@ -1463,7 +987,6 @@ azdw wiql "SELECT * FROM WorkItems" --json | jq '...'
 
 ### Documentation
 
-- [LINQ Documentation](https://learn.microsoft.com/en-us/dotnet/csharp/linq/)
 - [Azure DevOps WIQL Reference](https://learn.microsoft.com/en-us/azure/devops/boards/queries/wiql-syntax)
 - [azdw CLI Help](./CLI-Help-Overview.md)
 - [azdw API Documentation](./API-Documentation.md)

@@ -1,57 +1,9 @@
-# Cross-Connectional Relationship Handling in azdw
+---
+title: Cross-Connectional Relationship Handling
+nav_order: 130
+---
 
-## Table of Contents
-
-- [Executive Summary](#executive-summary)
-- [Current Implementation Overview](#current-implementation-overview)
-  - [Architecture](#architecture)
-  - [Key Features](#key-features)
-    - [1. Multi-Connection Management](#1-multi-connection-management)
-    - [2. Relationship Resolution Engine](#2-relationship-resolution-engine)
-    - [2.1 Remote Work Link Types Support](#21-remote-work-link-types-support)
-    - [3. Hyperlink Resolution Feature](#3-hyperlink-resolution-feature)
-    - [3.1 Field-Based Work Item Reference Resolution](#31-field-based-work-item-reference-resolution)
-    - [3.2 File-Based Relationship Mapping](#32-file-based-relationship-mapping)
-    - [4. Cross-Organizational Filtering](#4-cross-organizational-filtering)
-    - [5. Relationship Metadata](#5-relationship-metadata)
-- [CLI Usage](#cli-usage)
-  - [Basic Relationship Resolution](#basic-relationship-resolution)
-  - [Cross-Organizational Queries](#cross-organizational-queries)
-  - [Relationship Analysis](#relationship-analysis)
-  - [Visualization](#visualization)
-- [CLI Options Reference](#cli-options-reference)
-  - [Relationship Command Options](#relationship-command-options)
-  - [Visualization Command Options](#visualization-command-options)
-- [Programmatic Usage](#programmatic-usage)
-  - [.NET Library API](#net-library-api)
-  - [REST API](#rest-api)
-  - [GraphQL API](#graphql-api)
-- [How Cross-Organizational Relationships Work](#how-cross-organizational-relationships-work)
-  - [Scenario 1: Native Azure DevOps Relationships](#scenario-1-native-azure-devops-relationships)
-  - [Scenario 2: Cross-Org via Hyperlinks](#scenario-2-cross-org-via-hyperlinks)
-  - [Scenario 3: Multi-Level Cross-Org Hierarchy](#scenario-3-multi-level-cross-org-hierarchy)
-- [TFS (Team Foundation Server) Support](#tfs-team-foundation-server-support)
-  - [TFS URL Format](#tfs-url-format)
-  - [TFS Connection Configuration](#tfs-connection-configuration)
-  - [How Connection Matching Works](#how-connection-matching-works)
-  - [Hybrid Cloud + TFS Scenarios](#hybrid-cloud--tfs-scenarios)
-  - [TFS-Specific Considerations](#tfs-specific-considerations)
-  - [Example: Multi-Org + TFS Query](#example-multi-org--tfs-query)
-  - [Scenario 4: Multi-Level Cross-Org Hierarchy (Legacy Naming)](#scenario-4-multi-level-cross-org-hierarchy-legacy-naming)
-- [Visualization Support](#visualization-support)
-  - [GraphViz Rendering](#graphviz-rendering)
-  - [Interactive HTML Dashboards](#interactive-html-dashboards)
-- [Configuration](#configuration)
-  - [Connection Setup](#connection-setup)
-  - [Multi-Tenant Authentication](#multi-tenant-authentication)
-- [Permissions Required](#permissions-required)
-- [Limitations and Considerations](#limitations-and-considerations)
-  - [Current Limitations](#current-limitations)
-  - [Performance Considerations](#performance-considerations)
-  - [Best Practices](#best-practices)
-- [Future Enhancement Opportunities](#future-enhancement-opportunities)
-- [Conclusion](#conclusion)
-- [Related Documentation](#related-documentation)
+# Cross-Connectional Relationship Handling
 
 ## Executive Summary
 

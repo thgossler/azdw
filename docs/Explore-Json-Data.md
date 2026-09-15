@@ -1,23 +1,11 @@
-# Exploring and Analyzing JSON Data from azdw CLI
+---
+title: Exploring and Analyzing JSON Data from CLI
+nav_order: 160
+---
+
+# Exploring and Analyzing JSON Data from CLI
 
 This comprehensive guide demonstrates how to explore, filter, and analyze JSON output from the `azdw` CLI tool using powerful command-line tools: `jq`, `json-tui`, `jiq`, `jqp`, and `VisiData`. Whether you're querying work items, analyzing relationships, or exploring metadata, this guide provides practical examples and patterns for common scenarios.
-
-## Table of Contents
-
-1. [Prerequisites](#prerequisites)
-2. [Understanding azdw JSON Output](#understanding-azdw-json-output)
-3. [Getting Started with jq](#getting-started-with-jq)
-4. [Interactive Exploration with json-tui](#interactive-exploration-with-json-tui)
-5. [Interactive Query Building with jiq and jqp](#interactive-query-building-with-jiq-and-jqp)
-6. [Common Query Patterns](#common-query-patterns)
-7. [Work Item Analysis Scenarios](#work-item-analysis-scenarios)
-8. [Relationship Analysis](#relationship-analysis)
-9. [Cross-Organization Queries](#cross-organization-queries)
-10. [Advanced jq Techniques](#advanced-jq-techniques)
-11. [Performance Tips](#performance-tips)
-12. [Real-World Examples](#real-world-examples)
-13. [Quick Reference](#quick-reference)
-
 
 ## Prerequisites
 

@@ -1,3 +1,8 @@
+---
+title: Configuration Discovery
+nav_order: 40
+---
+
 # Configuration Discovery
 
 ## Overview

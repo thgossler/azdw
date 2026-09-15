@@ -1,3 +1,8 @@
+---
+title: MCP Server Setup Guide
+nav_order: 210
+---
+
 # MCP Server Setup Guide
 
 This guide explains how to configure `azdw` as a local Model Context Protocol (MCP) server in VS Code and Claude Desktop, with automatic Two-Phase Approval for safe operation.

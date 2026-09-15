@@ -1,35 +1,9 @@
-# Azure DevOps Work Item Handler API Documentation
+---
+title: Web API Documentation
+nav_order: 230
+---
 
-## Table of Contents
-
-- [Overview](#overview)
-- [Base URL](#base-url)
-- [REST API Endpoints](#rest-api-endpoints)
-  - [Health & Status](#health--status)
-  - [Organization Management](#organization-management)
-  - [Work Item Operations](#work-item-operations)
-  - [WIQL Queries](#wiql-queries)
-  - [Relationship Management](#relationship-management)
-  - [Template Management](#template-management)
-  - [Report Generation](#report-generation)
-  - [Cache Management](#cache-management)
-  - [Field Mapping Management](#field-mapping-management)
-- [GraphQL API](#graphql-api)
-  - [Queries](#queries)
-  - [Mutations](#mutations)
-- [Model Context Protocol (MCP)](#model-context-protocol-mcp)
-  - [Starting the MCP Server](#starting-the-mcp-server)
-  - [Bridging MCP to OpenAPI](#bridging-mcp-to-openapi)
-  - [Available Tools](#available-tools)
-- [Feature Implementation Status](#feature-implementation-status)
-- [Error Handling](#error-handling)
-- [Pagination](#pagination)
-  - [REST API Pagination](#rest-api-pagination)
-  - [GraphQL Pagination](#graphql-pagination)
-- [Authentication](#authentication)
-- [Rate Limiting](#rate-limiting)
-- [Next Steps for Full Implementation](#next-steps-for-full-implementation)
-
+# Web API Documentation
 
 ## Overview
 

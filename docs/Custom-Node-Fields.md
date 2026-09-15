@@ -1,3 +1,8 @@
+---
+title: Custom Node Fields in Visualizations
+nav_order: 150
+---
+
 # Custom Node Fields in Visualizations
 
 ## Overview

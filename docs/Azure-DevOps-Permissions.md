@@ -1,4 +1,9 @@
-# Azure DevOps Permissions Required for azdw
+---
+title: Azure DevOps Permissions
+nav_order: 30
+---
+
+# Azure DevOps Permissions
 
 This document outlines the minimum permissions required for azdw to function properly with Azure DevOps.
 

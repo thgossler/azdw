@@ -1,3 +1,8 @@
+---
+title: Error Handling
+nav_order: 250
+---
+
 # Error Handling
 
 ## Overview

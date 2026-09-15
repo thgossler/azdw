@@ -1,4 +1,9 @@
-# MCP OAuth — Entra ID App Registration Setup
+---
+title: MCP OAuth2/EntraID App Registration
+nav_order: 220
+---
+
+# MCP OAuth2/EntraID App Registration
 
 When `azdw` connects to remote MCP servers that require authentication, it uses the **OAuth 2.1 Authorization Code + PKCE** flow. This is the same protocol that VS Code Copilot Chat uses for remote MCP servers.
 

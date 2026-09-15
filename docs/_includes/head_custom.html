@@ -1,0 +1,83 @@
+<style>
+  html.azdw-theme-loading {
+    background: #f5f6f8;
+  }
+
+  html.azdw-theme-loading body {
+    opacity: 0;
+  }
+
+  html[data-azdw-theme="dark"].azdw-theme-loading {
+    background: #0f1115;
+  }
+
+  body {
+    transition: opacity 120ms ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body {
+      transition: none;
+    }
+  }
+</style>
+<script>
+  (function () {
+    var storageKey = "azdw-theme";
+    var storedTheme = null;
+
+    try {
+      storedTheme = window.localStorage.getItem(storageKey);
+    } catch (error) {
+      storedTheme = null;
+    }
+
+    var systemPrefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var theme = storedTheme === "dark" || storedTheme === "light"
+      ? storedTheme
+      : systemPrefersDark ? "dark" : "light";
+    var root = document.documentElement;
+    var revealed = false;
+
+    root.classList.add("azdw-theme-loading");
+    root.setAttribute("data-azdw-theme", theme);
+
+    var reveal = function () {
+      if (revealed) {
+        return;
+      }
+
+      revealed = true;
+      root.classList.remove("azdw-theme-loading");
+    };
+
+    var stylesheet = document.querySelector('link[rel="stylesheet"][href*="just-the-docs-default.css"]');
+
+    if (stylesheet) {
+      var themeStylesheet = document.createElement("link");
+      themeStylesheet.rel = "stylesheet";
+      themeStylesheet.id = "azdw-theme-stylesheet";
+      themeStylesheet.href = "{{ '/assets/css/just-the-docs-' | relative_url }}" + theme + ".css";
+      stylesheet.media = "not all";
+      themeStylesheet.addEventListener("load", function () {
+        stylesheet.remove();
+        reveal();
+      });
+      themeStylesheet.addEventListener("error", function () {
+        stylesheet.media = "all";
+        themeStylesheet.remove();
+        reveal();
+      });
+      document.head.appendChild(themeStylesheet);
+      window.setTimeout(function () {
+        if (!revealed) {
+          stylesheet.media = "all";
+          reveal();
+        }
+      }, 2000);
+    } else {
+      reveal();
+    }
+  }());
+</script>
+<script defer src="{{ '/assets/js/azdw.js' | relative_url }}"></script>

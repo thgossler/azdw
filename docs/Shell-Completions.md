@@ -1,3 +1,8 @@
+---
+title: Shell Integration
+nav_order: 60
+---
+
 # Shell Integration
 
 The `azdw` CLI provides comprehensive shell integration for enhanced productivity. Shell integration enables intelligent tab-completion for commands, subcommands, options, and arguments across multiple shell environments, and also installs the `azdw` PowerShell module for PowerShell sessions.

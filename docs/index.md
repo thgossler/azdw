@@ -1,8 +1,30 @@
-# azdw Documentation
+---
+title: Home
+nav_order: 1
+---
 
-This documentation set covers generic azdw installation, configuration,
-authentication, querying, reporting, visualization, REST/MCP integration, and
-extension points.
+# Home
+
+azdw is a cross-tenant work-item and portfolio intelligence tool for Azure
+DevOps and GitHub. It brings work items together across organizations, projects,
+repositories, and Entra ID tenants, then makes their queries, relationships,
+reports, and visualizations available through the CLI, MCP server, REST API,
+and .NET library.
+
+This documentation covers installation, authentication, configuration,
+cross-organization querying, relationship resolution, portfolio ranking,
+reporting, visualization, AI-assisted workflows, and extension points. The
+deterministic query and reporting features work independently of AI, while MCP
+and the AI features provide optional integrations for supported assistants and
+providers.
+
+## Start Here
+
+New to azdw? Begin with [Getting Started](Getting-Started.md), then review
+[Authentication Types](Authentication-Types.md) and [Azure DevOps Permissions](Azure-DevOps-Permissions.md)
+before connecting real organizations. For automation and integrations, continue
+with [AI Features Overview](AI-Features-Overview.md), [MCP Server Setup](MCP-Server-Setup.md),
+or [API Documentation](API-Documentation.md).
 
 ## Guides
 

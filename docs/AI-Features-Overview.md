@@ -1,26 +1,13 @@
+---
+title: AI Features Overview
+nav_order: 180
+---
+
 # AI Features Overview
 
 This document provides a comprehensive overview of all AI-powered functionality available in the `azdw` CLI tool.
 
 > **Alternative Usage**: Besides using AI directly via the CLI commands described here, all `azdw` functionality can be used in other MCP-compatible AI clients (GitHub Copilot, Claude Desktop, Cursor, etc.) through the built-in MCP server mode. See the [MCP Server Integration](#mcp-server-integration) section and [MCP Server Setup Guide](MCP-Server-Setup.md) for details.
-
-## Table of Contents
-
-- [Quick Start](#quick-start)
-- [AI Configuration](#ai-configuration)
-- [Workspace Context and AI Discovery](#workspace-context-and-ai-discovery)
-- [Natural Language Queries](#natural-language-queries)
-- [Interactive AI Chat](#interactive-ai-chat)
-- [MCP Server Integration](#mcp-server-integration)
-- [Agent Skills & Plugins for AI Assistants](#agent-skills--plugins-for-ai-assistants)
-  - [What Is an Agent Skill?](#what-is-an-agent-skill)
-  - [Why Agent Skills Matter](#why-agent-skills-matter)
-  - [How the Discovery Mechanism Works](#how-the-discovery-mechanism-works)
-  - [Skill Activation at Runtime](#skill-activation-at-runtime)
-  - [Managing Agent Skills](#managing-agent-skills)
-- [AGENTS.md — Workspace Context for AI Agents](#agentsmd--workspace-context-for-ai-agents)
-- [AI-Powered Report Templates](#ai-powered-report-templates)
-- [Supported AI Providers](#supported-ai-providers)
 
 ---
 

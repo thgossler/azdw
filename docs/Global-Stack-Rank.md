@@ -1,3 +1,8 @@
+---
+title: Global Stack Rank
+nav_order: 140
+---
+
 # Global Stack Rank
 
 Global stack rank creates a comparable, ordered virtual backlog from work items whose native ranking fields use different scales. A named profile defines source scopes and maps each source's numeric rank onto a common 0-100 score. Sources can span Azure DevOps organizations and projects, GitHub repositories, and their on-premises or enterprise counterparts.

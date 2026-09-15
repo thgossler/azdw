@@ -1,3 +1,8 @@
+---
+title: Commercial Licensing
+nav_order: 260
+---
+
 # Commercial Licensing
 
 azdw is **proprietary, closed-source software**, distributed in binary form

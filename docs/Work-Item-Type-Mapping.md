@@ -1,46 +1,9 @@
+---
+title: Work Item Type Mapping Guide
+nav_order: 110
+---
+
 # Work Item Type Mapping Guide
-
-## Table of Contents
-
-- [Overview](#overview)
-- [Key Concepts](#key-concepts)
-  - [Physical Work Item Types](#physical-work-item-types)
-  - [Logical Work Item Types](#logical-work-item-types)
-- [How the Mapping System Works](#how-the-mapping-system-works)
-  - [1. Dynamic Process Template Detection](#1-dynamic-process-template-detection)
-  - [2. Static Field Mapping Files](#2-static-field-mapping-files)
-  - [3. Query Resolution Flow](#3-query-resolution-flow)
-  - [4. Flexible Input Acceptance](#4-flexible-input-acceptance)
-- [Querying Across Connections](#querying-across-connections)
-  - [Unified Logical Types](#unified-logical-types)
-  - [Custom Work Item Types](#custom-work-item-types)
-- [Logical Types Across All Interfaces](#logical-types-across-all-interfaces)
-  - [Where Logical Types Work](#where-logical-types-work)
-  - [How Resolution Works](#how-resolution-works)
-  - [WIQL Limitations](#wiql-limitations)
-  - [Best Practice Summary](#best-practice-summary)
-- [Customizing Mappings](#customizing-mappings)
-  - [Viewing Current Mappings](#viewing-current-mappings)
-  - [Generating Mappings for Custom Types](#generating-mappings-for-custom-types)
-  - [Creating Custom Mappings Manually](#creating-custom-mappings-manually)
-- [Permission Requirements](#permission-requirements)
-  - [Standard Users (Work Items - Read)](#standard-users-work-items---read)
-  - [Collection Administrators](#collection-administrators)
-- [Fallback Behavior](#fallback-behavior)
-- [Troubleshooting](#troubleshooting)
-  - [Query Returns No Results](#query-returns-no-results)
-  - [Custom Type Not Recognized](#custom-type-not-recognized)
-  - [Wrong Process Template Detected](#wrong-process-template-detected)
-- [Best Practices](#best-practices)
-  - [1. Use Logical Types for Cross-Connection Queries](#1-use-logical-types-for-cross-connection-queries)
-  - [2. Backup Before Generating Mappings](#2-backup-before-generating-mappings)
-  - [3. Customize Incrementally](#3-customize-incrementally)
-  - [4. Document Custom Mappings](#4-document-custom-mappings)
-  - [5. Use `metadata` Command for Discovery](#5-use-metadata-command-for-discovery)
-- [Advanced Topics](#advanced-topics)
-  - [Unified Logical Model Across Organizations](#unified-logical-model-across-organizations)
-  - [Field-Level Mapping Customization](#field-level-mapping-customization)
-- [Summary](#summary)
 
 ## Overview
 

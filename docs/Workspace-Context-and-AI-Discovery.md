@@ -1,3 +1,8 @@
+---
+title: Workspace Context and AI Discovery
+nav_order: 200
+---
+
 # Workspace Context and AI Discovery
 
 `azdw` uses a workspace context to decide where project-specific AI assets live and where workspace-scoped file operations should happen. In most interactive usage, the workspace is the current working directory. For `azdw ai-chat`, `--workspace-root <DIR>` can set it explicitly when the current directory is not the project you want to work in.

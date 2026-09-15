@@ -1,3 +1,8 @@
+---
+title: Batch Work Item Operations
+nav_order: 100
+---
+
 # Batch Work Item Operations
 
 `azdw` supports creating and updating many work items in one pass from a

@@ -1,0 +1,368 @@
+:root {
+  --azdw-page-bg: #f5f6f8;
+  --azdw-accent: #b45309;
+  --azdw-accent-strong: #92400e;
+  --azdw-surface: #edf0f3;
+  --azdw-border: #c4c9d0;
+  --azdw-text: #000000;
+  --azdw-muted: #000000;
+  --azdw-placeholder: #7a818b;
+  --azdw-link: #a54400;
+  --azdw-code-bg: #e9edf1;
+  --azdw-code-text: #000000;
+  color-scheme: light;
+}
+
+html[data-azdw-theme="dark"] {
+  --azdw-page-bg: #0f1115;
+  --azdw-accent: #ff8700;
+  --azdw-accent-strong: #ffaf00;
+  --azdw-surface: #1a1d23;
+  --azdw-border: #3a3f4b;
+  --azdw-text: #e6e6e6;
+  --azdw-muted: #8b8f98;
+  --azdw-placeholder: #6f737c;
+  --azdw-link: #ffaf00;
+  --azdw-code-bg: #0c0d10;
+  --azdw-code-text: #ffffff;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--azdw-page-bg);
+  color: var(--azdw-text);
+}
+
+.side-bar {
+  background: var(--azdw-surface);
+  border-right-color: var(--azdw-border);
+}
+
+.site-title,
+.main-content h1,
+.main-content h2,
+.main-content h3,
+.main-content h4,
+.main-content h5,
+.main-content h6 {
+  color: var(--azdw-text);
+}
+
+.nav-list-link,
+.nav-list-link:visited {
+  color: var(--azdw-text);
+  text-decoration: none;
+}
+
+.nav-list-link:hover,
+.nav-list-link:focus-visible {
+  color: var(--azdw-link) !important;
+  text-decoration: underline;
+}
+
+.nav-list-link.active,
+.nav-list-link.active:visited {
+  color: var(--azdw-accent) !important;
+}
+
+.nav-list-link,
+.nav-list-link:hover,
+.nav-list-link:focus-visible,
+.nav-list-link.active,
+.nav-list-link.active:visited {
+  background-image: none !important;
+}
+
+.search-input {
+  background: var(--azdw-page-bg);
+  border-color: var(--azdw-border);
+  color: var(--azdw-text);
+}
+
+.search-input::placeholder {
+  color: var(--azdw-placeholder);
+  opacity: 1;
+}
+
+.search-input:focus + .search-label .search-icon {
+  color: var(--azdw-link);
+  fill: currentColor;
+}
+
+.search-results {
+  background: var(--azdw-surface);
+  border-color: var(--azdw-border);
+  color: var(--azdw-text);
+}
+
+.search-results .search-result,
+.search-results .search-result:visited {
+  color: var(--azdw-link);
+}
+
+.search-results .search-result:hover,
+.search-results .search-result:focus-visible {
+  background: var(--azdw-page-bg);
+  color: var(--azdw-accent-strong);
+}
+
+.search-results .search-result-doc-title,
+.search-results .search-result-section,
+.search-results .search-result-highlight,
+.search-results .search-result-icon {
+  color: var(--azdw-link);
+}
+
+.search-results .search-result-icon {
+  fill: currentColor;
+}
+
+.search-results .search-result-rel-url,
+.search-results .search-result-preview {
+  color: var(--azdw-muted);
+}
+
+.search-results .search-results-list-item {
+  border-bottom-color: var(--azdw-border);
+}
+
+pre.highlight,
+.highlight {
+  background: var(--azdw-code-bg);
+  border-color: var(--azdw-border);
+  color: var(--azdw-code-text);
+}
+
+.main-content a:not(.btn),
+.main-content a:not(.btn):visited {
+  color: var(--azdw-link);
+  text-decoration: none;
+}
+
+.main-content a:not(.btn):hover,
+.main-content a:not(.btn):focus-visible {
+  color: var(--azdw-accent-strong);
+  text-decoration: underline;
+}
+
+.azdw-header-controls {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.75rem 1rem;
+  white-space: nowrap;
+}
+
+.azdw-theme-toggle,
+.azdw-home-link,
+.azdw-github-link {
+  align-items: center;
+  border: 1px solid var(--azdw-border);
+  border-radius: 50%;
+  color: var(--azdw-muted);
+  display: inline-flex;
+  height: 2.25rem;
+  justify-content: center;
+  width: 2.25rem;
+}
+
+.azdw-theme-toggle {
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0;
+}
+
+.azdw-theme-toggle:hover,
+.azdw-theme-toggle:focus-visible,
+.azdw-home-link:hover,
+.azdw-home-link:focus-visible,
+.azdw-github-link:hover,
+.azdw-github-link:focus-visible {
+  background: var(--azdw-surface);
+  color: var(--azdw-accent-strong);
+}
+
+.azdw-home-link,
+.azdw-github-link {
+  margin: 0.75rem 0 0.75rem 0;
+  text-decoration: none;
+}
+
+.azdw-github-link {
+  margin-right: 1rem;
+}
+
+.azdw-home-link svg,
+.azdw-github-link svg {
+  fill: currentColor;
+  height: 1.2rem;
+  width: 1.2rem;
+}
+
+.azdw-in-page-nav {
+  background: var(--azdw-surface);
+  border: 1px solid var(--azdw-border);
+  border-left: 0.25rem solid var(--azdw-accent);
+  border-radius: 0.35rem;
+  margin: 0 0 2rem;
+  padding: 0.75rem 1rem;
+}
+
+.azdw-in-page-nav-title {
+  color: var(--azdw-accent-strong);
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.azdw-in-page-nav-list {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+}
+
+.azdw-in-page-nav-list li {
+  line-height: 1.35;
+  margin: 0.35rem 0;
+}
+
+.main-content .azdw-in-page-nav-list a,
+.main-content .azdw-in-page-nav-list a:visited {
+  color: var(--azdw-text);
+  display: block;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.main-content .azdw-in-page-nav-list a:hover,
+.main-content .azdw-in-page-nav-list a:focus-visible {
+  color: var(--azdw-link);
+  text-decoration: underline;
+  text-decoration-thickness: 0.1em;
+  text-underline-offset: 0.15em;
+}
+
+.main-content .azdw-in-page-nav-list a[aria-current="true"],
+.main-content .azdw-in-page-nav-list a[aria-current="true"]:visited {
+  color: var(--azdw-accent);
+  text-decoration: none;
+}
+
+.azdw-in-page-nav-level-3 {
+  padding-left: 1rem;
+}
+
+.azdw-in-page-nav-level-4 {
+  padding-left: 2rem;
+}
+
+.site-footer {
+  display: none !important;
+}
+
+.main-header {
+  background: var(--azdw-surface);
+  background-color: var(--azdw-surface) !important;
+  box-shadow: 0 1px 0 var(--azdw-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+html.search-active .main-header::after {
+  background: rgba(0, 0, 0, 0.3);
+  content: "";
+  inset: 0;
+  pointer-events: auto;
+  position: absolute;
+  z-index: 1;
+}
+
+html.search-active .main-header .search {
+  position: relative;
+  z-index: 2;
+}
+
+html.search-active .azdw-in-page-nav {
+  filter: brightness(0.7);
+  pointer-events: none;
+}
+
+.main-content h2,
+.main-content h3,
+.main-content h4 {
+  scroll-margin-top: 4rem;
+}
+
+@media (min-width: 50rem) {
+  .side-bar {
+    width: 16.5rem;
+  }
+
+  .site-header,
+  .site-nav {
+    width: 100%;
+  }
+
+  .side-bar + .main {
+    margin-left: 16.5rem;
+    margin-right: 0;
+    max-width: none;
+    width: calc(100% - 16.5rem);
+  }
+
+  .main-header,
+  .main-content-wrap {
+    max-width: none;
+    width: 100%;
+  }
+
+  .azdw-header-controls {
+    margin-left: auto;
+  }
+
+  .azdw-in-page-nav {
+    max-width: 42rem;
+  }
+}
+
+@media (max-width: 49.99rem) {
+  .site-header .azdw-header-controls {
+    margin: 0 0.25rem 0 auto;
+  }
+
+  .site-header .azdw-github-link {
+    height: 2rem;
+    margin: 0 0.5rem 0 0;
+    width: 2rem;
+  }
+
+  .site-header .azdw-home-link {
+    height: 2rem;
+    margin: 0 0.5rem 0 0;
+    width: 2rem;
+  }
+
+  .site-header .azdw-theme-toggle {
+    height: 2rem;
+    width: 2rem;
+  }
+}
+
+@media (min-width: 80rem) {
+  #main-content main {
+    padding-right: 17rem;
+  }
+
+  .azdw-in-page-nav {
+    margin: 0;
+    max-height: calc(100vh - 6rem);
+    overflow-y: auto;
+    position: fixed;
+    right: 1rem;
+    top: 5rem;
+    width: 15rem;
+    z-index: 5;
+  }
+}

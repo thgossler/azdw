@@ -1,23 +1,11 @@
+---
+title: CLI Use Cases
+nav_order: 70
+---
+
 # CLI Use Cases
 
 This document provides comprehensive examples and use cases for the Azure DevOps Work Item (azdw) command-line interface.
-
-## Table of Contents
-
-1. [Global Options](#global-options)
-2. [Connection Management](#connection-management)  
-3. [Credential Management](#credential-management)
-4. [Work Item Queries](#work-item-queries)
-5. [WIQL Queries](#wiql-queries)
-6. [Work Item Operations](#work-item-operations)
-7. [Report Generation](#report-generation)
-8. [Data Visualization](#data-visualization)
-9. [Relationship Management](#relationship-management)
-10. [Metadata](#metadata)
-11. [Cache Management](#cache-management)
-12. [Field Mappings](#field-mappings)
-13. [MCP Server](#mcp-server)
-14. [AI Chat](#ai-chat)
 
 ## Global Options
 

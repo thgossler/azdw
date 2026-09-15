@@ -1,3 +1,8 @@
+---
+title: Getting Started
+nav_order: 10
+---
+
 # Getting Started
 
 This guide is the fastest end-user path for installing azdw, connecting it to

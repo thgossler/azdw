@@ -1,51 +1,9 @@
-# Getting Started with Plugin Development
+---
+title: Plugin Development
+nav_order: 240
+---
 
-## Table of Contents
-
-- [Introduction](#introduction)
-  - [Why Extensibility?](#why-extensibility)
-  - [Design Goals](#design-goals)
-- [Understanding the Plugin System](#understanding-the-plugin-system)
-  - [Plugin Architecture](#plugin-architecture)
-  - [Plugin Types](#plugin-types)
-  - [How Plugins Are Discovered](#how-plugins-are-discovered)
-- [Setting Up Your Development Environment](#setting-up-your-development-environment)
-  - [Prerequisites](#prerequisites)
-  - [Project Structure](#project-structure)
-- [Creating Your First Plugin](#creating-your-first-plugin)
-  - [Required Metadata](#required-metadata)
-  - [Data Transform Plugin Example](#data-transform-plugin-example)
-  - [Building and Deploying](#building-and-deploying)
-- [Advanced Plugin Types](#advanced-plugin-types)
-  - [Policy Enforcement Plugins](#policy-enforcement-plugins)
-  - [Custom Renderer Plugins](#custom-renderer-plugins)
-  - [Query Filter Plugins](#query-filter-plugins)
-- [Testing and Debugging](#testing-and-debugging)
-  - [Unit Testing](#unit-testing)
-  - [Integration Testing](#integration-testing)
-  - [Debugging Techniques](#debugging-techniques)
-  - [Using --no-plugins Flag](#using---no-plugins-flag)
-- [Best Practices](#best-practices)
-  - [Writing Clear Metadata](#writing-clear-metadata)
-  - [Semantic Versioning](#semantic-versioning)
-  - [Context-Aware Processing](#context-aware-processing)
-  - [Error Handling](#error-handling)
-  - [Performance Considerations](#performance-considerations)
-- [Integration with AI and APIs](#integration-with-ai-and-apis)
-  - [MCP Integration](#mcp-integration)
-  - [REST API Exposure](#rest-api-exposure)
-- [Deployment and Configuration](#deployment-and-configuration)
-  - [Plugin Directory Structure](#plugin-directory-structure)
-  - [Deploying Custom Plugins](#deploying-custom-plugins)
-  - [Verifying Plugin Loading](#verifying-plugin-loading)
-- [Troubleshooting](#troubleshooting)
-  - [Common Issues](#common-issues)
-  - [Debugging Tools](#debugging-tools)
-- [Security Considerations](#security-considerations)
-- [Reference](#reference)
-  - [Plugin Interfaces](#plugin-interfaces)
-  - [Sample Code](#sample-code)
-  - [Support Resources](#support-resources)
+# Plugin Development
 
 ## Introduction
 

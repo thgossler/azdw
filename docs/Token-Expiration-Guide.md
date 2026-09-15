@@ -1,3 +1,8 @@
+---
+title: Token Expiration Guide
+nav_order: 50
+---
+
 # Token Expiration Guide
 
 **Quick Reference:** Understanding when your authentication tokens expire and what to do about it.
