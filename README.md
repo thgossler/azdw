@@ -23,9 +23,9 @@
     ·
     <a href="https://github.com/thgossler/azdw/issues">Request Feature</a>
     ·
-	<a href="https://thgossler.github.io/azdw/">Documentation</a>
+	<a href="https://thgossler.github.io/azdw/" target="_blank">Documentation</a>
 	·
-    <a href="https://apps.thomas-gossler.de/azdw/?utm_source=GitHub">Homepage</a>
+    <a href="https://apps.thomas-gossler.de/azdw/?utm_source=GitHub" target="_blank">Homepage</a>
   </p>
 </div>
 
