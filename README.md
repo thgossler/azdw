@@ -23,6 +23,8 @@
     ·
     <a href="https://github.com/thgossler/azdw/issues">Request Feature</a>
     ·
+	<a href="https://thgossler.github.io/azdw/">Documentation</a>
+	·
     <a href="https://apps.thomas-gossler.de/azdw/?utm_source=GitHub">Homepage</a>
   </p>
 </div>
@@ -233,8 +235,8 @@ see the [official azdw website](https://apps.thomas-gossler.de/azdw/).
 
 ## Documentation
 
-The documentation is available in [`docs/`](docs/index.md) and is suitable for
-publishing with GitHub Pages.
+Read the [deployed documentation](https://thgossler.github.io/azdw/) online, or
+browse the source in [`docs/`](docs/index.md).
 
 ## Samples
 
